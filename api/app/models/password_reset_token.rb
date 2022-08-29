@@ -1,0 +1,2 @@
+class PasswordResetToken < ApplicationRecord
+end

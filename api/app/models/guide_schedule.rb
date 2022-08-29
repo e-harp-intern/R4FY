@@ -1,0 +1,2 @@
+class GuideSchedule < ApplicationRecord
+end
