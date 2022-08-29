@@ -1,0 +1,46 @@
+AllCops:
+  TargetRubyVersion : 2.6
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+    - 'bin/*'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'Gemfile'
+
+StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/EndOfLine:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Style/SelfAssignment:
+  Enabled: false
+
+Style/NestedTernaryOperator:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false

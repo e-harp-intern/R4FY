@@ -1,0 +1,92 @@
+* {
+    font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', 'Arial', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', '游ゴシック', 'Yu Gothic', 'ＭＳ Ｐゴシック', sans-serif;
+}
+
+body {
+    background-color: var(--color-white);
+}
+
+p {
+    white-space: pre-wrap;
+}
+
+h1 {
+    border-left: .25em solid var(--color-theme);
+    padding-left: .5em;
+}
+
+/* よく使うパーツ */
+p.info {
+    margin: 2em auto 0;
+    width: 100%;
+    max-width: 640px;
+    padding: 1em;
+    background-color: var(--color-light-gray);
+    box-sizing: border-box;
+    border-radius: var(--default-radius);
+}
+
+p.info_red {
+    background-color: var(--color-red);
+    color: var(--color-white)
+}
+
+/* ボタン */
+button {
+    min-width: 5em;
+    font-size: 1em;
+    background-color: var(--color-gray);
+    border: none;
+    color: var(--color-text);
+    padding: .5em;
+    border-radius: var(--default-radius);
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: box-shadow .2s, opacity .2s;
+    margin: 0 .5em;
+    box-sizing: border-box;
+}
+
+button.button-red {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+button.button-green {
+    background-color: var(--color-green);
+    color: var(--color-white);
+}
+
+button:hover {
+    opacity: .7;
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.15);
+}
+
+button:focus {
+    opacity: .6;
+}
+
+button:active {
+    opacity: .4;
+}
+
+/* input系 */
+input {
+    font-size: 1em;
+    border-radius: var(--default-radius);
+    border: 1px solid var(--color-text);
+    padding: .5em;
+}
+
+/* テキストエリア */
+textarea {
+    font-size: 1em;
+    border-radius: var(--default-radius);
+    border: 1px solid var(--color-text);
+    padding: .5em;
+}
+
+/* ドロップダウン */
+select {
+    font-size: 1em;
+}
