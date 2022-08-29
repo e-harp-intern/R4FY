@@ -19,7 +19,7 @@ git config --local core.hooksPath .githooks
 
 ### Docker-Networkの作成
 ```shell
-docker network create dev-shared
+docker network create r4fy-network-shared
 ```
 
 ### フロント側の追加パッケージインストール
