@@ -1,0 +1,12 @@
+:root {
+    --color-text: #2c3e50;
+    --color-theme: #00505A;
+    --color-dark-theme: #00393F;
+    --color-light: #91cbf3;
+    --color-light-gray: #eeeeee;
+    --color-gray: #cccccc;
+    --color-white: #F6FFFF;
+    --color-red: #C11F34;
+    --color-green: #008899;
+    --default-radius: .5em;
+}

@@ -1,0 +1,44 @@
+version: '3'
+
+networks:
+  r4fy-network-shared:
+    external: true
+
+services:
+  api:
+    build: ./api
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    ports:
+      - '3000:3000'
+    networks:
+      - default
+      - r4fy-network-shared
+    volumes:
+      - ./api:/app
+      - bundle:/usr/local/bundle
+    tty: true
+    stdin_open: true
+  web:
+    build: ./web
+    volumes:
+      - ./web:/app
+    ports:
+      - '8080:8080'
+    tty: true
+    environment:
+      - HOST=0.0.0.0
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    command: npm run serve
+  mail:
+    image: djfarrelly/maildev
+    ports:
+      - "1080:1080"
+    networks:
+      - default
+      - r4fy-network-shared
+    command: maildev --hide-extensions STARTTLS
+
+volumes:
+  mysql_data:
+  bundle:

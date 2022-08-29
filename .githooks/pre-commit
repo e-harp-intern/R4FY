@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# format
+docker-compose run api rubocop -a
+
+for FILE in `git diff --staged --name-only`; do
+    git add $FILE
+done
+
+# if the branch is master, then fail.
+
+branch="$(git symbolic-ref HEAD 2>/dev/null)" || \
+       "$(git describe --contains --all HEAD)"
+
+# master
+if [ "${branch##refs/heads/}" = "master" ]; then
+    # printf "\e[31m%s\n\e[m" "[Error]"
+    echo "[error] can't commit on master branch."
+    exit 1
+fi
+
+# main
+if [ "${branch##refs/heads/}" = "main" ]; then
+    echo "[error] can't commit on main branch."
+    exit 1
+fi
+
+# develop
+if [ "${branch##refs/heads/}" = "develop" ]; then
+    echo "[error] can't commit on develop branch."
+    exit 1
+fi

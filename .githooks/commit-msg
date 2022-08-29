@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if grep "^#[0-9]\+" $1 > /dev/null; then
+  exit 0
+fi
+
+
+echo "[error] this commit isn't related to any tickets."
+exit 1
