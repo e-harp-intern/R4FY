@@ -1,0 +1,2 @@
+class TourTemplate < ApplicationRecord
+end
