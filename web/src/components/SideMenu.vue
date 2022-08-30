@@ -21,7 +21,16 @@
 export default {
   data() {
     return {
-      menuList: [],
+      menuList: [
+        {
+          path: "/tourslist",
+          title: this.$i18n.t("pages.tourslist.title"),
+        },
+        {
+          path: "/tour",
+          title: this.$i18n.t("pages.tour.title"),
+        },
+      ],
     };
   },
 };

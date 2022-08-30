@@ -10,7 +10,7 @@ p {
     white-space: pre-wrap;
 }
 
-h1 {
+#default-layout h1 {
     border-left: .25em solid var(--color-theme);
     padding-left: .5em;
 }
