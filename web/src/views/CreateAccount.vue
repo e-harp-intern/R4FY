@@ -1,0 +1,143 @@
+<template>
+  <div id="create-account-page">
+    <p class="create-info" v-if="$route.query.status == '200'">
+      {{ this.$i18n.t("pages.createaccount.message.true") }}
+    </p>
+    <p class="create-info" v-if="$route.query.status == '500'">
+      {{ this.$i18n.t("pages.createaccount.message.false") }}
+    </p>
+    <h1>{{ this.$i18n.t("pages.createaccount.title") }}</h1>
+    <p>
+      {{ this.$i18n.t("pages.createaccount.detail") }}
+    </p>
+    <div class="form-frame">
+      <form @submit.prevent="create" class="form-main">
+        <div id="radio">
+          <input type="radio" name="class" value="manager" />{{
+            this.$i18n.t("account.manager")
+          }}
+          <input type="radio" name="class" value="guide" id="guide_radio" />{{
+            this.$i18n.t("account.guide")
+          }}
+        </div>
+        <div class="form-tabel">
+          <label>{{ this.$i18n.t("label.name") }}</label
+          ><input type="text" placeholder="name" id="name" />
+          <label>{{ this.$i18n.t("label.email") }}</label
+          ><input type="text" placeholder="email" id="email" />
+          <label>{{ this.$i18n.t("label.memo") }}</label
+          ><textarea cols="30" rows="5" name="memo"> </textarea>
+        </div>
+        <br />
+        <div class="form-button-frame">
+          <button type="submit" class="button-green">
+            {{ this.$i18n.t("button.send") }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import api from "@/mixins/api";
+
+export default {
+  data() {
+    return {
+      test: "",
+    };
+  },
+  created() {},
+  methods: {
+    form_reset() {
+      const forms = document.getElementsByTagName("input");
+      for (let i = 0; i < forms.length; i += 1) {
+        forms[i].value = null;
+      }
+    },
+    async create() {
+      // ロード中にする
+      this.$emit("SendLoadComplete", false);
+
+      // アカウント作成情報を送信
+      const response = await api.post(
+        "/api/v1/createaccount",
+        {
+          email: document.getElementById("email").value,
+          name: document.getElementById("name").value,
+        },
+        this.$router.push
+      );
+
+      // API完了
+      if (response.status === "success") {
+        // 成功
+        this.form_reset();
+        this.$router.push("?status=200");
+      } else {
+        // 失敗
+        this.$router.push("?status=500").catch(() => {});
+      }
+
+      this.$emit("SendLoadComplete", true);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.create-account-page {
+  max-width: 100%;
+  position: relative;
+}
+
+.create-info {
+  background-color: var(--color-light-gray);
+  border-radius: 1em;
+  text-align: center;
+  padding: 2em;
+}
+
+.form-frame {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 640px;
+  background-color: var(--color-light-gray);
+  box-sizing: border-box;
+  border-radius: 0.5em;
+}
+
+.form-tabel {
+  width: 80%;
+  display: inline-grid;
+  grid-template-columns: auto 1fr;
+  grid-row-gap: 0.5em;
+}
+
+.form-tabel label {
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.form-main {
+  padding: 2em;
+}
+
+.form-button-frame {
+  padding: 2em 2em 0;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+#radio {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+#guide_radio {
+  margin-left: 2em;
+}
+</style>

@@ -21,7 +21,12 @@
 export default {
   data() {
     return {
-      menuList: [],
+      menuList: [
+        {
+          path: "/createaccount",
+          title: this.$i18n.t("pages.createaccount.title"),
+        },
+      ],
     };
   },
 };

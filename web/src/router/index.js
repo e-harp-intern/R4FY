@@ -12,6 +12,11 @@ const routes = [
       layout: "simple",
     },
   },
+  {
+    path: "/createaccount",
+    name: "createaccount",
+    component: () => import("@/views/CreateAccount.vue"),
+  },
 ];
 
 const router = new VueRouter({
