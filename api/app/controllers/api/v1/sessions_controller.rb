@@ -1,4 +1,6 @@
+# ログインをするためのコントローラー
 class Api::V1::SessionsController < ApplicationController
+  # ログインのメソッド
   def create
     user = Admin.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
@@ -10,8 +12,10 @@ class Api::V1::SessionsController < ApplicationController
     end
   end
 
+  # ログアウトのメソッド
   def destroy
-    log_out
-    redirect_to root_url
+    session.delete(:user_id)
+    @current_user = nil
+    render json: json_render_v1(true)
   end
 end
