@@ -12,7 +12,6 @@
         >
           <router-link :to="value.path">{{ value.title }}</router-link>
         </li>
-        <li><router-link to="/tourslist">ツアー一覧確認画面</router-link></li>
       </ul>
     </nav>
   </div>
@@ -22,7 +21,12 @@
 export default {
   data() {
     return {
-      menuList: [],
+      menuList: [
+        {
+          path: "/tourslist",
+          title: this.$i18n.t("pages.tourslist.title"),
+        },
+      ],
     };
   },
 };
