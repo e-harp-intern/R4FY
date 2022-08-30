@@ -13,6 +13,7 @@
           <router-link :to="value.path">{{ value.title }}</router-link>
         </li>
         <li><router-link to="/tourslist">ツアー一覧確認画面</router-link></li>
+        <li><router-link to="/tour">ツアー詳細確認画面</router-link></li>
       </ul>
     </nav>
   </div>
