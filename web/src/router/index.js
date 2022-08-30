@@ -17,6 +17,16 @@ const routes = [
     name: "createaccount",
     component: () => import("@/views/CreateAccount.vue"),
   },
+  {
+    path: "/tourslist",
+    name: "tourslist",
+    component: () => import("@/views/ToursListView.vue"),
+  },
+  {
+    path: "/tour",
+    name: "tour",
+    component: () => import("@/views/TourView.vue"),
+  },
 ];
 
 const router = new VueRouter({

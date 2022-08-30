@@ -16,6 +16,12 @@ export default {
             true:"アカウントを作成しました。",
             false:"アカウントの作成に失敗しました。"
            }
+        },
+        tourslist: {
+            title: "ツアー一覧確認画面"
+        },
+        tour: {
+            title: "ツアー詳細確認画面"
         }
     },
     other: {

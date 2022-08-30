@@ -26,6 +26,14 @@ export default {
           path: "/createaccount",
           title: this.$i18n.t("pages.createaccount.title"),
         },
+        {
+          path: "/tourslist",
+          title: this.$i18n.t("pages.tourslist.title"),
+        },
+        {
+          path: "/tour",
+          title: this.$i18n.t("pages.tour.title"),
+        },
       ],
     };
   },
