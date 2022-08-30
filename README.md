@@ -39,8 +39,8 @@ docker-compose run api rails db:seed
 ```
 
 #### 初期アカウント情報
-- name: `admin`
-- email: `test@example.local`
+- name: `管理者`
+- email: `admin@mail.local`
 - password: `password`
   
 ### 起動してみる
