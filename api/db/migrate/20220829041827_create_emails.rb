@@ -8,5 +8,7 @@ class CreateEmails < ActiveRecord::Migration[7.0]
       t.string :title, :null => false
       t.timestamps
     end
+    change_column_null :emails, :tour_id, false
+    change_column_null :emails, :guide_id, false
   end
 end

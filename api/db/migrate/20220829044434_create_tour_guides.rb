@@ -8,5 +8,7 @@ class CreateTourGuides < ActiveRecord::Migration[7.0]
       t.string :memo, :null => false, :default => ''
       t.timestamps
     end
+      change_column_null :tour_guides, :tour_id, false
+      change_column_null :tour_guides, :guide_id, false
   end
 end
