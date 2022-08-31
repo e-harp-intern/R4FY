@@ -7,5 +7,7 @@ class CreateGuideSchedules < ActiveRecord::Migration[7.0]
       t.boolean :possible, :null => false, :default => false
       t.timestamps
     end
+    change_column_null :guide_schedules, :tour_id, false
+    change_column_null :guide_schedules, :guide_id, false
   end
 end
