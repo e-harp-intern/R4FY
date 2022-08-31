@@ -18,12 +18,12 @@ const routes = [
     component: () => import("@/views/CreateAccount.vue"),
   },
   {
-    path: "/tourslist",
+    path: "/tours",
     name: "tourslist",
     component: () => import("@/views/ToursListView.vue"),
   },
   {
-    path: "/tour",
+    path: "/tours/:id",
     name: "tour",
     component: () => import("@/views/TourView.vue"),
   },
