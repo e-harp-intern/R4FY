@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_29_044824) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_31_051238) do
   create_table "admins", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -34,8 +34,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_044824) do
   end
 
   create_table "guide_schedules", force: :cascade do |t|
-    t.integer "tour_id"
-    t.integer "guide_id"
+    t.integer "tour_id", null: false
+    t.integer "guide_id", null: false
     t.boolean "answered", default: false, null: false
     t.boolean "possible", default: false, null: false
     t.datetime "created_at", null: false
@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_044824) do
   end
 
   create_table "password_reset_tokens", force: :cascade do |t|
-    t.integer "admin_id"
+    t.integer "admin_id", null: false
     t.string "token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,8 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_044824) do
   end
 
   create_table "tokens", force: :cascade do |t|
-    t.integer "tour_id"
-    t.integer "guide_id"
+    t.integer "tour_id", null: false
+    t.integer "guide_id", null: false
     t.string "token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -73,9 +73,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_044824) do
   end
 
   create_table "tour_guides", force: :cascade do |t|
-    t.integer "tour_id"
-    t.integer "guide_id"
-    t.boolean "achievement", default: false, null: false
+    t.integer "tour_id", null: false
+    t.integer "guide_id", null: false
+    t.boolean "achievements_entered", default: false, null: false
     t.boolean "attend", default: false, null: false
     t.string "memo", default: "", null: false
     t.datetime "created_at", null: false

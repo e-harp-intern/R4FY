@@ -30,3 +30,13 @@ Tour.create(name: "藻岩山観光", tour_state_code: 8, start_datetime: "2020-0
 
 # 管理者テストデータ
 Admin.create!(name: "管理者", email: "admin@mail.local", password: "password")
+
+for num in 1..4 do
+  GuideSchedule.create(answered: true, possible: true, tour_id: 2, guide_id: num)
+end
+
+for num in 1..4 do
+  TourGuide.create(achievements_entered: true, attend: true, memo: "", tour_id: num, guide_id: num)
+end
+
+TourGuide.create(achievements_entered: true, attend: true, memo: "", tour_id: 2, guide_id: num)
