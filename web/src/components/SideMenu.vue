@@ -23,7 +23,6 @@ export default {
     return {
       menuList: [
         {
-
           path: "/tours",
           title: this.$i18n.t("pages.tours.title"),
         },
