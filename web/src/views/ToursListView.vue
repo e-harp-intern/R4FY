@@ -1,6 +1,9 @@
 <template>
   <div id="tours-list-page">
     <h1>{{ $t("pages.tours.title") }}</h1>
+    <button @click="urllink('create')" id="create_tour_btn">
+      {{ $t("pages.tours.create.title") }}
+    </button>
     <table>
       <thead>
         <tr>
@@ -137,6 +140,7 @@ export default {
 <style lang="scss" scoped>
 /*テーブル全体の設定*/
 table {
+  clear: both;
   margin: 1em auto;
   padding: 0;
   width: 100%;
@@ -181,5 +185,12 @@ table td:nth-of-type(3) {
   transform: scale(1.01);
   opacity: 0.8;
   cursor: pointer;
+}
+#create_tour_btn {
+  float: right;
+  padding: 0.5em 1.3em;
+  margin-bottom: 1em;
+  background-color: var(--color-green);
+  color: var(--color-white);
 }
 </style>
