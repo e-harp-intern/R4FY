@@ -21,6 +21,7 @@
         "linebreak-style": "off",
         "import/extensions": "off",
         "import/no-unresolved": "off",
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "vue/no-side-effects-in-computed-properties": "off"
     }
 }

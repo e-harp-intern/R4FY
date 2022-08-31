@@ -23,12 +23,13 @@ export default {
     return {
       menuList: [
         {
-          path: "/tourslist",
-          title: this.$i18n.t("pages.tourslist.title"),
+
+          path: "/tours",
+          title: this.$i18n.t("pages.tours.title"),
         },
         {
-          path: "/tour",
-          title: this.$i18n.t("pages.tour.title"),
+          path: "/createaccount",
+          title: this.$i18n.t("pages.createaccount.title"),
         },
       ],
     };

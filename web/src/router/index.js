@@ -13,12 +13,17 @@ const routes = [
     },
   },
   {
-    path: "/tourslist",
+    path: "/createaccount",
+    name: "createaccount",
+    component: () => import("@/views/CreateAccount.vue"),
+  },
+  {
+    path: "/tours",
     name: "tourslist",
     component: () => import("@/views/ToursListView.vue"),
   },
   {
-    path: "/tour",
+    path: "/tours/:id",
     name: "tour",
     component: () => import("@/views/TourView.vue"),
   },
