@@ -6,8 +6,6 @@ class Api::V1::TourdetailController < ApplicationController
     tourguides = TourGuide.where(tour_id: params[:id])
 
     response = { tour: tours, guideschedule: guideschedules, tourguide: tourguides }
-    respond_to do |format|
-      format.json { render json: response }
-    end
+    render json: json_render_v1(true, response)
   end
 end
