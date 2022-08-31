@@ -1,7 +1,7 @@
-class Api::V1::GuidesController < ApplicationController
+class Api::V1::AdminsController < ApplicationController
   def create
     begin
-      user = Guide.new(email: params[:email], name: params[:name], memo: params[:memo]).save!
+      user = Admin.new(email: params[:email], name: params[:name], password: create_temp_pass).save!
     rescue StandardError
       render json: json_render_v1(false)
       return
