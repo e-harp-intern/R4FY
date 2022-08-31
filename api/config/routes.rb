@@ -6,6 +6,7 @@ Rails.application.routes.draw do
           post "admins" => "admins#create"
           post "login" => "sessions#create"
           delete "logout" => "sessions#destroy"
+          get "tours" => "toursort#index"
           get "tours/detail/:id" => "tourdetail#index"
           
         end

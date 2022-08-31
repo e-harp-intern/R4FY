@@ -13,6 +13,11 @@ const routes = [
     },
   },
   {
+    path: "/createaccount",
+    name: "createaccount",
+    component: () => import("@/views/CreateAccount.vue"),
+  },
+  {
     path: "/tourslist",
     name: "tourslist",
     component: () => import("@/views/ToursListView.vue"),
