@@ -20,13 +20,13 @@ Guide.create(name: "室蘭太郎", email: "muroran1992@mail.local", is_invalid: 
 
 # ツアーテストデータ
 Tour.create(name: "時計台観光", tour_state_code: 1, start_datetime: "2020-06-26T17:00:00",
-            end_datetime: "2020-06-26T18:00:00", adalt_num: 10, child_num: 1, guide_num: 1, remind_date: "2020-06-25", sent_remind: true, schedule_input_deadline: "2020-06-20T21:00:00")
+            end_datetime: "2020-06-26T18:00:00", adult_num: 10, child_num: 1, guide_num: 1, remind_date: "2020-06-25", sent_remind: true, schedule_input_deadline: "2020-06-20T21:00:00")
 Tour.create(name: "大通公園観光", tour_state_code: 2, start_datetime: "2020-07-26T13:00:00",
-            end_datetime: "2020-07-26T15:00:00", adalt_num: 8, child_num: 4, guide_num: 2, remind_date: "2020-07-25", sent_remind: true, schedule_input_deadline: "2020-06-20T21:00:00")
+            end_datetime: "2020-07-26T15:00:00", adult_num: 8, child_num: 4, guide_num: 2, remind_date: "2020-07-25", sent_remind: true, schedule_input_deadline: "2020-06-20T21:00:00")
 Tour.create(name: "藻岩山観光", tour_state_code: 4, start_datetime: "2020-07-28T20:00:00",
-            end_datetime: "2020-07-28T22:00:00", adalt_num: 7, child_num: 0, guide_num: 1, remind_date: "2020-07-27", sent_remind: true, schedule_input_deadline: "2020-06-20T21:00:00")
+            end_datetime: "2020-07-28T22:00:00", adult_num: 7, child_num: 0, guide_num: 1, remind_date: "2020-07-27", sent_remind: true, schedule_input_deadline: "2020-06-20T21:00:00")
 Tour.create(name: "藻岩山観光", tour_state_code: 8, start_datetime: "2020-08-13T20:00:00",
-            end_datetime: "2020-07-28T22:00:00", adalt_num: 12, child_num: 2, guide_num: 1, remind_date: "2020-08-12", sent_remind: true, memo: "台風のため中止", schedule_input_deadline: "2020-06-20T21:00:00")
+            end_datetime: "2020-07-28T22:00:00", adult_num: 12, child_num: 2, guide_num: 1, remind_date: "2020-08-12", sent_remind: true, memo: "台風のため中止", schedule_input_deadline: "2020-06-20T21:00:00")
 
 # 管理者テストデータ
 Admin.create!(name: "管理者", email: "admin@mail.local", password: "password")
