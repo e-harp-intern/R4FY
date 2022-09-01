@@ -1,37 +1,37 @@
 <template>
   <div id="create-account-page">
     <p class="create-info" v-if="$route.query.status == '200'">
-      {{ this.$i18n.t("pages.createaccount.message.true") }}
+      {{ $t("pages.createaccount.message.true") }}
     </p>
     <p class="create-info" v-if="$route.query.status == '500'">
-      {{ this.$i18n.t("pages.createaccount.message.false") }}
+      {{ $t("pages.createaccount.message.false") }}
     </p>
-    <h1>{{ this.$i18n.t("pages.createaccount.title") }}</h1>
+    <h1>{{ $t("pages.createaccount.title") }}</h1>
     <p>
-      {{ this.$i18n.t("pages.createaccount.detail") }}
+      {{ $t("pages.createaccount.detail") }}
     </p>
     <div class="form-frame">
       <form @submit.prevent="create" class="form-main">
         <div id="radio">
           <input type="radio" name="class" value="manager" />{{
-            this.$i18n.t("account.manager")
+            $t("account.manager")
           }}
           <input type="radio" name="class" value="guide" id="guide_radio" />{{
-            this.$i18n.t("account.guide")
+            $t("account.guide")
           }}
         </div>
         <div class="form-tabel">
-          <label>{{ this.$i18n.t("label.name") }}</label
+          <label>{{ $t("label.name") }}</label
           ><input type="text" placeholder="name" id="name" />
-          <label>{{ this.$i18n.t("label.email") }}</label
+          <label>{{ $t("label.email") }}</label
           ><input type="text" placeholder="email" id="email" />
-          <label>{{ this.$i18n.t("label.memo") }}</label
-          ><textarea cols="30" rows="5" name="memo"> </textarea>
+          <label>{{ $t("label.memo") }}</label
+          ><textarea cols="30" rows="5" name="memo" id="memo"> </textarea>
         </div>
         <br />
         <div class="form-button-frame">
           <button type="submit" class="button-green">
-            {{ this.$i18n.t("button.send") }}
+            {{ $t("button.send") }}
           </button>
         </div>
       </form>
@@ -57,30 +57,58 @@ export default {
       }
     },
     async create() {
-      // ロード中にする
-      this.$emit("SendLoadComplete", false);
+      try {
+        // ロード中にする
+        this.$emit("SendLoadComplete", false);
 
-      // アカウント作成情報を送信
-      const response = await api.post(
-        "/api/v1/createaccount",
-        {
-          email: document.getElementById("email").value,
-          name: document.getElementById("name").value,
-        },
-        this.$router.push
-      );
+        // アカウント作成情報を送信
+        if (
+          document.querySelector("input[name=class]:checked").value === "guide"
+        ) {
+          const response = await api.post(
+            "/api/v1/guides",
+            {
+              name: document.getElementById("name").value,
+              email: document.getElementById("email").value,
+              memo: document.getElementById("memo").value,
+            },
+            this.$router.push
+          );
 
-      // API完了
-      if (response.status === "success") {
-        // 成功
-        this.form_reset();
-        this.$router.push("?status=200");
-      } else {
-        // 失敗
-        this.$router.push("?status=500").catch(() => {});
+          // API完了
+          if (response.status === "success") {
+            // 成功
+            this.form_reset();
+            this.$router.push("/tourslist");
+          } else {
+            // 失敗
+            this.$router.push("?status=500").catch(() => {});
+          }
+        } else {
+          const response = await api.post(
+            "/api/v1/admins",
+            {
+              name: document.getElementById("name").value,
+              email: document.getElementById("email").value,
+            },
+            this.$router.push
+          );
+
+          // API完了
+          if (response.status === "success") {
+            // 成功
+            this.form_reset();
+            this.$router.push("/tourslist");
+          } else {
+            // 失敗
+            this.$router.push("?status=500").catch(() => {});
+          }
+        }
+      } catch {
+        this.error = 500;
+      } finally {
+        this.$emit("SendLoadComplete", true);
       }
-
-      this.$emit("SendLoadComplete", true);
     },
   },
 };
