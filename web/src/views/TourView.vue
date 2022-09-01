@@ -37,7 +37,9 @@
       </div>
       <div class="memo">
         <p id="memo">メモ</p>
-        <textarea name="memo" rows="10" cols="50"></textarea>
+        <div class="memo_box">
+          <p id="memo">ここにめもでーたが表示されます</p>
+        </div>
       </div>
     </div>
 
@@ -65,7 +67,11 @@
             <td>{{ guide.name /*続き*/ }}</td>
             <td>{{ datetime_method(tour.start_datetime) }}</td>
             <td>{{ datetime_method(tour.end_datetime) }}</td>
-            <td>{{ tour_state[tour.tour_state_code] }}</td>
+            <td>
+              {{
+                guide_state[guide_state_method(guide.answered, guide.possible)]
+              }}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -89,6 +95,12 @@ export default {
         5: this.$t("state.tour.5"),
         8: this.$t("state.tour.8"),
       },
+      guide_state: {
+        1: this.$t("state.guide.1"),
+        2: this.$t("state.guide.2"),
+        3: this.$t("state.guide.3"),
+      },
+      guide_state_code: "",
     };
   },
   created() {},
@@ -103,6 +115,18 @@ export default {
         hours: datetime.getUTCHours().toString().padStart(2, "0"),
         minutes: datetime.getUTCMinutes().toString().padStart(2, "0"),
       });
+    },
+    guide_state_method(answered, possible) {
+      if (answered) {
+        if (possible) {
+          this.guide_state_code = 1;
+        } else {
+          this.guide_state_code = 2;
+        }
+      } else {
+        this.guide_state_code = 3;
+      }
+      return this.guide_state_code;
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -129,7 +153,7 @@ export default {
   font-size: 1.25em;
   margin: 0 auto;
   padding: 0;
-  width: 800px;
+  width: 100%;
 }
 /*テーブルの色分け*/
 #tours_list table thead tr {
@@ -249,5 +273,11 @@ h3 {
 #panel {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+.memo_box {
+  margin: 1em 0;
+  padding: 1em;
+  background-color: var(--color-light-gray);
+  border: solid 3px var(--color-theme);
 }
 </style>
