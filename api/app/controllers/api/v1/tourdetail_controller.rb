@@ -1,3 +1,4 @@
+# ツアー詳細のコントローラーです
 class Api::V1::TourdetailController < ApplicationController
   # ツアー詳細を表示
   def index

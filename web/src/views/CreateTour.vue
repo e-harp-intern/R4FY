@@ -14,20 +14,10 @@
           />
           <!--開始日時-->
           <label>{{ $t("label.start_datetime") }}</label
-          ><input
-            type="datetime-local"
-            :placeholder="start_datetime"
-            id="start_datetime"
-            required
-          />
+          ><input type="datetime-local" id="start_datetime" required />
           <!--終了日時-->
           <label>{{ $t("label.end_datetime") }}</label
-          ><input
-            type="datetime-local"
-            :placeholder="end_datetime"
-            id="end_datetime"
-            required
-          />
+          ><input type="datetime-local" id="end_datetime" required />
           <!--大人-->
           <label>{{ $t("label.adult_num") }}</label
           ><input
@@ -54,23 +44,13 @@
           />
           <!--参加可否入力期限-->
           <label>{{ $t("label.schedule_input_deadline") }}</label
-          ><input
-            type="datetime-local"
-            :placeholder="schedule_input_deadline"
-            id="schedule_input_deadline"
-            required
-          />
+          ><input type="datetime-local" id="schedule_input_deadline" required />
           <!--リマインド日-->
           <label>{{ $t("label.remind_date") }}</label
-          ><input
-            type="date"
-            :placeholder="remind_date"
-            id="remind_date"
-            required
-          />
+          ><input type="date" id="remind_date" required />
           <!--メモ-->
           <label>{{ $t("label.memo") }}</label
-          ><textarea cols="30" rows="5" name="memo"> </textarea>
+          ><textarea cols="30" rows="5" name="memo" id="memo"> </textarea>
         </div>
         <br />
         <div class="form-button-frame">
@@ -101,30 +81,41 @@ export default {
       }
     },
     async create() {
-      // ロード中にする
-      this.$emit("SendLoadComplete", false);
-
-      // アカウント作成情報を送信
-      const response = await api.post(
-        "/api/v1/createaccount",
-        {
-          email: document.getElementById("email").value,
-          name: document.getElementById("name").value,
-        },
-        this.$router.push
-      );
-
-      // API完了
-      if (response.status === "success") {
-        // 成功
-        this.form_reset();
-        this.$router.push("?status=200");
-      } else {
-        // 失敗
-        this.$router.push("?status=500").catch(() => {});
+      try {
+        // ロード中にする
+        this.$emit("SendLoadComplete", false);
+        // アカウント作成情報を送信
+        const response = await api.post(
+          "/api/v1/tours",
+          {
+            name: document.getElementById("tour_name").value,
+            start_datetime: document.getElementById("start_datetime").value,
+            end_datetime: document.getElementById("end_datetime").value,
+            adult_num: document.getElementById("adult_num").value,
+            child_num: document.getElementById("child_num").value,
+            guide_num: document.getElementById("guide_num").value,
+            schedule_input_deadline: document.getElementById(
+              "schedule_input_deadline"
+            ).value,
+            remind_date: document.getElementById("remind_date").value,
+            memo: document.getElementById("memo").value,
+          },
+          this.$router.push
+        );
+        // API完了
+        if (response.status === "success") {
+          // 成功
+          this.form_reset();
+          this.$router.push("/tourslist");
+        } else {
+          // 失敗
+          this.$router.push("?status=500").catch(() => {});
+        }
+      } catch {
+        this.error = 500;
+      } finally {
+        this.$emit("SendLoadComplete", true);
       }
-
-      this.$emit("SendLoadComplete", true);
     },
   },
 };
