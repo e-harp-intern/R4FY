@@ -74,34 +74,36 @@ export default {
       }
     },
     async create() {
+      let classpath = "/api/v1/admins";
+      const object = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+      };
+      if (
+        document.querySelector("input[name=class]:checked").value === "guide"
+      ) {
+        classpath = "/api/v1/guides";
+        object.memo = document.getElementById("memo").value;
+        // object = 'memo: document.getElementById("memo").value,';
+        // alert(object);
+      }
       try {
         // ロード中にする
         this.$emit("SendLoadComplete", false);
 
         // アカウント作成情報を送信
-        if (
-          document.querySelector("input[name=class]:checked").value === "guide"
-        ) {
-          const response = await api.post(
-            "/api/v1/guides",
-            {
-              name: document.getElementById("name").value,
-              email: document.getElementById("email").value,
-              memo: document.getElementById("memo").value,
-            },
-            this.$router.push
-          );
+        const response = await api.post(classpath, object, this.$router.push);
 
-          // API完了
-          if (response.status === "success") {
-            // 成功
-            this.form_reset();
-            this.$router.push("/tourslist");
-          } else {
-            // 失敗
-            this.$router.push("?status=500").catch(() => {});
-          }
+        // API完了
+        if (response.status === "success") {
+          // 成功
+          this.form_reset();
+          this.$router.push("/tourslist");
         } else {
+          // 失敗
+          this.$router.push("?status=500").catch(() => {});
+        }
+        /* } else {
           const response = await api.post(
             "/api/v1/admins",
             {
@@ -120,7 +122,7 @@ export default {
             // 失敗
             this.$router.push("?status=500").catch(() => {});
           }
-        }
+        } */
       } catch {
         this.error = 500;
       } finally {
