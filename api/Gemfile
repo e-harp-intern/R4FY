@@ -52,3 +52,12 @@ gem "bcrypt"
 gem "rack-cors"
 gem "rubocop"
 gem "rubocop-rails"
+
+# Use batch job
+gem 'crono'
+gem 'daemons'
+gem 'sprockets', '~>3.0'
+
+# Use .env file
+gem 'dotenv'
+gem 'dotenv-rails'
