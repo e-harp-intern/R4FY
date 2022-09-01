@@ -1,7 +1,7 @@
 <template>
   <div id="tour-page">
     <h1>ツアーサンプルA</h1>
-    <button @click="urllink('')" id="delete_tour_btn">
+    <button @click="alert_disp()" id="delete_tour_btn">
       {{ $t("pages.tours.delete.title") }}
     </button>
     <div id="panel">
@@ -94,7 +94,29 @@
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      test: "",
+    };
+  },
+  created() {},
+  methods: {
+    alert_disp() {
+      if (window.confirm("ツアーの取り消しを実行しますか？")) {
+        window.location.href = "/tours"; // 確認ページにジャンプ(一覧ページに飛ばしてます、変更してください）
+      }
+      // 「OK」時の処理終了
+
+      // 「キャンセル」時の処理開始
+      else {
+        window.alert("キャンセルされました"); // 警告ダイアログを表示
+      }
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 /*テーブル全体の設定*/
