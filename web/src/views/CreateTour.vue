@@ -85,14 +85,13 @@ export default {
         // ロード中にする
         this.$emit("SendLoadComplete", false);
         // アカウント作成情報を送信
-        // adalt→adultにする！
         const response = await api.post(
           "/api/v1/tours",
           {
             name: document.getElementById("tour_name").value,
             start_datetime: document.getElementById("start_datetime").value,
             end_datetime: document.getElementById("end_datetime").value,
-            adalt_num: document.getElementById("adult_num").value,
+            adult_num: document.getElementById("adult_num").value,
             child_num: document.getElementById("child_num").value,
             guide_num: document.getElementById("guide_num").value,
             schedule_input_deadline: document.getElementById(
