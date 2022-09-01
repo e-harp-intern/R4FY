@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
     namespace "api" do
         namespace "v1" do
-          post "touradds" => "touradds#create"
+          post "tours" => "touradds#create"
           post "guides" => "guides#create"
           post "admins" => "admins#create"
           post "login" => "sessions#create"
