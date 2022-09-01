@@ -6,7 +6,7 @@ class Api::V1::TouraddsController < ApplicationController
     # ツアー予定追加に必要な情報を取得
     ApplicationRecord.transaction do
       tour = Tour.new(name: params[:name], start_datetime: params[:start_datetime],
-                      end_datetime: params[:end_datetime], adalt_num: params[:adalt_num], child_num: params[:child_num], guide_num: params[:guide_num], schedule_input_deadline: params[:schedule_input_deadline], remind_date: params[:remind_date], memo: params[:memo], sent_remind: false)
+                      end_datetime: params[:end_datetime], adult_num: params[:adalt_num], child_num: params[:child_num], guide_num: params[:guide_num], schedule_input_deadline: params[:schedule_input_deadline], remind_date: params[:remind_date], memo: params[:memo], sent_remind: false)
       tour.save!
       logger.debug(tour)
       # 空の参加可否情報を生成
