@@ -13,20 +13,36 @@
     <div class="form-frame">
       <form @submit.prevent="create" class="form-main">
         <div id="radio">
-          <input type="radio" name="class" value="manager" />{{
-            $t("account.manager")
-          }}
-          <input type="radio" name="class" value="guide" id="guide_radio" />{{
-            $t("account.guide")
-          }}
+          <input
+            type="radio"
+            name="class"
+            value="admin"
+            v-model="isAdminChecking"
+          />{{ $t("account.admin") }}
+          <input
+            type="radio"
+            name="class"
+            value="guide"
+            id="guide_radio"
+            v-model="isAdminChecking"
+          />{{ $t("account.guide") }}
         </div>
         <div class="form-tabel">
           <label>{{ $t("label.name") }}</label
           ><input type="text" placeholder="name" id="name" />
           <label>{{ $t("label.email") }}</label
           ><input type="text" placeholder="email" id="email" />
-          <label>{{ $t("label.memo") }}</label
-          ><textarea cols="30" rows="5" name="memo" id="memo"> </textarea>
+          <label v-if="isAdminChecking === 'guide'">{{
+            $t("label.memo")
+          }}</label
+          ><textarea
+            cols="30"
+            rows="5"
+            name="memo"
+            id="memo"
+            v-if="isAdminChecking === 'guide'"
+          >
+          </textarea>
         </div>
         <br />
         <div class="form-button-frame">
@@ -46,6 +62,7 @@ export default {
   data() {
     return {
       test: "",
+      isAdminChecking: "admin",
     };
   },
   created() {},
