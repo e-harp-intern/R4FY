@@ -1,18 +1,18 @@
 <template>
   <div id="tour-page">
-    <h1>{{ data.tour.name }}</h1>
+    <h1>{{ tour.name }}</h1>
     <div id="panel">
       <article class="info" id="guide">
         <p class="outline">必要ガイド人数</p>
-        <p class="value">2名</p>
+        <p class="value">{{ tour.guide_num }}名</p>
       </article>
       <article class="info" id="date">
         <p class="outline">日時</p>
-        <p class="value">2022-08-29-10:00</p>
+        <p class="value">{{ datetime_method(tour.start_datetime) }}</p>
       </article>
       <article class="info" id="state">
         <p class="outline">ツアー実施状態</p>
-        <p class="value">実施済</p>
+        <p class="value">{{ tour_state[tour.tour_state_code] }}</p>
       </article>
     </div>
     <div id="grid">
@@ -23,15 +23,15 @@
           </caption>
           <tr>
             <td>大人</td>
-            <td>5名</td>
+            <td>{{ tour.adalt_num }}名</td>
           </tr>
           <tr>
             <td>子供</td>
-            <td>3名</td>
+            <td>{{ tour.child_num }}名</td>
           </tr>
           <tr>
             <td>計</td>
-            <td>8名</td>
+            <td>{{ tour.adalt_num + tour.child_num }}名</td>
           </tr>
         </table>
       </div>
@@ -61,29 +61,11 @@
             <td>guideA@sample.com</td>
             <td>1</td>
           </tr>
-          <tr>
-            <td>〇</td>
-            <td>ガイド 次郎</td>
-            <td>guideB@sample.com</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>-</td>
-            <td>ガイド 三郎</td>
-            <td>guideC@sample.com</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>-</td>
-            <td>ガイド 四郎</td>
-            <td>guideD@sample.com</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>-</td>
-            <td>ガイド 五郎</td>
-            <td>guideE@sample.com</td>
-            <td>-</td>
+          <tr id="guide_body_tr" v-for="guide in guideschedule" :key="guide.id">
+            <td>{{ guide.name /*続き*/ }}</td>
+            <td>{{ datetime_method(tour.start_datetime) }}</td>
+            <td>{{ datetime_method(tour.end_datetime) }}</td>
+            <td>{{ tour_state[tour.tour_state_code] }}</td>
           </tr>
         </tbody>
       </table>
@@ -97,30 +79,42 @@ import api from "@/mixins/api";
 export default {
   data() {
     return {
-      data: {},
+      tour: {},
       guideschedule: [],
       tourguide: [],
+      tour_state: {
+        1: this.$t("state.tour.1"),
+        2: this.$t("state.tour.2"),
+        4: this.$t("state.tour.4"),
+        5: this.$t("state.tour.5"),
+        8: this.$t("state.tour.8"),
+      },
     };
   },
   created() {},
   methods: {
-    form_reset() {
-      const forms = document.getElementsByTagName("input");
-      for (let i = 0; i < forms.length; i += 1) {
-        forms[i].value = null;
-      }
+    /* 日時成形処理 */
+    datetime_method(datetime) {
+      datetime = new Date(datetime);
+      return this.$t("other.datetime", {
+        year: datetime.getUTCFullYear(),
+        month: datetime.getUTCMonth() + 1,
+        date: datetime.getUTCDate().toString().padStart(2, "0"),
+        hours: datetime.getUTCHours().toString().padStart(2, "0"),
+        minutes: datetime.getUTCMinutes().toString().padStart(2, "0"),
+      });
     },
   },
   async beforeRouteEnter(to, from, next) {
     // ツアー一覧データの取得
-    const response = await api.get("/api/v1/tours/detail/1", next);
+    const response = await api.get("/api/v1/tours/detail/2", next);
     // console.log(response);
-    const { data } = response.data;
+    const { tour } = response.data;
     const { guideschedule } = response.data;
     const { tourguide } = response.data;
 
     next((vm) => {
-      vm.data = data;
+      vm.tour = tour;
       vm.guideschedule = guideschedule;
       vm.tourguide = tourguide;
     });
