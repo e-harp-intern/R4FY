@@ -100,16 +100,26 @@ export default {
         forms[i].value = null;
       }
     },
-    async create() {
+  },
+  async create() {
+    try {
       // ロード中にする
       this.$emit("SendLoadComplete", false);
 
       // アカウント作成情報を送信
       const response = await api.post(
-        "/api/v1/createaccount",
+        "/api/v1/tours",
         {
-          email: document.getElementById("email").value,
-          name: document.getElementById("name").value,
+          name: document.getElementById("tour_name").value,
+          start_datetime: document.getElementById("start_datetime").value,
+          adult_num: document.getElementById("adult_num").value,
+          child_num: document.getElementById("child_num").value,
+          guide_num: document.getElementById("guide_num").value,
+          schedule_input_deadline: document.getElementById(
+            "schedule_input_deadline"
+          ).value,
+          remind_date: document.getElementById("remind_date").value,
+          memo: document.getElementById("memo").value,
         },
         this.$router.push
       );
@@ -123,9 +133,11 @@ export default {
         // 失敗
         this.$router.push("?status=500").catch(() => {});
       }
-
+    } catch {
+      this.error = 500;
+    } finally {
       this.$emit("SendLoadComplete", true);
-    },
+    }
   },
 };
 </script>
