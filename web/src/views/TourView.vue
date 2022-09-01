@@ -1,6 +1,9 @@
 <template>
   <div id="tour-page">
     <h1>ツアーサンプルA</h1>
+    <button @click="urllink('')" id="delete_tour_btn">
+      {{ $t("pages.tours.delete.title") }}
+    </button>
     <div id="panel">
       <article class="info" id="guide">
         <p class="outline">必要ガイド人数</p>
@@ -218,7 +221,15 @@ h3 {
   margin: 0;
 }
 #panel {
+  clear: both;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+#delete_tour_btn {
+  float: right;
+  padding: 0.5em 1.3em;
+  margin-bottom: 1em;
+  background-color: var(--color-green);
+  color: var(--color-white);
 }
 </style>

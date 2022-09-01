@@ -16,6 +16,9 @@ export default {
             },
             create: {
                 title: "ツアー新規追加",
+            },
+            delete: {
+                title: "ツアー取り消し",
             }
         },
         createaccount: {
