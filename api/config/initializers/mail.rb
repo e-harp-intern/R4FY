@@ -1,9 +1,18 @@
-# config/mail.ymlの設定を読み込む
+# .envから設定を読み込む
 
-RAILS_ROOT = File.expand_path('../../../', __FILE__)
-
-mail_settings = YAML.load(File.read("#{RAILS_ROOT}/config/mail.yml"))
-
-ActionMailer::Base.delivery_method = mail_settings['method']
-ActionMailer::Base.smtp_settings = mail_settings['settings']
-ActionMailer::Base.default_options = mail_settings['default_options']
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+  address: ENV['SMTP_HOST'],
+  port: ENV['SMTP_PORT'],
+  domain: ENV['SMTP_DOMAIN'],
+  tls: ENV['SMTP_TLS_ENABLE'] == 'true',
+  ssl: ENV['SMTP_SSL_ENABLE'] == 'true',
+  enable_starttls_auto: ENV['SMTP_STARTTLS_AUTO'] == 'true',
+  openssl_verify_mode: ENV['SMTP_OPENSSL_VERIFY'],
+  authentication: ENV['SMTP_AUTH'],
+  user_name: ENV['SMTP_AUTH_USER'],
+  password: ENV['SMTP_AUTH_PASS']
+}
+ActionMailer::Base.default_options = {
+  from: ENV['MAIL_FROM']
+}

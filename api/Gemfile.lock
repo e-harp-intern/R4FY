@@ -73,10 +73,18 @@ GEM
     builder (3.2.4)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    crono (2.0.0)
+      rails (>= 5.2.8)
+      sprockets-rails
+    daemons (1.4.1)
     debug (1.6.2)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
     digest (3.1.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.11.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -175,6 +183,13 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
     ruby-progressbar (1.11.0)
+    sprockets (3.7.2)
+      concurrent-ruby (~> 1.0)
+      rack (> 1, < 3)
+    sprockets-rails (3.4.2)
+      actionpack (>= 5.2)
+      activesupport (>= 5.2)
+      sprockets (>= 3.0.0)
     sqlite3 (1.4.4)
     strscan (3.0.4)
     thor (1.2.1)
@@ -196,12 +211,17 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   bootsnap
+  crono
+  daemons
   debug
+  dotenv
+  dotenv-rails
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.3, >= 7.0.3.1)
   rubocop
   rubocop-rails
+  sprockets (~> 3.0)
   sqlite3 (~> 1.4)
   tzinfo-data
 
