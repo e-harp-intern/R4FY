@@ -1,6 +1,6 @@
 <template>
   <div id="tour-page">
-    <h1>ツアーサンプルA</h1>
+    <h1>{{ data.tour.name }}</h1>
     <div id="panel">
       <article class="info" id="guide">
         <p class="outline">必要ガイド人数</p>
@@ -91,7 +91,42 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import api from "@/mixins/api";
+
+export default {
+  data() {
+    return {
+      data: {},
+      guideschedule: [],
+      tourguide: [],
+    };
+  },
+  created() {},
+  methods: {
+    form_reset() {
+      const forms = document.getElementsByTagName("input");
+      for (let i = 0; i < forms.length; i += 1) {
+        forms[i].value = null;
+      }
+    },
+  },
+  async beforeRouteEnter(to, from, next) {
+    // ツアー一覧データの取得
+    const response = await api.get("/api/v1/tours/detail/1", next);
+    // console.log(response);
+    const { data } = response.data;
+    const { guideschedule } = response.data;
+    const { tourguide } = response.data;
+
+    next((vm) => {
+      vm.data = data;
+      vm.guideschedule = guideschedule;
+      vm.tourguide = tourguide;
+    });
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 /*テーブル全体の設定*/
