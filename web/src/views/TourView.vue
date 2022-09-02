@@ -1,16 +1,16 @@
 <template>
   <div id="tour-page">
-    <h1>{{ tour.name }}</h1>
-    <button @click="alert_disp()" id="delete_tour_btn">
-      {{ $t("pages.tours.delete.title") }}
-    </button>
+    <h1>ツアー詳細</h1>
+    <div id="tour-name">{{ tour.name }}</div>
+
+    <!-- 上部の情報パネル -->
     <div id="panel">
       <article class="info" id="guide">
         <p class="outline">必要ガイド人数</p>
         <p class="value">{{ tour.guide_num }}名</p>
       </article>
       <article class="info" id="date">
-        <p class="outline">日時</p>
+        <p class="outline">開始日時</p>
         <p class="value">{{ datetime_method(tour.start_datetime) }}</p>
       </article>
       <article class="info" id="state">
@@ -18,11 +18,13 @@
         <p class="value">{{ tour_state[tour.tour_state_code] }}</p>
       </article>
     </div>
+
+    <!-- 参加者情報 -->
     <div id="grid">
       <div id="num">
         <table class="inline_table">
           <caption>
-            参加者人数
+            ツアー参加者人数
           </caption>
           <tr>
             <td>大人</td>
@@ -46,11 +48,10 @@
       </div>
     </div>
 
+    <!-- 参加ガイドの一覧 -->
+    <h2>参加予定一覧</h2>
     <div id="tours_list">
       <table>
-        <caption>
-          <h2>参加予定一覧</h2>
-        </caption>
         <thead>
           <tr>
             <th @click="sortBy('assign')" :class="addClass('assign')">
@@ -84,6 +85,16 @@
         </tbody>
       </table>
     </div>
+
+    <!-- ツアー操作 -->
+    <h2>ツアー操作</h2>
+    <ul>
+      <li>
+        <a @click="alert_disp()" href="">
+          {{ $t("pages.tours.delete.title") }}
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -185,13 +196,9 @@ export default {
   async beforeRouteEnter(to, from, next) {
     // ガイドの予定入力状態をコードに変換
     const guideStateMethod = (answered, possible) => {
-      if (answered) {
-        if (possible) {
-          return 1;
-        }
-        return 2;
-      }
-      return 3;
+      if (!answered) return 3;
+      if (possible) return 1;
+      return 2;
     };
 
     // ツアー一覧データの取得
@@ -222,6 +229,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#tour-name {
+  font-size: 3em;
+  text-align: center;
+  margin: 0;
+}
+
 /*テーブル全体の設定*/
 #tours_list table {
   //border-collapse: collapse;
@@ -230,6 +243,7 @@ export default {
   padding: 0;
   width: 100%;
 }
+
 /*テーブルの色分け*/
 #tours_list table thead tr {
   background-color: var(--color-theme);
@@ -258,45 +272,20 @@ h2 {
   margin: 50px 0 0 0;
 }
 
-/*#title {
-  float: left;
-}
-#num {
-  clear: both;
-  float: left;
-}
-#tour_state,
-#memo {
-  margin: 0 0 0 auto;
-  padding-right: 500px;
-  text-align: center;
-  display: flex;
-  justify-content: flex-end;
-}*/
 #grid {
   padding-top: 50px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: auto;
-} /*
-.info {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  flex-flow: column;
-}*/
-h1 {
-  text-align: center;
 }
+
 .info {
   display: inline-block;
   width: 100%;
-  height: 100px;
   color: var(--color-white);
   text-align: center;
   vertical-align: middle;
-  padding: 30px 0;
-  margin: 0 12px 12px 0;
+  padding: 0.5em 0;
 }
 
 .value {
@@ -321,9 +310,7 @@ h1 {
   font-size: 1.25em;
   border: solid 3px var(--color-theme);
 }
-/*#num table td:nth-of-type(2) {
-  text-align: right;
-}*/
+
 #num table tr {
   background-color: var(--color-light-gray);
 }
@@ -347,13 +334,7 @@ h3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-#delete_tour_btn {
-  float: right;
-  padding: 0.5em 1.3em;
-  margin-bottom: 1em;
-  background-color: var(--color-green);
-  color: var(--color-white);
-}
+
 .memo_box {
   margin: 0;
   min-width: 50%;

@@ -15,6 +15,11 @@ p {
     padding-left: .5em;
 }
 
+#default-layout h2{
+    border-left: .25em solid var(--color-theme);
+    padding-left: .5em;
+}
+
 /* よく使うパーツ */
 p.info {
     margin: 2em auto 0;
