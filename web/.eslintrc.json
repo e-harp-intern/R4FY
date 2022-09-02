@@ -22,6 +22,8 @@
         "import/extensions": "off",
         "import/no-unresolved": "off",
         "no-param-reassign": "off",
-        "vue/no-side-effects-in-computed-properties": "off"
+        "vue/no-side-effects-in-computed-properties": "off",
+        "vue/no-parsing-error": "off",
+        "no-restricted-syntax": "off"
     }
 }

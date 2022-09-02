@@ -1,18 +1,18 @@
 <template>
   <div id="tour-page">
-    <h1>ツアーサンプルA</h1>
+    <h1>{{ tour.name }}</h1>
     <div id="panel">
       <article class="info" id="guide">
         <p class="outline">必要ガイド人数</p>
-        <p class="value">2名</p>
+        <p class="value">{{ tour.guide_num }}名</p>
       </article>
       <article class="info" id="date">
         <p class="outline">日時</p>
-        <p class="value">2022-08-29-10:00</p>
+        <p class="value">{{ datetime_method(tour.start_datetime) }}</p>
       </article>
       <article class="info" id="state">
         <p class="outline">ツアー実施状態</p>
-        <p class="value">実施済</p>
+        <p class="value">{{ tour_state[tour.tour_state_code] }}</p>
       </article>
     </div>
     <div id="grid">
@@ -23,21 +23,23 @@
           </caption>
           <tr>
             <td>大人</td>
-            <td>5名</td>
+            <td>{{ tour.adult_num }}名</td>
           </tr>
           <tr>
             <td>子供</td>
-            <td>3名</td>
+            <td>{{ tour.child_num }}名</td>
           </tr>
           <tr>
             <td>計</td>
-            <td>8名</td>
+            <td>{{ tour.adult_num + tour.child_num }}名</td>
           </tr>
         </table>
       </div>
       <div class="memo">
         <p id="memo">メモ</p>
-        <textarea name="memo" rows="10" cols="50"></textarea>
+        <div class="memo_box">
+          <p>{{ tour.memo }}</p>
+        </div>
       </div>
     </div>
 
@@ -48,42 +50,33 @@
         </caption>
         <thead>
           <tr>
-            <th>担当</th>
-            <th>名前</th>
-            <th>メールアドレス</th>
-            <th>参加可否</th>
+            <th @click="sortBy('assign')" :class="addClass('assign')">
+              {{ $t("table.guide.assign") }}
+            </th>
+            <th @click="sortBy('name')" :class="addClass('name')">
+              {{ $t("table.guide.name") }}
+            </th>
+            <th @click="sortBy('email')" :class="addClass('email')">
+              {{ $t("table.guide.email") }}
+            </th>
+            <th @click="sortBy('state')" :class="addClass('answered_state')">
+              {{ $t("table.guide.answered_state") }}
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>〇</td>
-            <td>ガイド 太郎</td>
-            <td>guideA@sample.com</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>〇</td>
-            <td>ガイド 次郎</td>
-            <td>guideB@sample.com</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>-</td>
-            <td>ガイド 三郎</td>
-            <td>guideC@sample.com</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>-</td>
-            <td>ガイド 四郎</td>
-            <td>guideD@sample.com</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>-</td>
-            <td>ガイド 五郎</td>
-            <td>guideE@sample.com</td>
-            <td>-</td>
+          <tr
+            id="guide_body_tr"
+            v-for="schedule in guideschedules"
+            :key="schedule.id"
+          >
+            <td v-if="schedule.assign">〇</td>
+            <td v-else></td>
+            <td>{{ schedule.name }}</td>
+            <td>{{ schedule.email }}</td>
+            <td>
+              {{ guide_state[schedule.state] }}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -91,7 +84,122 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import api from "@/mixins/api";
+
+export default {
+  data() {
+    return {
+      tour: {},
+      guideschedules: [],
+      tourguides: [],
+      tour_state: {
+        1: this.$t("state.tour.1"),
+        2: this.$t("state.tour.2"),
+        4: this.$t("state.tour.4"),
+        5: this.$t("state.tour.5"),
+        8: this.$t("state.tour.8"),
+      },
+      guide_state: {
+        1: this.$t("state.guide.1"),
+        2: this.$t("state.guide.2"),
+        3: this.$t("state.guide.3"),
+      },
+      /* テーブルソート */
+      sort_key: "",
+      sort_asc: true,
+    };
+  },
+  created() {},
+  methods: {
+    /* 日時成形処理 */
+    datetime_method(datetime) {
+      datetime = new Date(datetime);
+      return this.$t("other.datetime", {
+        year: datetime.getUTCFullYear(),
+        month: datetime.getUTCMonth() + 1,
+        date: datetime.getUTCDate().toString().padStart(2, "0"),
+        hours: datetime.getUTCHours().toString().padStart(2, "0"),
+        minutes: datetime.getUTCMinutes().toString().padStart(2, "0"),
+      });
+    },
+    /* テーブルソート */
+
+    /* テーブルタイトル選択時、タイトル要素の昇順に並び替える
+       もう一度同じタイトルが選択された場合、昇順、降順を切り替える
+      並び替えたデータを返す */
+    sort_guides() {
+      // タイトルが選択されているか判断
+      if (this.sort_key !== "") {
+        let set = 1;
+        // タイトルの選択状態を判断
+        if (this.sort_asc) {
+          set = 1;
+        } else {
+          set = -1;
+        }
+        // ツアーを選択されたタイトルで並び替える
+        this.guideschedules.sort((a, b) => {
+          if (a[this.sort_key] < b[this.sort_key]) return -1 * set;
+          if (a[this.sort_key] > b[this.sort_key]) return 1 * set;
+          return 0;
+        });
+        return this.guideschedules;
+      }
+      return this.guideschedules;
+    },
+    /* タイトルが選択された場合に呼び出される処理 */
+    sortBy(key) {
+      // 前回の選択と同じタイトルを選択された場合、sort_ascを切り替え、昇順降順処理の切り替えを行う
+      if (this.sort_key === key) {
+        this.sort_asc = !this.sort_asc;
+      } else {
+        this.sort_asc = true;
+      }
+      this.sort_key = key;
+      this.sort_guides();
+    },
+    /* タイトルが選択された場合に呼び出される処理 */
+    addClass(key) {
+      // 昇順降順を管理する
+      return {
+        asc: this.sort_key === key && this.sort_asc,
+        desc: this.sort_key === key && !this.sort_asc,
+      };
+    },
+  },
+  async beforeRouteEnter(to, from, next) {
+    const guideStateMethod = (answered, possible) => {
+      if (answered) {
+        if (possible) {
+          return 1;
+        }
+        return 2;
+      }
+      return 3;
+    };
+    // ツアー一覧データの取得
+    const response = await api.get("/api/v1/tours/detail/2", next);
+    // console.log(response);
+    const { tour } = response.data;
+    const guideschedules = response.data.guide_schedules;
+    const tourguides = response.data.tour_guides;
+
+    for (const g of guideschedules) {
+      g.name = g.guide.name;
+      g.email = g.guide.email;
+      g.state = guideStateMethod(g.answered, g.possible);
+      g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
+    }
+
+    next((vm) => {
+      vm.tour = tour;
+      vm.guideschedules = guideschedules;
+      vm.tourguides = tourguides;
+    });
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 /*テーブル全体の設定*/
@@ -100,7 +208,7 @@
   font-size: 1.25em;
   margin: 0 auto;
   padding: 0;
-  width: 800px;
+  width: 100%;
 }
 /*テーブルの色分け*/
 #tours_list table thead tr {
@@ -209,9 +317,6 @@ h3 {
 #num {
   display: grid;
 }
-.memo {
-  margin: auto;
-}
 #memo {
   text-align: center;
   font-size: 1.25em;
@@ -220,5 +325,19 @@ h3 {
 #panel {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+.memo_box {
+  margin: 0;
+  min-width: 50%;
+  min-height: 80%;
+  background-color: var(--color-light-gray);
+  border: solid 3px var(--color-theme);
+}
+/*テーブルソートの部品*/
+.asc::after {
+  content: "↓";
+}
+.desc::after {
+  content: "↑";
 }
 </style>
