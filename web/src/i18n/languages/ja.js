@@ -61,11 +61,17 @@ export default {
         }
     },
     table: {
-        tour:{
+        tour: {
             name:"ツアー名",
             start_datetime:"開始日時",
             end_datetime:"終了日時",
             state:"状態"
+        },
+        guide: {
+            assign: "担当",
+            name: "名前",
+            email: "メールアドレス",
+            answered_state: "参加可否",
         }
     },
     state: {

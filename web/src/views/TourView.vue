@@ -23,7 +23,7 @@
           </caption>
           <tr>
             <td>大人</td>
-            <td>{{ tour.adalt_num }}名</td>
+            <td>{{ tour.adult_num }}名</td>
           </tr>
           <tr>
             <td>子供</td>
@@ -31,14 +31,14 @@
           </tr>
           <tr>
             <td>計</td>
-            <td>{{ tour.adalt_num + tour.child_num }}名</td>
+            <td>{{ tour.adult_num + tour.child_num }}名</td>
           </tr>
         </table>
       </div>
       <div class="memo">
         <p id="memo">メモ</p>
         <div class="memo_box">
-          <p id="memo">ここにめもでーたが表示されます</p>
+          <p>{{ tour.memo }}</p>
         </div>
       </div>
     </div>
@@ -50,27 +50,32 @@
         </caption>
         <thead>
           <tr>
-            <th>担当</th>
-            <th>名前</th>
-            <th>メールアドレス</th>
-            <th>参加可否</th>
+            <th @click="sortBy('assign')" :class="addClass('assign')">
+              {{ $t("table.guide.assign") }}
+            </th>
+            <th @click="sortBy('name')" :class="addClass('name')">
+              {{ $t("table.guide.name") }}
+            </th>
+            <th @click="sortBy('email')" :class="addClass('email')">
+              {{ $t("table.guide.email") }}
+            </th>
+            <th @click="sortBy('state')" :class="addClass('answered_state')">
+              {{ $t("table.guide.answered_state") }}
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>〇</td>
-            <td>ガイド 太郎</td>
-            <td>guideA@sample.com</td>
-            <td>1</td>
-          </tr>
-          <tr id="guide_body_tr" v-for="guide in guideschedule" :key="guide.id">
-            <td>{{ guide.name /*続き*/ }}</td>
-            <td>{{ datetime_method(tour.start_datetime) }}</td>
-            <td>{{ datetime_method(tour.end_datetime) }}</td>
+          <tr
+            id="guide_body_tr"
+            v-for="schedule in guideschedules"
+            :key="schedule.id"
+          >
+            <td v-if="schedule.assign">〇</td>
+            <td v-else></td>
+            <td>{{ schedule.name }}</td>
+            <td>{{ schedule.email }}</td>
             <td>
-              {{
-                guide_state[guide_state_method(guide.answered, guide.possible)]
-              }}
+              {{ guide_state[schedule.state] }}
             </td>
           </tr>
         </tbody>
@@ -86,8 +91,8 @@ export default {
   data() {
     return {
       tour: {},
-      guideschedule: [],
-      tourguide: [],
+      guideschedules: [],
+      tourguides: [],
       tour_state: {
         1: this.$t("state.tour.1"),
         2: this.$t("state.tour.2"),
@@ -100,7 +105,9 @@ export default {
         2: this.$t("state.guide.2"),
         3: this.$t("state.guide.3"),
       },
-      guide_state_code: "",
+      /* テーブルソート */
+      sort_key: "",
+      sort_asc: true,
     };
   },
   created() {},
@@ -116,31 +123,79 @@ export default {
         minutes: datetime.getUTCMinutes().toString().padStart(2, "0"),
       });
     },
-    guide_state_method(answered, possible) {
-      if (answered) {
-        if (possible) {
-          this.guide_state_code = 1;
+    /* テーブルソート */
+
+    /* テーブルタイトル選択時、タイトル要素の昇順に並び替える
+       もう一度同じタイトルが選択された場合、昇順、降順を切り替える
+      並び替えたデータを返す */
+    sort_guides() {
+      // タイトルが選択されているか判断
+      if (this.sort_key !== "") {
+        let set = 1;
+        // タイトルの選択状態を判断
+        if (this.sort_asc) {
+          set = 1;
         } else {
-          this.guide_state_code = 2;
+          set = -1;
         }
-      } else {
-        this.guide_state_code = 3;
+        // ツアーを選択されたタイトルで並び替える
+        this.guideschedules.sort((a, b) => {
+          if (a[this.sort_key] < b[this.sort_key]) return -1 * set;
+          if (a[this.sort_key] > b[this.sort_key]) return 1 * set;
+          return 0;
+        });
+        return this.guideschedules;
       }
-      return this.guide_state_code;
+      return this.guideschedules;
+    },
+    /* タイトルが選択された場合に呼び出される処理 */
+    sortBy(key) {
+      // 前回の選択と同じタイトルを選択された場合、sort_ascを切り替え、昇順降順処理の切り替えを行う
+      if (this.sort_key === key) {
+        this.sort_asc = !this.sort_asc;
+      } else {
+        this.sort_asc = true;
+      }
+      this.sort_key = key;
+      this.sort_guides();
+    },
+    /* タイトルが選択された場合に呼び出される処理 */
+    addClass(key) {
+      // 昇順降順を管理する
+      return {
+        asc: this.sort_key === key && this.sort_asc,
+        desc: this.sort_key === key && !this.sort_asc,
+      };
     },
   },
   async beforeRouteEnter(to, from, next) {
+    const guideStateMethod = (answered, possible) => {
+      if (answered) {
+        if (possible) {
+          return 1;
+        }
+        return 2;
+      }
+      return 3;
+    };
     // ツアー一覧データの取得
     const response = await api.get("/api/v1/tours/detail/2", next);
     // console.log(response);
     const { tour } = response.data;
-    const { guideschedule } = response.data;
-    const { tourguide } = response.data;
+    const guideschedules = response.data.guide_schedules;
+    const tourguides = response.data.tour_guides;
+
+    for (const g of guideschedules) {
+      g.name = g.guide.name;
+      g.email = g.guide.email;
+      g.state = guideStateMethod(g.answered, g.possible);
+      g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
+    }
 
     next((vm) => {
       vm.tour = tour;
-      vm.guideschedule = guideschedule;
-      vm.tourguide = tourguide;
+      vm.guideschedules = guideschedules;
+      vm.tourguides = tourguides;
     });
   },
 };
@@ -262,9 +317,6 @@ h3 {
 #num {
   display: grid;
 }
-.memo {
-  margin: auto;
-}
 #memo {
   text-align: center;
   font-size: 1.25em;
@@ -275,9 +327,17 @@ h3 {
   grid-template-columns: 1fr 1fr 1fr;
 }
 .memo_box {
-  margin: 1em 0;
-  padding: 1em;
+  margin: 0;
+  min-width: 50%;
+  min-height: 80%;
   background-color: var(--color-light-gray);
   border: solid 3px var(--color-theme);
+}
+/*テーブルソートの部品*/
+.asc::after {
+  content: "↓";
+}
+.desc::after {
+  content: "↑";
 }
 </style>
