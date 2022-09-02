@@ -15,4 +15,11 @@ class Api::V1::TourdetailController < ApplicationController
     }
     render json: json_render_v1(true, response)
   end
+
+  # ツアーを中止にする
+  def destroy
+    tour_delete = Tour.find_by(id: params[:id])
+    tour_delete.update(tour_state_code: TOUR_STATE_CODE_CANCEL)
+    render json: json_render_v1(true)
+  end
 end
