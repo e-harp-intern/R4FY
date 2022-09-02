@@ -81,7 +81,7 @@ export default {
         }
     },
     account: {
-        manager: "管理者",
+        admin: "管理者",
         guide: "ガイド"
     }
 };

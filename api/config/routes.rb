@@ -9,7 +9,7 @@ Rails.application.routes.draw do
           delete "logout" => "sessions#destroy"
           get "tours" => "toursort#index"
           get "tours/detail/:id" => "tourdetail#index"
-
+          delete "tours/:id" => "tourdetail#destroy"
         end
     end
 end
