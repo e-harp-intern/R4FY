@@ -13,6 +13,9 @@ export default {
             title: "ツアー",
             tour: {
                 title: "ツアー詳細",
+            },
+            create: {
+                title: "ツアー新規追加",
             }
         },
         createaccount: {
@@ -42,6 +45,20 @@ export default {
         email: "メールアドレス：",
         password: "パスワード：",
         memo: "メモ：",
+        tour_name: "ツアー名：",
+        start_datetime: "開始日時：",
+        end_datetime: "終了日時：",
+        adult_num: "大人人数：",
+        child_num: "子供人数：",
+        guide_num: "ガイド人数：",
+        schedule_input_deadline: "参加可否入力期限：",
+        remind_date: "リマインド日：",
+        detail: {
+            tour_name: "ツアーの名前を入力してください",
+            adult_num: "人数を入力してください",
+            child_num: "いない場合「0」を入力してください",
+            guide_num: "必ず人数を入力してください",
+        }
     },
     table: {
         tour:{
@@ -66,7 +83,7 @@ export default {
         }
     },
     account: {
-        manager: "管理者",
+        admin: "管理者",
         guide: "ガイド"
     }
 };

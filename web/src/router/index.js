@@ -23,6 +23,11 @@ const routes = [
     component: () => import("@/views/ToursListView.vue"),
   },
   {
+    path: "/tours/create",
+    name: "input",
+    component: () => import("@/views/CreateTour.vue"),
+  },
+  {
     path: "/tours/:id",
     name: "tour",
     component: () => import("@/views/TourView.vue"),
