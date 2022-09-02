@@ -183,6 +183,7 @@ export default {
     },
   },
   async beforeRouteEnter(to, from, next) {
+    // ガイドの予定入力状態をコードに変換
     const guideStateMethod = (answered, possible) => {
       if (answered) {
         if (possible) {
@@ -192,12 +193,14 @@ export default {
       }
       return 3;
     };
+
     // ツアー一覧データの取得
     const response = await api.get(
-      `/api/v1/tours/detail/${to.$route.id}`,
+      `/api/v1/tours/detail/${to.params.id}`,
       next
     );
-    // console.log(response);
+
+    // 各種情報のパース
     const { tour } = response.data;
     const guideschedules = response.data.guide_schedules;
     const tourguides = response.data.tour_guides;
