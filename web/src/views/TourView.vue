@@ -88,6 +88,8 @@
 </template>
 
 <script>
+import api from "@/mixins/api";
+
 export default {
   data() {
     return {
@@ -115,7 +117,7 @@ export default {
   methods: {
     alert_disp() {
       if (window.confirm("ツアーの取り消しを実行しますか？")) {
-        window.location.href = "/tours"; // 確認ページにジャンプ(一覧ページに飛ばしてます、変更してください）
+        api.delete(`/api/v1/tours/${this.tour.id}`); // 確認ページにジャンプ(一覧ページに飛ばしてます、変更してください）
       }
       // 「OK」時の処理終了
 
@@ -191,7 +193,10 @@ export default {
       return 3;
     };
     // ツアー一覧データの取得
-    const response = await api.get("/api/v1/tours/detail/2", next);
+    const response = await api.get(
+      `/api/v1/tours/detail/${to.$route.id}`,
+      next
+    );
     // console.log(response);
     const { tour } = response.data;
     const guideschedules = response.data.guide_schedules;
@@ -345,6 +350,7 @@ h3 {
   margin-bottom: 1em;
   background-color: var(--color-green);
   color: var(--color-white);
+}
 .memo_box {
   margin: 0;
   min-width: 50%;
