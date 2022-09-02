@@ -15,9 +15,18 @@ p {
     padding-left: .5em;
 }
 
-#default-layout h2{
+#default-layout h2 {
     border-left: .25em solid var(--color-theme);
     padding-left: .5em;
+}
+
+/*テーブルソートの部品*/
+.asc::after {
+    content: "▼";
+}
+
+.desc::after {
+    content: "▲";
 }
 
 /* よく使うパーツ */

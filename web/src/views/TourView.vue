@@ -1,20 +1,24 @@
 <template>
   <div id="tour-page">
-    <h1>ツアー詳細</h1>
+    <h1>{{ $t("pages.tours.tour.title") }}</h1>
     <div id="tour-name">{{ tour.name }}</div>
 
     <!-- 上部の情報パネル -->
     <div id="panel">
       <article class="info" id="guide">
-        <p class="outline">必要ガイド人数</p>
-        <p class="value">{{ tour.guide_num }}名</p>
+        <p class="outline">
+          {{ $t("pages.tours.tour.requirement_guide_num_title") }}
+        </p>
+        <p class="value">
+          {{ $t("common.people_num_unit", { num: tour.guide_num }) }}
+        </p>
       </article>
       <article class="info" id="date">
-        <p class="outline">開始日時</p>
+        <p class="outline">{{ $t("common.start_datetime") }}</p>
         <p class="value">{{ datetimeFormat(tour.start_datetime) }}</p>
       </article>
       <article class="info" id="state">
-        <p class="outline">ツアー実施状態</p>
+        <p class="outline">{{ $t("pages.tours.tour.tour_state_title") }}</p>
         <p class="value">{{ tour_state[tour.tour_state_code] }}</p>
       </article>
     </div>
@@ -24,32 +28,44 @@
       <div id="num">
         <table class="inline_table">
           <caption>
-            ツアー参加者人数
+            {{
+              $t("table.tour_participant_num.caption")
+            }}
           </caption>
           <tr>
-            <td>大人</td>
-            <td>{{ tour.adult_num }}名</td>
+            <td>{{ $t("table.tour_participant_num.adult_num") }}</td>
+            <td>
+              {{ $t("common.people_num_unit", { num: tour.adult_num }) }}
+            </td>
           </tr>
           <tr>
-            <td>子供</td>
-            <td>{{ tour.child_num }}名</td>
+            <td>{{ $t("table.tour_participant_num.child_num") }}</td>
+            <td>
+              {{ $t("common.people_num_unit", { num: tour.child_num }) }}
+            </td>
           </tr>
           <tr>
-            <td>計</td>
-            <td>{{ tour.adult_num + tour.child_num }}名</td>
+            <td>{{ $t("table.tour_participant_num.sum_num") }}</td>
+            <td>
+              {{
+                $t("common.people_num_unit", {
+                  num: tour.adult_num + tour.child_num,
+                })
+              }}
+            </td>
           </tr>
         </table>
       </div>
       <div class="memo">
-        <p id="memo">メモ</p>
+        <p id="memo">{{ $t("common.memo") }}</p>
         <div class="memo_box">
-          <p>{{ tour.memo }}</p>
+          {{ tour.memo }}
         </div>
       </div>
     </div>
 
     <!-- 参加ガイドの一覧 -->
-    <h2>参加予定一覧</h2>
+    <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
     <div id="tours_list">
       <table>
         <thead>
@@ -74,7 +90,7 @@
             v-for="schedule in guideschedules"
             :key="schedule.id"
           >
-            <td v-if="schedule.assign">〇</td>
+            <td v-if="schedule.assign">{{ $t("table.guide.assign_mark") }}</td>
             <td v-else></td>
             <td>{{ schedule.name }}</td>
             <td>{{ schedule.email }}</td>
@@ -87,7 +103,7 @@
     </div>
 
     <!-- ツアー操作 -->
-    <h2>ツアー操作</h2>
+    <h2>{{ $t("pages.tours.tour.tour_setting_title") }}</h2>
     <ul>
       <li>
         <a @click="alert_disp()" href="javascript:void(0)">
@@ -198,7 +214,6 @@ export default {
 
 /*テーブル全体の設定*/
 #tours_list table {
-  //border-collapse: collapse;
   font-size: 1.25em;
   margin: 0 auto;
   padding: 0;
@@ -302,12 +317,7 @@ h3 {
   min-height: 80%;
   background-color: var(--color-light-gray);
   border: solid 3px var(--color-theme);
-}
-/*テーブルソートの部品*/
-.asc::after {
-  content: "▼";
-}
-.desc::after {
-  content: "▲";
+  padding: 1em;
+  box-sizing: border-box;
 }
 </style>

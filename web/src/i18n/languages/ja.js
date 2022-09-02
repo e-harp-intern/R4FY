@@ -13,6 +13,10 @@ export default {
             title: "ツアー",
             tour: {
                 title: "ツアー詳細",
+                tour_state_title: "ツアー実施状態",
+                requirement_guide_num_title: "必要ガイド人数",
+                guide_list_title: "参加予定一覧",
+                tour_setting_title: "ツアー操作"
             },
             create: {
                 title: "ツアー新規追加",
@@ -64,6 +68,12 @@ export default {
         }
     },
     table: {
+        tour_participant_num: {
+            caption: "ツアー参加者人数",
+            adult_num: "大人",
+            child_num: "子供",
+            sum_num: "合計"
+        },
         tour: {
             name: "ツアー名",
             start_datetime: "開始日時",
@@ -75,6 +85,7 @@ export default {
             name: "名前",
             email: "メールアドレス",
             answered_state: "参加可否",
+            assign_mark: "〇"
         }
     },
     state: {
@@ -94,5 +105,11 @@ export default {
     account: {
         admin: "管理者",
         guide: "ガイド"
+    },
+    common: {
+        memo: "メモ",
+        start_datetime: "開始日時",
+        end_datetime: "終了日時",
+        people_num_unit: "%{num} 名"
     }
 };
