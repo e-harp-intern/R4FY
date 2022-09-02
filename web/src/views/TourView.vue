@@ -101,6 +101,7 @@
 <script>
 import api from "@/mixins/api";
 import common from "@/mixins/common";
+import table from "@/mixins/table";
 
 export default {
   data() {
@@ -124,14 +125,16 @@ export default {
         2: this.$t("state.guide_participation.2"),
         3: this.$t("state.guide_participation.3"),
       },
-
-      /* テーブルソート */
-      sort_key: "",
-      sort_asc: true,
     };
   },
   created() {},
   methods: {
+    // テーブル処理を共通メソッドに渡す
+    addSortClass: (key) => table.methods.addSortClass(key),
+    sortBy(key) {
+      table.methods.sortBy(key, this.guideschedules);
+    },
+
     // 日時を指定フォーマットに成形
     datetimeFormat(d) {
       return this.$t("other.datetime", common.datetimeData(d));
@@ -148,38 +151,6 @@ export default {
         // 「キャンセル」時の処理開始
         window.alert("キャンセルされました"); // 警告ダイアログを表示
       }
-    },
-
-    /* テーブルのソートを開始 */
-    sortBy(key) {
-      // 前回の選択と同じタイトルを選択された場合、sort_ascを切り替え、昇順降順処理の切り替えを行う
-      this.sort_asc = this.sort_key !== key ? true : !this.sort_asc;
-      this.sort_key = key;
-      this.sortArray(key, this.sort_asc, this.guideschedules);
-    },
-
-    /* テーブルのソートを行う */
-    sortArray: (key, asc, array) => {
-      // タイトルが選択されているか判断
-      if (key === "") return array;
-
-      // 選択されたタイトルで並び替える
-      const order = asc ? 1 : -1;
-      array.sort((a, b) => {
-        if (a[key] < b[key]) return -1 * order;
-        if (a[key] > b[key]) return 1 * order;
-        return 0;
-      });
-
-      return array;
-    },
-
-    /* テーブルの昇順降順表示を切り替える */
-    addSortClass(key) {
-      return {
-        asc: this.sort_key === key && this.sort_asc,
-        desc: this.sort_key === key && !this.sort_asc,
-      };
     },
   },
   async beforeRouteEnter(to, from, next) {
