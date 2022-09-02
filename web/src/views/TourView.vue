@@ -11,7 +11,7 @@
       </article>
       <article class="info" id="date">
         <p class="outline">開始日時</p>
-        <p class="value">{{ datetime_method(tour.start_datetime) }}</p>
+        <p class="value">{{ datetimeFormat(tour.start_datetime) }}</p>
       </article>
       <article class="info" id="state">
         <p class="outline">ツアー実施状態</p>
@@ -54,16 +54,16 @@
       <table>
         <thead>
           <tr>
-            <th @click="sortBy('assign')" :class="addClass('assign')">
+            <th @click="sortBy('assign')" :class="addSortClass('assign')">
               {{ $t("table.guide.assign") }}
             </th>
-            <th @click="sortBy('name')" :class="addClass('name')">
+            <th @click="sortBy('name')" :class="addSortClass('name')">
               {{ $t("table.guide.name") }}
             </th>
-            <th @click="sortBy('email')" :class="addClass('email')">
+            <th @click="sortBy('email')" :class="addSortClass('email')">
               {{ $t("table.guide.email") }}
             </th>
-            <th @click="sortBy('state')" :class="addClass('answered_state')">
+            <th @click="sortBy('state')" :class="addSortClass('state')">
               {{ $t("table.guide.answered_state") }}
             </th>
           </tr>
@@ -90,7 +90,7 @@
     <h2>ツアー操作</h2>
     <ul>
       <li>
-        <a @click="alert_disp()" href="">
+        <a @click="alert_disp()" href="javascript:void(0)">
           {{ $t("pages.tours.delete.title") }}
         </a>
       </li>
@@ -100,6 +100,7 @@
 
 <script>
 import api from "@/mixins/api";
+import common from "@/mixins/common";
 
 export default {
   data() {
@@ -107,6 +108,8 @@ export default {
       tour: {},
       guideschedules: [],
       tourguides: [],
+
+      /* ツアーの状態テキスト */
       tour_state: {
         1: this.$t("state.tour.1"),
         2: this.$t("state.tour.2"),
@@ -114,11 +117,14 @@ export default {
         5: this.$t("state.tour.5"),
         8: this.$t("state.tour.8"),
       },
+
+      /* ガイド参加可否入力状態テキスト */
       guide_state: {
-        1: this.$t("state.guide.1"),
-        2: this.$t("state.guide.2"),
-        3: this.$t("state.guide.3"),
+        1: this.$t("state.guide_participation.1"),
+        2: this.$t("state.guide_participation.2"),
+        3: this.$t("state.guide_participation.3"),
       },
+
       /* テーブルソート */
       sort_key: "",
       sort_asc: true,
@@ -126,67 +132,50 @@ export default {
   },
   created() {},
   methods: {
+    // 日時を指定フォーマットに成形
+    datetimeFormat(d) {
+      return this.$t("other.datetime", common.datetimeData(d));
+    },
+
+    // 中止処理
     alert_disp() {
       if (window.confirm("ツアーの取り消しを実行しますか？")) {
-        api.delete(`/api/v1/tours/${this.tour.id}`); // 確認ページにジャンプ(一覧ページに飛ばしてます、変更してください）
-      }
-      // 「OK」時の処理終了
-
-      // 「キャンセル」時の処理開始
-      else {
+        // 「OK」時の処理終了
+        api.delete(`/api/v1/tours/${this.tour.id}`);
+        window.alert("ツアーの中止を行いました。");
+        this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
+      } else {
+        // 「キャンセル」時の処理開始
         window.alert("キャンセルされました"); // 警告ダイアログを表示
       }
     },
-    /* 日時成形処理 */
-    datetime_method(datetime) {
-      datetime = new Date(datetime);
-      return this.$t("other.datetime", {
-        year: datetime.getUTCFullYear(),
-        month: datetime.getUTCMonth() + 1,
-        date: datetime.getUTCDate().toString().padStart(2, "0"),
-        hours: datetime.getUTCHours().toString().padStart(2, "0"),
-        minutes: datetime.getUTCMinutes().toString().padStart(2, "0"),
-      });
-    },
-    /* テーブルソート */
 
-    /* テーブルタイトル選択時、タイトル要素の昇順に並び替える
-       もう一度同じタイトルが選択された場合、昇順、降順を切り替える
-      並び替えたデータを返す */
-    sort_guides() {
-      // タイトルが選択されているか判断
-      if (this.sort_key !== "") {
-        let set = 1;
-        // タイトルの選択状態を判断
-        if (this.sort_asc) {
-          set = 1;
-        } else {
-          set = -1;
-        }
-        // ツアーを選択されたタイトルで並び替える
-        this.guideschedules.sort((a, b) => {
-          if (a[this.sort_key] < b[this.sort_key]) return -1 * set;
-          if (a[this.sort_key] > b[this.sort_key]) return 1 * set;
-          return 0;
-        });
-        return this.guideschedules;
-      }
-      return this.guideschedules;
-    },
-    /* タイトルが選択された場合に呼び出される処理 */
+    /* テーブルのソートを開始 */
     sortBy(key) {
       // 前回の選択と同じタイトルを選択された場合、sort_ascを切り替え、昇順降順処理の切り替えを行う
-      if (this.sort_key === key) {
-        this.sort_asc = !this.sort_asc;
-      } else {
-        this.sort_asc = true;
-      }
+      this.sort_asc = this.sort_key !== key ? true : !this.sort_asc;
       this.sort_key = key;
-      this.sort_guides();
+      this.sortArray(key, this.sort_asc, this.guideschedules);
     },
-    /* タイトルが選択された場合に呼び出される処理 */
-    addClass(key) {
-      // 昇順降順を管理する
+
+    /* テーブルのソートを行う */
+    sortArray: (key, asc, array) => {
+      // タイトルが選択されているか判断
+      if (key === "") return array;
+
+      // 選択されたタイトルで並び替える
+      const order = asc ? 1 : -1;
+      array.sort((a, b) => {
+        if (a[key] < b[key]) return -1 * order;
+        if (a[key] > b[key]) return 1 * order;
+        return 0;
+      });
+
+      return array;
+    },
+
+    /* テーブルの昇順降順表示を切り替える */
+    addSortClass(key) {
       return {
         asc: this.sort_key === key && this.sort_asc,
         desc: this.sort_key === key && !this.sort_asc,
@@ -212,6 +201,7 @@ export default {
     const guideschedules = response.data.guide_schedules;
     const tourguides = response.data.tour_guides;
 
+    // ネスとした情報を扱いやすいようにコピー
     for (const g of guideschedules) {
       g.name = g.guide.name;
       g.email = g.guide.email;
@@ -344,9 +334,9 @@ h3 {
 }
 /*テーブルソートの部品*/
 .asc::after {
-  content: "↓";
+  content: "▼";
 }
 .desc::after {
-  content: "↑";
+  content: "▲";
 }
 </style>
