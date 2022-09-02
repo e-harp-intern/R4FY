@@ -13,18 +13,25 @@ export default {
             title: "ツアー",
             tour: {
                 title: "ツアー詳細",
+                tour_state_title: "ツアー実施状態",
+                requirement_guide_num_title: "必要ガイド人数",
+                guide_list_title: "参加予定一覧",
+                tour_setting_title: "ツアー操作"
             },
             create: {
                 title: "ツアー新規追加",
+            },
+            delete: {
+                title: "ツアー取り消し",
             }
         },
         createaccount: {
             title: "アカウント作成",
-           detail:  "以下のフォームに情報を入力してください。送信ボタンを押すと、アカウント作成通知メールが、入力したメールアドレス宛に送信されます。",
-           message: {
-            true:"アカウントを作成しました。",
-            false:"アカウントの作成に失敗しました。"
-           }
+            detail: "以下のフォームに情報を入力してください。送信ボタンを押すと、アカウント作成通知メールが、入力したメールアドレス宛に送信されます。",
+            message: {
+                true: "アカウントを作成しました。",
+                false: "アカウントの作成に失敗しました。"
+            }
         },
     },
     other: {
@@ -61,17 +68,24 @@ export default {
         }
     },
     table: {
+        tour_participant_num: {
+            caption: "ツアー参加者人数",
+            adult_num: "大人",
+            child_num: "子供",
+            sum_num: "合計"
+        },
         tour: {
-            name:"ツアー名",
-            start_datetime:"開始日時",
-            end_datetime:"終了日時",
-            state:"状態"
+            name: "ツアー名",
+            start_datetime: "開始日時",
+            end_datetime: "終了日時",
+            state: "状態"
         },
         guide: {
             assign: "担当",
             name: "名前",
             email: "メールアドレス",
             answered_state: "参加可否",
+            assign_mark: "〇"
         }
     },
     state: {
@@ -82,14 +96,20 @@ export default {
             5: "実績記入済み",
             8: "中止",
         },
-        guide: {
-            1: "可",
-            2: "不",
-            3: "未",
+        guide_participation: {
+            1: "〇",
+            2: "×",
+            3: "未入力",
         }
     },
     account: {
         admin: "管理者",
         guide: "ガイド"
+    },
+    common: {
+        memo: "メモ",
+        start_datetime: "開始日時",
+        end_datetime: "終了日時",
+        people_num_unit: "%{num} 名"
     }
 };
