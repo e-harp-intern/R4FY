@@ -16,13 +16,13 @@ class ApplicationController < ActionController::API
   # 404 エラー
   def render_404(e = nil)
     logger.info "Rendering 404 with exception: #{e.message}" if e
-    render json: { error: "404 error" }, status: 404
+    render json: json_render_v1(false, { error: "not found", status: 404 })
   end
 
   # 500エラー
   def render_500(e = nil)
     logger.info "Rendering 500 with exception: #{e.message}" if e
-    render json: { error: "500 error" }, status: 500
+    render json: json_render_v1(false, { error: "server error", status: 500 })
   end
 
   private
