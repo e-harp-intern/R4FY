@@ -1,62 +1,8 @@
 # R4FY
 インターンでの開発物を管理するためのリポジトリです。
 
-## 初回起動前
-<details>
-<summary>初回起動手順（長いので折り畳み）</summary>
-
----
-
-1. Visual Studio Code でリポジトリを開き、「ターミナル＞新しいターミナル」でターミナルをを表示。
-2. 右側のターミナルの種類が「powershell」であることを確認。
-3. 以下のコマンドを順番に実行。**※コマンドを同時に実行しないこと！**
-
-### GitのConfigの追加
-Gitのコマンドを実行できる場所で実行（SourceTree → ターミナル等）。
-```shell
-git config --local core.hooksPath .githooks
-```
-
-### Docker-Networkの作成
-```shell
-docker network create r4fy-network-shared
-```
-
-### フロント側の追加パッケージインストール
-```shell
-docker-compose run web npm install
-```
-
-### API側の追加パッケージインストール
-```shell
-docker-compose run api bundle install
-```
-
-### API側のデータベース初期化
-```shell
-docker-compose run api rails db:migrate
-docker-compose run api rails db:seed
-```
-
-#### 初期アカウント情報
-- name: `管理者`
-- email: `admin@mail.local`
-- password: `password`
-  
-### 起動してみる
-```
-docker-compose up
-```
-立ち上がったら localhost:3000 と localhost:8080 と localhost:1080 にブラウザからアクセスして確認。
-
-### 以下の拡張機能を VSCode にインストール（すでにインストール済みであればスキップ）
-- ESLint (`dbaeumer.vscode-eslint`)
-- Prettier (`esbenp.prettier-vscode`)
-- ruby-rubocop (`misogi.ruby-rubocop`)
-
----
-
-</details>
+## 初回起動手順
+- [初回起動手順](./docs/%E5%88%9D%E5%9B%9E%E8%B5%B7%E5%8B%95%E6%89%8B%E9%A0%86.md)
 
 ## 起動手順
 ### 一括（基本的に使わない）
@@ -66,6 +12,13 @@ docker-compose up
 
 `-d`オプション付きでバックグラウンド実行。`docker-compose stop`で停止。
 
+### DBエラー時
+以下のコマンドでDBを初期化（データが消えるので注意）
+```shell
+docker-compose run api rails db:migrate:reset
+docker-compose run api rails db:seed
+```
+
 ### 別々に起動したい場合（開発時はこちらを使用）
 ※別のコンソールタブで実行
 ```shell
@@ -73,8 +26,8 @@ docker-compose up api
 docker-compose up web
 docker-compose up mail
 ```
-※初回起動時にアクセス許可を求められるが、「許可する」または「はい」を選択する（パブリックの...のチェックボックスは変更しない）。  
-※`Ctrl + C`で終了。  
+※初回起動時にアクセス許可を求められるが、「許可する」または「はい」を選択する（パブリックの...のチェックボックスは変更しない）。
+※`Ctrl + C`で終了。
 ※mailを終了すると届いたメールは消える（消えないこともある？）。
 
 
@@ -85,78 +38,7 @@ docker-compose run web sh
 ※ここで実行してもポートの設定をしていないのでつながらない（はず）。
 
 ## 検証環境・本番環境 起動（開発環境では使用しない）
-<details>
-<summary>検証環境手順</summary>
-
----
-
-開発環境と同じ手順で準備後...
-
-### メール設定
-`api/config/mail.yml` を以下のように書き換え
-```yml
-method: :smtp
-settings:
-  :domain: "harp-intern.local"
-  :address: "192.168.0.50"
-  :port: 25
-  :tls: false
-  :ssl: false
-  :authentication: nil
-  :enable_starttls_auto: true
-  :openssl_verify_mode: 'none'
-default_options:
-  :from: "test@harp-intern.local"
-```
-
-### CROS設定
-`api/config/initialize/cors.rb` を環境に合わせ書き換え
-
-### 起動
-```shell
-docker-compose up -d api
-docker-compose up -d web
-```
-
-
----
-
-</details>
-
-<details>
-<summary>検証環境手順（旧）</summary>
-
----
-
-### ビルド
-```shell
-docker-compose run web npm run build
-```
-
-### CROS設定変更
-- `api/config/initializers/cors.rb`
-  - `origins` を環境に合わせて書き換える
-- `/api/config/mail.yml`
-  - 環境に合わせてメールの設定
-
-### DB
-- `rails s -e production` で起動するように変更しているなら以下の手順を実行
-```
-docker-compose run api rake db:create RAILS_ENV=production #本番環境（Production）でrakeコマンド（DB作成）
-docker-compose run api rake db:migrate RAILS_ENV=production #本番環境（Production）でrakeコマンド（マイグレーション実行）
-```
-
-### 起動
-```shell
-docker-compose -f docker-compose-prod.yaml up -d
-```
-
-- アクセス: http://localhost:9000/
-
----
-
-</details>
-
+- [検証環境環境手順](./docs/%E6%A4%9C%E8%A8%BC%E7%92%B0%E5%A2%83%E6%89%8B%E9%A0%86.md)
 
 ## ディレクトリ構成（使うところだけ説明）
 - `.vscode` ...Visual Studio Code の共通設定を入れています。
@@ -181,7 +63,7 @@ docker-compose -f docker-compose-prod.yaml up -d
     - `main.js` ...全体を読み込むためのメインとなるファイル（？）です。
     - `App.vue` ...全体に適用する CSS を書くことができます。ここにページを埋め込んで表示しているようなイメージです。
 - `docker-compose.yml` ...開発環境で使用するDockerのための定義です。
-    
+
 <details>
 <summary>ディレクトリ構成（もう少し詳しく）</summary>
 
