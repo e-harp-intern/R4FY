@@ -19,7 +19,7 @@
       </article>
       <article class="info" id="state">
         <p class="outline">{{ $t("pages.tours.tour.tour_state_title") }}</p>
-        <p class="value">{{ tour_state[tour.tour_state_code] }}</p>
+        <p class="value">{{ codeToTourStateString(tour.tour_state_code) }}</p>
       </article>
     </div>
 
@@ -95,7 +95,7 @@
             <td>{{ schedule.name }}</td>
             <td>{{ schedule.email }}</td>
             <td>
-              {{ guide_state[schedule.state] }}
+              {{ codeToGuideStateString(schedule.state) }}
             </td>
           </tr>
         </tbody>
@@ -125,35 +125,19 @@ export default {
       tour: {},
       guideschedules: [],
       tourguides: [],
-
-      /* ツアーの状態テキスト */
-      tour_state: {
-        1: this.$t("state.tour.1"),
-        2: this.$t("state.tour.2"),
-        4: this.$t("state.tour.4"),
-        5: this.$t("state.tour.5"),
-        8: this.$t("state.tour.8"),
-      },
-
-      /* ガイド参加可否入力状態テキスト */
-      guide_state: {
-        1: this.$t("state.guide_participation.1"),
-        2: this.$t("state.guide_participation.2"),
-        3: this.$t("state.guide_participation.3"),
-      },
     };
   },
   created() {},
   methods: {
+    // 共通処理を受け渡し
+    codeToTourStateString: (state) => common.codeToTourStateString(state),
+    codeToGuideStateString: (state) => common.codeToGuideStateString(state),
+    datetimeFormat: (d) => common.datetimeFormat(d),
+
     // テーブル処理を共通メソッドに渡す
     addSortClass: (key) => table.methods.addSortClass(key),
     sortBy(key) {
       table.methods.sortBy(key, this.guideschedules);
-    },
-
-    // 日時を指定フォーマットに成形
-    datetimeFormat(d) {
-      return this.$t("other.datetime", common.datetimeData(d));
     },
 
     // 中止処理
