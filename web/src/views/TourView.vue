@@ -162,10 +162,7 @@ export default {
     };
 
     // ツアー一覧データの取得
-    const response = await api.get(
-      `/api/v1/tours/detail/${to.params.id}`,
-      next
-    );
+    const response = await api.get(`/api/v1/tours/${to.params.id}`, next);
 
     // 各種情報のパース
     const { tour } = response.data;
