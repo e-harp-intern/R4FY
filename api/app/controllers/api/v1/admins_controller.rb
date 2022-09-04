@@ -1,5 +1,7 @@
 # 管理者アカウントを作成するためのコントローラー
 class Api::V1::AdminsController < ApplicationController
+  before_action :require_login
+
   # 　管理者アカウント作成のメソッド
   def create
     # 管理者アカウントに必要な情報を取得

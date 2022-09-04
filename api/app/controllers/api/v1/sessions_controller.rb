@@ -1,10 +1,14 @@
 # ログインをするためのコントローラー
 class Api::V1::SessionsController < ApplicationController
+  before_action :require_login, except: [:create]
+
   # ログインのメソッド
   def create
     user = Admin.find_by(email: params[:session][:email].downcase)
+    session[:user_id] = nil
     if user && user.authenticate(params[:session][:password])
       # ログイン成功
+      session[:user_id] = user.id
       render json: json_render_v1(true)
     else
       # ログイン失敗

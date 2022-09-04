@@ -1,5 +1,7 @@
 # ガイドアカウントを作成するためのコントローラー
 class Api::V1::GuidesController < ApplicationController
+  before_action :require_login
+
   # ガイドアカウントを作成するメソッド
   def create
     # ガイドアカウントに必要な情報を取得

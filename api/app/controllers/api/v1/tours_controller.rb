@@ -2,6 +2,8 @@
 require "securerandom"
 
 class Api::V1::ToursController < ApplicationController
+  before_action :require_login
+
   # ツアー一覧を降順取得
   def index
     tours = Tour.order(start_datetime: :DESC)
