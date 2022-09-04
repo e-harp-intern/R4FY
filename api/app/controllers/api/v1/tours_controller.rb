@@ -1,7 +1,14 @@
+# ツアー関連のコントローラーです
 require "securerandom"
 
-class Api::V1::TouraddsController < ApplicationController
-  # 　ツアー予定追加のメソッド
+class Api::V1::ToursController < ApplicationController
+  # ツアー一覧を降順取得
+  def index
+    tours = Tour.order(start_datetime: :DESC)
+    render json: json_render_v1(true, tours)
+  end
+
+  # 　ツアーの追加
   def create
     # ツアー予定追加に必要な情報を取得
     ApplicationRecord.transaction do
@@ -18,7 +25,6 @@ class Api::V1::TouraddsController < ApplicationController
       end
 
     rescue ActiveRecord::RecordInvalid
-      # バリデーション外であればエラー表示
       render json: json_render_v1(false)
       return
     end

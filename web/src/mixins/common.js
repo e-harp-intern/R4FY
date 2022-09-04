@@ -1,8 +1,41 @@
 /* eslint-disable */
 // 共通処理
 
-export default {
-    /* 日時成形処理用 */
+import Vue from 'vue';
+
+/* ツアー状態文字の定義 */
+const tourStateString = {
+    1: Vue.i18n.t("state.tour.1"),
+    2: Vue.i18n.t("state.tour.2"),
+    4: Vue.i18n.t("state.tour.4"),
+    5: Vue.i18n.t("state.tour.5"),
+    8: Vue.i18n.t("state.tour.8"),
+}
+
+/* 参加可否状態の文字の定義 */
+const guideStateString = {
+    1: Vue.i18n.t("state.guide_participation.1"),
+    2: Vue.i18n.t("state.guide_participation.2"),
+    3: Vue.i18n.t("state.guide_participation.3"),
+}
+
+const methods = {
+    /* ツアー状態をコードから文字列にする */
+    codeToTourStateString(state) {
+        return tourStateString[state];
+    },
+
+    /* ガイド参加可否入力状態をコードから文字列に変換 */
+    codeToGuideStateString(code) {
+        return guideStateString[code];
+    },
+
+    /* 日付フォーマット */
+    datetimeFormat: (datetime) => {
+        return Vue.i18n.t("other.datetime", methods.datetimeData(datetime));
+    },
+
+    /* 日時成形処理用パーツ */
     datetimeData: (datetime) => {
         datetime = new Date(datetime);
         return {
@@ -14,3 +47,5 @@ export default {
         };
     }
 }
+
+export default methods;
