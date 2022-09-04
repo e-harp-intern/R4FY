@@ -1,7 +1,7 @@
 <template>
   <div id="tours-list-page">
     <h1>{{ $t("pages.tours.title") }}</h1>
-    <button @click="urllink('create')" id="create_tour_btn">
+    <button @click="goTourDetail('create')" id="create_tour_btn">
       {{ $t("pages.tours.create.title") }}
     </button>
     <table>
