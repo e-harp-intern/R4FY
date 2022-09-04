@@ -8,8 +8,8 @@ const tourStateString = {
     1: Vue.i18n.t("state.tour.1"),
     2: Vue.i18n.t("state.tour.2"),
     4: Vue.i18n.t("state.tour.4"),
-    5: Vue.i18n.t("state.tour.5"),
     8: Vue.i18n.t("state.tour.8"),
+    256: Vue.i18n.t("state.tour.256"),
 }
 
 /* 参加可否状態の文字の定義 */
