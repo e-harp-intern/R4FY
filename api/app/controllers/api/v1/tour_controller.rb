@@ -1,5 +1,7 @@
 # ツアー詳細のコントローラーです
 class Api::V1::TourController < ApplicationController
+  before_action :require_login
+
   # ツアー詳細を表示
   def index
     # 必要な情報を取得

@@ -27,14 +27,14 @@ class ApplicationController < ActionController::API
 
   private
 
-  # ログインしていないと使用できない機能には controller の class 内に before_action :require_login を定義
-  # def require_login
-  #   # @current_user = User.find_by(id: session[:user_id])
-  #   @current_user = @current_user || User.find_by(id: session[:user_id])
-  #   return if @current_user
+  # ログインしていない場合、認証エラーとする
+  def require_login
+    @current_user = @current_user || Admin.find_by(id: session[:user_id])
+    return if @current_user
 
-  #   render json: json_render_v1(false, { error: "unauthorized" }), status: :unauthorized
-  # end
+    render json: json_render_v1(false, { error: "unauthorized", hint: "login required for access", status: 403 }),
+           status: :unauthorized
+  end
 
   # 返すデータの枠 （status ...true=success, false=erro, nil=none）
   def json_render_v1(flg = nil, json = {})
