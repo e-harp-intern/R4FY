@@ -27,14 +27,18 @@ Tour.create(name: "藻岩山観光", tour_state_code: 4, start_datetime: "2020-0
             end_datetime: "2020-07-28T22:00:00", adult_num: 7, child_num: 0, guide_num: 1, remind_date: "2020-07-27", sent_remind: true, schedule_input_deadline: "2020-06-20T21:00:00")
 Tour.create(name: "藻岩山観光", tour_state_code: 8, start_datetime: "2020-08-13T20:00:00",
             end_datetime: "2020-07-28T22:00:00", adult_num: 12, child_num: 2, guide_num: 1, remind_date: "2020-08-12", sent_remind: true, memo: "台風のため中止", schedule_input_deadline: "2020-06-20T21:00:00")
-Tour.create(name: "函館山観光", tour_state_code: 1, start_datetime: "2020-08-23T23:00:00",
+Tour.create(name: "函館山観光", tour_state_code: 256, start_datetime: "2020-08-23T23:00:00",
             end_datetime: "2020-08-24T02:00:00", adult_num: 12, child_num: 0, guide_num: 2, remind_date: "2020-08-20", sent_remind: true, memo: "日付をまたぎます", schedule_input_deadline: "2020-08-22T21:00:00")
 Tour.create(name: "室蘭観光", tour_state_code: 1, start_datetime: "2020-09-23T10:00:00",
             end_datetime: "2020-09-23T18:00:00", adult_num: 20, child_num: 6, guide_num: 8, remind_date: "2020-09-20", sent_remind: true, memo: "ガイドが多く必要です", schedule_input_deadline: "2020-09-22T21:00:00")
 
 # 管理者テストデータ
 Admin.create!(name: "管理者", email: "admin@mail.local", password: "password")
+Admin.create!(name: "テスト１", email: "test1@mail.local", password: "password")
+Admin.create!(name: "テスト２", email: "test2@mail.local", password: "password")
+Admin.create!(name: "テスト３", email: "test3@mail.local", password: "password")
 
+# その他テストデータ
 for num in 1..4 do
   GuideSchedule.create(answered: true, possible: true, tour_id: 2, guide_id: num)
 end
