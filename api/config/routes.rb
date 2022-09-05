@@ -17,4 +17,7 @@ Rails.application.routes.draw do
           delete "tours/:id" => "tour#destroy"
         end
     end
+
+    # フロント表示用
+    get "*not_found" => "front#index"
 end
