@@ -16,4 +16,10 @@ class Api::V1::AdminsController < ApplicationController
     # アカウントが作成されたら成功表示
     render json: json_render_v1(true)
   end
+
+  # 　管理者名を取得する
+  def index
+    # 　管理者名を表示
+    render json: json_render_v1(true, @current_user)
+  end
 end

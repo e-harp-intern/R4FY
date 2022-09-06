@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
           # アカウント
           post "guides" => "guides#create"
+          get "admins/me" => "admins#index"
           post "admins" => "admins#create"
           get "accounts" => "accounts#index"
 
