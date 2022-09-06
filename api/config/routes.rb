@@ -17,7 +17,7 @@ Rails.application.routes.draw do
           delete "tours/:id" => "tour#destroy"
 
           #　管理者の名前を表示する
-          get "admin_name_show" => "admins#index"
+          get "/admins/me" => "admins#index"
         end
     end
 
