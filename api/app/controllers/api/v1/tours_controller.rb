@@ -21,7 +21,7 @@ class Api::V1::ToursController < ApplicationController
     guides = Guide.where(is_invalid: false)
 
     # 追加した予定に対してガイドスケジュール,トークンを作成
-    for guide in guides do
+    guides.each do |guide|
       GuideSchedule.create(tour_id: tour.id, guide_id: guide.id)
       Token.new(token: generate_token, tour_id: tour.id, guide_id: guide.id).save!
     end
