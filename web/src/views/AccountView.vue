@@ -6,13 +6,13 @@
       <table>
         <thead>
           <tr>
-            <th>
+            <th @click="sortBy('authority')" :class="addSortClass('authority')">
               {{ $t("table.account.authority") }}
             </th>
-            <th>
+            <th @click="sortBy('name')" :class="addSortClass('name')">
               {{ $t("table.account.name") }}
             </th>
-            <th>
+            <th @click="sortBy('email')" :class="addSortClass('email')">
               {{ $t("table.account.email") }}
             </th>
           </tr>
@@ -35,6 +35,7 @@
 
 <script>
 import api from "@/mixins/api";
+import table from "@/mixins/table";
 
 export default {
   data() {
@@ -46,7 +47,13 @@ export default {
     };
   },
   created() {},
-  methods: {},
+  methods: {
+    // テーブル処理を共通メソッドに渡す
+    addSortClass: (key) => table.methods.addSortClass(key),
+    sortBy(key) {
+      table.methods.sortBy(key, this.accounts);
+    },
+  },
   async beforeRouteEnter(to, from, next) {
     const response = await api.get(`/api/v1/accounts`, next);
 
