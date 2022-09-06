@@ -83,7 +83,7 @@ export default {
   methods: {
     async login() {
       const apiLogin = "/api/v1/login";
-      const nextPage = "/tourslist";
+      const nextPage = "/tours";
 
       try {
         // ロード中にする
