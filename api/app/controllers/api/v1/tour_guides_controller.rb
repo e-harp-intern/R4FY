@@ -17,6 +17,9 @@ class Api::V1::TourGuidesController < ApplicationController
         t = TourGuide.new(tour_id: tour_id, guide_id: g)
         t.save
       end
+
+      # ツアーの状態を担当者決定済みに更新
+      Tour.find(tour_id).update(tour_state_code: TOUR_STATE_CODE_ASSIGNED)
     end
 
     # TODO: 成功時はメールを送信 #75 で実装予定
