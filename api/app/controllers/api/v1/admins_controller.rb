@@ -18,7 +18,7 @@ class Api::V1::AdminsController < ApplicationController
   end
 
   # 　管理者名を取得する
-  def admin_name_show
+  def index
     # 　管理者名を表示
     render json: json_render_v1(true, @current_user)
   end
