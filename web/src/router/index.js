@@ -13,7 +13,7 @@ const routes = [
     },
   },
   {
-    path: "/createaccount",
+    path: "/accounts/create",
     name: "createaccount",
     component: () => import("@/views/CreateAccount.vue"),
   },
@@ -31,6 +31,11 @@ const routes = [
     path: "/tours/:id",
     name: "tour",
     component: () => import("@/views/TourView.vue"),
+  },
+  {
+    path: "/accounts",
+    name: "accounts",
+    component: () => import("@/views/AccountView.vue"),
   },
 ];
 
