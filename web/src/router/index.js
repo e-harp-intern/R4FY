@@ -13,7 +13,7 @@ const routes = [
     },
   },
   {
-    path: "/createaccount",
+    path: "/accounts/create",
     name: "createaccount",
     component: () => import("@/views/CreateAccount.vue"),
   },

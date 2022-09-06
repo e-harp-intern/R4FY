@@ -2,6 +2,9 @@
   <div id="account-list-page">
     <!-- アカウントの一覧 -->
     <h2>{{ $t("pages.accounts.title") }}</h2>
+    <button @click="gocreatAccount()" id="create_account_btn">
+      {{ $t("pages.createaccount.title") }}
+    </button>
     <div id="account_list">
       <table>
         <thead>
@@ -52,6 +55,10 @@ export default {
     addSortClass: (key) => table.methods.addSortClass(key),
     sortBy(key) {
       table.methods.sortBy(key, this.accounts);
+    },
+    // ツアーが選択された場合に詳細ページへ遷移する
+    gocreatAccount() {
+      this.$router.push(`/accounts/create`);
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -120,5 +127,12 @@ export default {
 }
 h2 {
   margin: 50px 0 0 0;
+}
+#create_account_btn {
+  float: right;
+  padding: 0.5em 1.3em;
+  margin-bottom: 1em;
+  background-color: var(--color-green);
+  color: var(--color-white);
 }
 </style>

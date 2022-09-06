@@ -34,7 +34,7 @@ export default {
             }
         },
         accounts: {
-            title: "アカウント一覧"
+            title: "アカウント"
         }
     },
     other: {
