@@ -33,6 +33,11 @@ export default {
                 false: "アカウントの作成に失敗しました。"
             }
         },
+        inputschedule: {
+                participate: "参加できる",
+                absent: "参加できない",
+                send: "送信完了"
+        }
     },
     other: {
         fotter: "license. MIT",

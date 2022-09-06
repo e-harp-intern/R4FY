@@ -32,6 +32,14 @@ const routes = [
     name: "tour",
     component: () => import("@/views/TourView.vue"),
   },
+  {
+    path: "/guide/input_schedule/[token]",
+    name: "inputschedule",
+    component: () => import("@/views/guide/InputSchedule.vue"),
+    meta: {
+      layout: "simple",
+    },
+  },
 ];
 
 const router = new VueRouter({
