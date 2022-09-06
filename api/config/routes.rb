@@ -9,6 +9,7 @@ Rails.application.routes.draw do
           # アカウント
           post "guides" => "guides#create"
           post "admins" => "admins#create"
+          get "accounts" => "accounts#index"
 
           # ツアー
           post "tours" => "tours#create"
