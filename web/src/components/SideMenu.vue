@@ -30,6 +30,10 @@ export default {
           path: "/createaccount",
           title: this.$i18n.t("pages.createaccount.title"),
         },
+        {
+          path: "/accounts",
+          title: this.$i18n.t("pages.accounts.title"),
+        },
       ],
     };
   },
