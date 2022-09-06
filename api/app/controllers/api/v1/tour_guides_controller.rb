@@ -13,7 +13,7 @@ class Api::V1::TourGuidesController < ApplicationController
       TourGuide.where(tour_id: tour_id).destroy_all
 
       # 追加（TODO: 削除済みのガイドを指定した場合はエラー）
-      for g in guides
+      guides.each do |g|
         t = TourGuide.new(tour_id: tour_id, guide_id: g)
         t.save
       end
@@ -26,11 +26,6 @@ class Api::V1::TourGuidesController < ApplicationController
 
     # 成功時
     render json: json_render_v1(true)
-    return
-
-    # バリデーションエラー
-    ActiveRecord RecodeInvalid: e
-    render json: json_render_v1(false, { hint => "validation error" })
     nil
 
     # その他失敗時
@@ -42,22 +37,21 @@ class Api::V1::TourGuidesController < ApplicationController
   def destroy
     # トランザクション（失敗時は保持しない）
     ApplicationRecord.transaction do
-        tour_id = params[:id]
+      tour_id = params[:id]
 
-        # 同じツアーIDの担当情報を削除（物理）
-        TourGuide.where(tour_id: tour_id).destroy_all
+      # 同じツアーIDの担当情報を削除（物理）
+      TourGuide.where(tour_id: tour_id).destroy_all
 
-        # ツアーの状態を「担当ガイド未決定」に更新
-        Tour.find(tour_id).update(tour_state_code: TOUR_STATE_CODE_INCOMPLETE)
-      end
+      # ツアーの状態を「担当ガイド未決定」に更新
+      Tour.find(tour_id).update(tour_state_code: TOUR_STATE_CODE_INCOMPLETE)
+    end
 
     # 成功時
     render json: json_render_v1(true)
-    return
-    
+    nil
+
     # その他失敗時
-    rescue StandardError => e
-      render json: json_render_v1(false)
-    end
-    
+  rescue StandardError => e
+    render json: json_render_v1(false)
+  end
 end
