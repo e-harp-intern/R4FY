@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
           # アカウント
           post "guides" => "guides#create"
+          get "admins/me" => "admins#index"
           post "admins" => "admins#create"
 
           # ツアー
@@ -15,9 +16,6 @@ Rails.application.routes.draw do
           get "tours" => "tours#index"
           get "tours/:id" => "tour#index"
           delete "tours/:id" => "tour#destroy"
-
-          #　管理者の名前を表示する
-          get "/admins/me" => "admins#index"
         end
     end
 
