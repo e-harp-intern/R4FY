@@ -15,6 +15,9 @@ Rails.application.routes.draw do
           get "tours" => "tours#index"
           get "tours/:id" => "tour#index"
           delete "tours/:id" => "tour#destroy"
+
+          # 担当ガイド
+          post "tours/:id/guides" => "tour_guides#create"
         end
     end
 
