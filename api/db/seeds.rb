@@ -32,7 +32,7 @@ Tour.create(name: "函館山観光", tour_state_code: 256, start_datetime: "2020
 Tour.create(name: "室蘭観光", tour_state_code: 1, start_datetime: "2020-09-23T10:00:00",
             end_datetime: "2020-09-23T18:00:00", adult_num: 20, child_num: 6, guide_num: 8, remind_date: "2020-09-20", sent_remind: true, memo: "ガイドが多く必要です", schedule_input_deadline: "2020-09-22T21:00:00")
 Tour.create(name: "知床観光", tour_state_code: 1, start_datetime: "2020-09-20T19:00:00",
-            end_datetime: "2020-09-21T18:00:00", adult_num: 2, child_num: 1, guide_num: 1, remind_date: "2020-09-19", sent_remind: true, memo: , schedule_input_deadline: "2020-09-19T21:00:00")
+            end_datetime: "2020-09-21T18:00:00", adult_num: 2, child_num: 1, guide_num: 1, remind_date: "2020-09-19", sent_remind: true, memo: "", schedule_input_deadline: "2020-09-19T21:00:00")
 
 # 管理者テストデータ
 Admin.create!(name: "管理者", email: "admin@mail.local", password: "password")
@@ -53,4 +53,7 @@ for num in 1..4 do
   TourGuide.create(achievements_entered: true, attend: true, memo: "", tour_id: num, guide_id: num)
 end
 
-TourGuide.create(achievements_entered: true, attend: true, memo: "", tour_id: 2, guide_id: num)
+TourTemplate.create(name: "", start_datetime: "", end_datetime: "", guide_num: 1)
+TourTemplate.create(name: "", start_datetime: "", end_datetime: "", guide_num: 2)
+TourTemplate.create(name: "", start_datetime: "", end_datetime: "", guide_num: 3)
+TourTemplate.create(name: "", start_datetime: "", end_datetime: "", guide_num: 4)
