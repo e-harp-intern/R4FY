@@ -41,15 +41,15 @@ Admin.create!(name: "テスト２", email: "test2@mail.local", password: "passwo
 Admin.create!(name: "テスト３", email: "test3@mail.local", password: "password")
 
 # その他テストデータ
-for num in 1..4 do
+(1..4).each do |num|
   GuideSchedule.create(answered: true, possible: true, tour_id: 2, guide_id: num)
 end
 
-for num in 1..4 do
+(1..4).each do |num|
   GuideSchedule.create(answered: true, possible: true, tour_id: 6, guide_id: num)
 end
 
-for num in 1..4 do
+(1..4).each do |num|
   TourGuide.create(achievements_entered: true, attend: true, memo: "", tour_id: num, guide_id: num)
 end
 

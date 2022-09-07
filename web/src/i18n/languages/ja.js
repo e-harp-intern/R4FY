@@ -33,6 +33,9 @@ export default {
                 false: "アカウントの作成に失敗しました。"
             }
         },
+        accounts: {
+            title: "アカウント"
+        }
     },
     other: {
         fotter: "license. MIT",
@@ -86,6 +89,11 @@ export default {
             email: "メールアドレス",
             answered_state: "参加可否",
             assign_mark: "〇"
+        },
+        account: {
+            authority: "権限",
+            name: "名前",
+            email: "メールアドレス",
         }
     },
     state: {
