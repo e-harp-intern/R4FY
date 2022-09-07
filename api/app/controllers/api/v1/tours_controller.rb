@@ -8,9 +8,17 @@ class Api::V1::ToursController < ApplicationController
   def index
     # 条件の初期値を設定
     limit = params[:limit] || 100
+    word = params[:word] || ""
+    start_date = Date.parse(params[:start_date] || Date.today.prev_month.strftime("%Y-%m-%d"))
+    end_date = Date.parse(params[:end_date] || Date.today.strftime("%Y-%m-%d")).tomorrow
 
     # 検索
-    tours = Tour.order(start_datetime: :DESC).limit(limit)
+    tours = Tour
+            .where("name LIKE ?", "%#{word}%")
+            .where("end_datetime < ?", end_date)
+            .where("start_datetime > ?", start_date)
+            .order(start_datetime: :DESC)
+            .limit(limit)
     render json: json_render_v1(true, tours)
   end
 
