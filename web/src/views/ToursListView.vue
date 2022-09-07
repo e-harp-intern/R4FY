@@ -1,6 +1,6 @@
 <template>
   <div id="tours-list-page">
-    <h1>ようこそ、{{ adminNameShow.name }}さん</h1>
+    <p id="admin_show_name">ようこそ、{{ adminNameShow.name }}さん</p>
     <br />
     <h1>{{ $t("pages.tours.title") }}</h1>
     <button @click="goTourDetail('create')" id="create_tour_btn">
@@ -143,5 +143,10 @@ table td:nth-of-type(3) {
   margin-bottom: 1em;
   background-color: var(--color-green);
   color: var(--color-white);
+}
+
+#admin_show_name {
+  font-size: 40px;
+  font-weight: bold;
 }
 </style>
