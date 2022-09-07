@@ -53,7 +53,7 @@ end
   TourGuide.create(achievements_entered: true, attend: true, memo: "", tour_id: num, guide_id: num)
 end
 
-TourTemplate.create(name: "", start_datetime: "", end_datetime: "", guide_num: 1)
-TourTemplate.create(name: "", start_datetime: "", end_datetime: "", guide_num: 2)
-TourTemplate.create(name: "", start_datetime: "", end_datetime: "", guide_num: 3)
-TourTemplate.create(name: "", start_datetime: "", end_datetime: "", guide_num: 4)
+TourTemplate.create(name: "知床観光", guide_num: 1)
+TourTemplate.create(name: "登別観光", guide_num: 2)
+TourTemplate.create(name: "クマ牧場観光", guide_num: 3)
+TourTemplate.create(name: "大通り公園観光", guide_num: 4)
