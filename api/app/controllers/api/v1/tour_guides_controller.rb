@@ -4,11 +4,12 @@ class Api::V1::TourGuidesController < ApplicationController
 
   # 担当ガイドを設定するためのAPI
   def create
+    # パラメータの受け取り
+    tour_id = params[:id]
+    guides = params[:guides]
+
     # トランザクション（失敗時は保存しない）
     ApplicationRecord.transaction do
-      tour_id = params[:id]
-      guides = params[:guides]
-
       # 同じツアーIDの担当情報を削除（物理）
       TourGuide.where(tour_id: tour_id).destroy_all
 
@@ -23,6 +24,11 @@ class Api::V1::TourGuidesController < ApplicationController
     end
 
     # TODO: 成功時はメールを送信 #75 で実装予定
+    guides.each do |g|
+      guide = Guide.find_by(id: g)
+      logger.debug(guide.name)
+      logger.debug(guide.email)
+    end
 
     # 成功時
     render json: json_render_v1(true)
