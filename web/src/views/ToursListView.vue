@@ -1,5 +1,7 @@
 <template>
   <div id="tours-list-page">
+    <h1>ようこそ、{{ adminNameShow.name }}さん</h1>
+    <br />
     <h1>{{ $t("pages.tours.title") }}</h1>
     <button @click="goTourDetail('create')" id="create_tour_btn">
       {{ $t("pages.tours.create.title") }}
@@ -56,6 +58,7 @@ export default {
   data() {
     return {
       tours: [],
+      adminNameShow: {},
     };
   },
   computed: {},
@@ -80,8 +83,12 @@ export default {
     const response = await api.get("/api/v1/tours", next);
     const tours = response.data;
 
+    const responceAdmin = await api.get("/api/v1/admins/me", next);
+    const adminNameShow = responceAdmin.data;
+
     next((vm) => {
       vm.tours = tours;
+      vm.adminNameShow = adminNameShow;
     });
   },
 };
