@@ -111,5 +111,8 @@ export default {
         start_datetime: "開始日時",
         end_datetime: "終了日時",
         people_num_unit: "%{num} 名"
+    },
+    admin: {
+        welcome_message: "さん、こんにちは！"
     }
 };

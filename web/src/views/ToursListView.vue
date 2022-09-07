@@ -2,7 +2,7 @@
   <div id="tours-list-page">
     <p id="admin_show_name">
       <b>{{ adminNameShow.name }}</b
-      >さん、こんにちは！
+      >{{ $t("admin.welcome_message") }}
     </p>
     <br />
     <h1>{{ $t("pages.tours.title") }}</h1>
