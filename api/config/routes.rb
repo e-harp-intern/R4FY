@@ -11,6 +11,8 @@ Rails.application.routes.draw do
           get "admins/me" => "admins#index"
           post "admins" => "admins#create"
           get "accounts" => "accounts#index"
+          delete "guides/:id" => "guides#delete"
+          delete "admins/:id" => "admins#delete"
 
           # ツアー
           post "tours" => "tours#create"
