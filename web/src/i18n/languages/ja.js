@@ -113,6 +113,6 @@ export default {
         people_num_unit: "%{num} 名"
     },
     admin: {
-        welcome_message: "さん、こんにちは！"
+        welcome_message: "%{admin_name}さん、こんにちは！"
     }
 };

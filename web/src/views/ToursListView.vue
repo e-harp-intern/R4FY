@@ -1,8 +1,7 @@
 <template>
   <div id="tours-list-page">
     <p id="admin_show_name">
-      <b>{{ adminNameShow.name }}</b
-      >{{ $t("admin.welcome_message") }}
+      {{ $t("admin.welcome_message", { admin_name: adminNameShow.name }) }}
     </p>
     <br />
     <h1>{{ $t("pages.tours.title") }}</h1>
@@ -149,6 +148,6 @@ table td:nth-of-type(3) {
 }
 
 #admin_show_name {
-  font-size: 30px;
+  font-size: 1.25em;
 }
 </style>
