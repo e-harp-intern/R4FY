@@ -16,4 +16,10 @@ class Api::V1::GuidesController < ApplicationController
     # アカウントが作成されたら成功表示
     render json: json_render_v1(true)
   end
+
+  def delete
+    guides_delete = Guide.find_by(id: params[:id])
+    guides_delete.update(is_invalid: true)
+    render json: json_render_v1(true)
+  end
 end
