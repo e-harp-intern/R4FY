@@ -23,6 +23,9 @@ export default {
             },
             delete: {
                 title: "ツアー取り消し",
+            },
+            admin_name_show: {
+                welcome_message: "%{admin_name}さん、こんにちは！"
             }
         },
         createaccount: {
@@ -112,7 +115,4 @@ export default {
         end_datetime: "終了日時",
         people_num_unit: "%{num} 名"
     },
-    admin: {
-        welcome_message: "%{admin_name}さん、こんにちは！"
-    }
 };

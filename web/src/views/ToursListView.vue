@@ -1,7 +1,11 @@
 <template>
   <div id="tours-list-page">
     <p id="admin_show_name">
-      {{ $t("admin.welcome_message", { admin_name: adminNameShow.name }) }}
+      {{
+        $t("pages.tours.admin_name_show.welcome_message", {
+          admin_name: adminNameShow.name,
+        })
+      }}
     </p>
     <br />
     <h1>{{ $t("pages.tours.title") }}</h1>
