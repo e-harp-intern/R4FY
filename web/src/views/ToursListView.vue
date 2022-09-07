@@ -1,5 +1,13 @@
 <template>
   <div id="tours-list-page">
+    <p id="admin_show_name">
+      {{
+        $t("pages.tours.admin_name_show.welcome_message", {
+          admin_name: adminNameShow.name,
+        })
+      }}
+    </p>
+    <br />
     <h1>{{ $t("pages.tours.title") }}</h1>
     <button @click="goTourDetail('create')" id="create_tour_btn">
       {{ $t("pages.tours.create.title") }}
@@ -56,6 +64,7 @@ export default {
   data() {
     return {
       tours: [],
+      adminNameShow: {},
     };
   },
   computed: {},
@@ -80,8 +89,12 @@ export default {
     const response = await api.get("/api/v1/tours", next);
     const tours = response.data;
 
+    const responceAdmin = await api.get("/api/v1/admins/me", next);
+    const adminNameShow = responceAdmin.data;
+
     next((vm) => {
       vm.tours = tours;
+      vm.adminNameShow = adminNameShow;
     });
   },
 };
@@ -136,5 +149,9 @@ table td:nth-of-type(3) {
   margin-bottom: 1em;
   background-color: var(--color-green);
   color: var(--color-white);
+}
+
+#admin_show_name {
+  font-size: 1.25em;
 }
 </style>
