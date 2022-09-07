@@ -11,9 +11,11 @@ class Api::V1::ToursController < ApplicationController
     word = params[:word] || ""
     start_date = Date.parse(params[:start_date] || Date.today.prev_month.strftime("%Y-%m-%d"))
     end_date = Date.parse(params[:end_date] || Date.today.strftime("%Y-%m-%d")).tomorrow
+    tour_state = params[:tour_state] || [TOUR_STATE_CODE_INCOMPLETE, TOUR_STATE_CODE_ASSIGNED, TOUR_STATE_CODE_COMPLETE, TOUR_STATE_CODE_COMPLETE_RECORDED, TOUR_STATE_CODE_CANCEL]
 
     # 検索
     tours = Tour
+            .where(tour_state_code: tour_state)
             .where("name LIKE ?", "%#{word}%")
             .where("end_datetime < ?", end_date)
             .where("start_datetime > ?", start_date)
