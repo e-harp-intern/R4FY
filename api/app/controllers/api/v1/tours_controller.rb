@@ -6,7 +6,11 @@ class Api::V1::ToursController < ApplicationController
 
   # ツアー一覧を降順取得
   def index
-    tours = Tour.order(start_datetime: :DESC)
+    # 条件の初期値を設定
+    limit = params[:limit] || 100
+
+    # 検索
+    tours = Tour.order(start_datetime: :DESC).limit(limit)
     render json: json_render_v1(true, tours)
   end
 
