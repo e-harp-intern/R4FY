@@ -28,4 +28,25 @@ class Api::V1::AdminsController < ApplicationController
     admins_delete.update(is_invalid: true)
     render json: json_render_v1(true)
   end
+
+  # 　管理者情報（名前）の変更
+  def name_info_change
+    @admin = Admin.find(params[:id])
+    @admin.update(name: params[:name])
+    render json: json_render_v1(true)
+  end
+
+  # 　管理者情報（メール）の変更
+  def email_info_change
+    @admin = Admin.find(params[:id])
+    @admin.update(email: params[:email])
+    render json: json_render_v1(true)
+  end
+
+  # 　管理者情報（名前とメール）の変更
+  def info_change
+    @admin = Admin.find(params[:id])
+    @admin.update(name: params[:name], email: params[:email])
+    render json: json_render_v1(true)
+  end
 end
