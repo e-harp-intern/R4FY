@@ -26,29 +26,40 @@ class Api::V1::ToursController < ApplicationController
 
   # 　ツアーの追加
   def create
-    # トランザクションの追加
-    ApplicationRecord.transaction do
-      # 新しいツアーを作成
-      tour = Tour.new(name: params[:name], start_datetime: params[:start_datetime],
-                      end_datetime: params[:end_datetime], adult_num: params[:adult_num], child_num: params[:child_num], guide_num: params[:guide_num], schedule_input_deadline: params[:schedule_input_deadline], remind_date: params[:remind_date], memo: params[:memo], sent_remind: false)
-      tour.save!
+    # 新しいツアーを作成
+    tour = Tour.new(name: params[:name], start_datetime: params[:start_datetime],
+                    end_datetime: params[:end_datetime], adult_num: params[:adult_num], child_num: params[:child_num], guide_num: params[:guide_num], schedule_input_deadline: params[:schedule_input_deadline], remind_date: params[:remind_date], memo: params[:memo], sent_remind: false)
 
-      # ガイドのリストを取得（削除済みをのぞく）
-      guides = Guide.where(is_invalid: false)
+    # ガイドのリストを取得（削除済みをのぞく）
+    guides = Guide.where(is_invalid: false)
+
+    # トランザクションの処理
+    ApplicationRecord.transaction do
+      # ツアーを保存
+      tour.save!
 
       # 追加した予定に対してガイドスケジュール,トークンを作成
       guides.each do |guide|
         GuideSchedule.create(tour_id: tour.id, guide_id: guide.id)
         Token.new(token: generate_token, tour_id: tour.id, guide_id: guide.id).save!
       end
-      # 入力したツアー情報を取得
-      response = {
-        tour: tour
-      }
-
-      # 成功表示と入力したツアー情報表示
-      render json: json_render_v1(true, response)
     end
+
+    # TODO: ガイドに予定入力メールを送信する
+    guides.each do |guide|
+      token = guide.tokens.find_by(tour_id: tour.id)
+      url = format(URL_GUIDE_SCHEDULE_TOKEN, token: token.token)
+      logger.debug(guide.name) # ガイド名
+      logger.debug(url) # 送信するURL（トークン付き）
+    end
+
+    # 入力したツアー情報を取得
+    response = {
+      tour: tour
+    }
+
+    # 成功表示と入力したツアー情報表示
+    render json: json_render_v1(true, response)
   end
 
   # トークンの生成
