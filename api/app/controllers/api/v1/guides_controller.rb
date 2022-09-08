@@ -17,10 +17,18 @@ class Api::V1::GuidesController < ApplicationController
     render json: json_render_v1(true)
   end
 
-  # ガイドの論理削除
+  # ガイドアカウントの論理削除
   def delete
     guides_delete = Guide.find_by(id: params[:id])
     guides_delete.update(is_invalid: true)
+    render json: json_render_v1(true)
+  end
+
+  # DBにガイドスケジュール(true/false)を反映
+  def update
+    token = Token.find_by(token: params[:token])
+    guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
+    guide_schedules.update(answered: true, possible: params[:possible])
     render json: json_render_v1(true)
   end
 
