@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # format
-docker-compose run api rubocop -a
+docker-compose run api rubocop -A
 
 for FILE in `git diff --staged --name-only`; do
     git add $FILE

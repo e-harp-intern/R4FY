@@ -19,7 +19,7 @@
       </article>
       <article class="info" id="state">
         <p class="outline">{{ $t("pages.tours.tour.tour_state_title") }}</p>
-        <p class="value">{{ codeToTourStateString(tour.tour_state_code) }}</p>
+        <p class="value">{{ changeToTourStateColor(tour.tour_state_code) }}</p>
       </article>
     </div>
 
@@ -110,6 +110,11 @@
           {{ $t("pages.tours.delete.title") }}
         </a>
       </li>
+      <li>
+        <a @click="alert_delete_guide()" href="javascript:void(0)">{{
+          $t("pages.tours.delete.guide")
+        }}</a>
+      </li>
     </ul>
   </div>
 </template>
@@ -140,7 +145,7 @@ export default {
       table.methods.sortBy(key, this.guideschedules);
     },
 
-    // 中止処理
+    // ツアー中止処理
     alert_disp() {
       if (window.confirm("ツアーの取り消しを実行しますか？")) {
         // 「OK」時の処理終了
@@ -151,6 +156,38 @@ export default {
         // 「キャンセル」時の処理開始
         window.alert("キャンセルされました"); // 警告ダイアログを表示
       }
+    },
+    // 担当ガイド中止処理
+    alert_delete_guide() {
+      if (window.confirm("担当ガイドの取り消しを実行しますか？")) {
+        // 「OK」時の処理終了
+        api.delete(`/api/v1/tours/${this.tour.id}/guides`);
+        window.alert("担当ガイドの取り消しを行いました。");
+        this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
+      } else {
+        // 「キャンセル」時の処理開始
+        window.alert("担当ガイド取り消しを中止しました。"); // 警告ダイアログを表示
+      }
+    },
+    // ツアー状態によって背景色を変更(idを置き換える)
+    changeToTourStateColor(code) {
+      if (code === 1) {
+        const obj = document.getElementById("state");
+        obj.id = "state1";
+      } else if (code === 2) {
+        const obj = document.getElementById("state");
+        obj.id = "state2";
+      } else if (code === 4) {
+        const obj = document.getElementById("state");
+        obj.id = "state4";
+      } else if (code === 8) {
+        const obj = document.getElementById("state");
+        obj.id = "state8";
+      } else if (code === 256) {
+        const obj = document.getElementById("state");
+        obj.id = "state256";
+      }
+      return this.codeToTourStateString(code);
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -256,6 +293,21 @@ h2 {
   background-color: var(--color-green);
 }
 #state {
+  background-color: var(--color-red);
+}
+#state1 {
+  background-color: var(--color-yellow);
+}
+#state2 {
+  background-color: var(--color-light-green);
+}
+#state4 {
+  background-color: var(--color-orange);
+}
+#state8 {
+  background-color: var(--color-blue);
+}
+#state256 {
   background-color: var(--color-red);
 }
 #num table {

@@ -11,6 +11,7 @@ export default {
         },
         tours: {
             title: "ツアー",
+            no_data_error: "表示するデータがありません。検索条件を指定、もしくはツアーの新規追加をしてください。",
             tour: {
                 title: "ツアー詳細",
                 tour_state_title: "ツアー実施状態",
@@ -23,6 +24,10 @@ export default {
             },
             delete: {
                 title: "ツアー取り消し",
+                guide: "担当ガイド取り消し",
+            },
+            admin_name_show: {
+                welcome_message: "%{admin_name}さん、こんにちは！"
             }
         },
         createaccount: {
@@ -37,6 +42,10 @@ export default {
                 participate: "参加できる",
                 absent: "参加できない",
                 send: "送信完了"
+
+        accounts: {
+            title: "アカウント"
+
         }
     },
     other: {
@@ -91,6 +100,11 @@ export default {
             email: "メールアドレス",
             answered_state: "参加可否",
             assign_mark: "〇"
+        },
+        account: {
+            authority: "権限",
+            name: "名前",
+            email: "メールアドレス",
         }
     },
     state: {
@@ -116,5 +130,5 @@ export default {
         start_datetime: "開始日時",
         end_datetime: "終了日時",
         people_num_unit: "%{num} 名"
-    }
+    },
 };

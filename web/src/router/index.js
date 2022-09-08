@@ -13,7 +13,7 @@ const routes = [
     },
   },
   {
-    path: "/createaccount",
+    path: "/accounts/create",
     name: "createaccount",
     component: () => import("@/views/CreateAccount.vue"),
   },
@@ -39,6 +39,11 @@ const routes = [
     meta: {
       layout: "simple",
     },
+
+    path: "/accounts",
+    name: "accounts",
+    component: () => import("@/views/AccountView.vue"),
+
   },
 ];
 
