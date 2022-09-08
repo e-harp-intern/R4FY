@@ -39,11 +39,11 @@ const routes = [
     meta: {
       layout: "simple",
     },
-
+  },
+  {
     path: "/accounts",
     name: "accounts",
     component: () => import("@/views/AccountView.vue"),
-
   },
 ];
 

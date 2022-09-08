@@ -42,11 +42,11 @@ export default {
                 participate: "参加できる",
                 absent: "参加できない",
                 send: "送信完了"
-
+        },
         accounts: {
             title: "アカウント"
 
-        }
+        },
     },
     other: {
         fotter: "license. MIT",
