@@ -25,10 +25,10 @@ class Api::V1::GuidesController < ApplicationController
   end
 
   # DBにガイドスケジュール(true/false)を反映
-  def schedule
+  def update
     token = Token.find_by(token: params[:token])
-    guide = Guide.find_by(id: token.guide_id)
     guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
     guide_schedules.update(answered: true, possible: params[:possible])
+    render json: json_render_v1(true)
   end
 end
