@@ -2,7 +2,7 @@
 下記ツアーのガイドとして割り当てられましたので、ご連絡いたします。
 
 ツアー名：<%= @tour.name %>
-開催日：<%= @tour.start_datetime('%Y/%m/%d %H:%M') %> ～ <%= @tour.end_datetime('%Y/%m/%d %H:%M') %>
+開催日：<%= @tour.start_datetime.strftime('%Y/%m/%d %H:%M') %> ～ <%= @tour.end_datetime.strftime('%Y/%m/%d %H:%M') %>
 
 なお、参加できなくなった場合は早急に以下までご連絡ください。
 当日はよろしくお願い致します。

@@ -27,7 +27,7 @@ class Api::V1::TourGuidesController < ApplicationController
     tour = Tour.find(tour_id)
     guides.each do |g|
       guide = Guide.find_by(id: g)
-      AssignNotifyMailer.creation_email(g,tour).deliver_now
+      AssignNotifyMailer.creation_email(guide, tour).deliver_now
     end
 
     # 成功時
