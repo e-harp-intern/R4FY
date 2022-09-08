@@ -11,6 +11,7 @@ export default {
         },
         tours: {
             title: "ツアー",
+            no_data_error: "表示するデータがありません。検索条件を指定、もしくはツアーの新規追加をしてください。",
             tour: {
                 title: "ツアー詳細",
                 tour_state_title: "ツアー実施状態",

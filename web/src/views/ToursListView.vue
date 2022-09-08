@@ -52,6 +52,9 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="tours.length === 0">
+      <p class="nodata-error">{{ $t("pages.tours.no_data_error") }}</p>
+    </div>
   </div>
 </template>
 
@@ -153,5 +156,10 @@ table td:nth-of-type(3) {
 
 #admin_show_name {
   font-size: 1.25em;
+}
+
+.nodata-error {
+  text-align: center;
+  padding: 0.5em;
 }
 </style>
