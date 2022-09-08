@@ -2,9 +2,14 @@
   <div id="account-list-page">
     <!-- アカウントの一覧 -->
     <h1>{{ $t("pages.accounts.title") }}</h1>
-    <button @click="gocreatAccount()" id="create_account_btn">
-      {{ $t("pages.createaccount.title") }}
-    </button>
+    <div class="search">
+      <input type="text" id="name" placeholder="name" />
+      <input type="text" id="email" placeholder="email" />
+      <button @click="search()">検索</button>
+      <button @click="gocreatAccount()" id="create_account_btn">
+        {{ $t("pages.createaccount.title") }}
+      </button>
+    </div>
     <div id="account_list">
       <table>
         <thead>
@@ -37,6 +42,7 @@
 </template>
 
 <script>
+// import urlJoin from "url-join";
 import api from "@/mixins/api";
 import table from "@/mixins/table";
 
@@ -58,7 +64,36 @@ export default {
     },
     // ツアーが選択された場合に詳細ページへ遷移する
     gocreatAccount() {
-      this.$router.push(`/accounts/create`);
+      this.$router.push(`/accounts`);
+    },
+    async search() {
+      const url = `/api/v1/accounts`;
+      const name = `?name=${document.getElementById("name").value}`;
+      const email = `&email=${document.getElementById("email").value}`;
+      const path = url + name + email;
+
+      const response = await api.get(path, this.$router.push);
+      // 各種情報のパース
+      const { admins } = response.data;
+      const { guides } = response.data;
+
+      let number = 0;
+
+      for (const a of admins) {
+        a.number = number;
+        number += 1;
+        a.authority = "管理者";
+      }
+      for (const g of guides) {
+        g.number = number;
+        number += 1;
+        g.authority = "ガイド";
+      }
+      const accounts = [];
+      accounts.push(...admins);
+      accounts.push(...guides);
+
+      this.accounts = accounts;
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -134,5 +169,9 @@ h2 {
   margin-bottom: 1em;
   background-color: var(--color-green);
   color: var(--color-white);
+}
+// 検索ボックス右寄せ
+.search {
+  text-align: right;
 }
 </style>
