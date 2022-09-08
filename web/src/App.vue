@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <LoadingTemplate v-show="loading"></LoadingTemplate>
     <component
       v-bind:is="layout()"
       v-bind:class="{ 'event-none': loading }"
       @LoadComplete="LoadComplete"
     ></component>
+    <LoadingTemplate v-show="loading"></LoadingTemplate>
   </div>
 </template>
 

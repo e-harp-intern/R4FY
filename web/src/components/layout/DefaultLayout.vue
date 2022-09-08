@@ -8,12 +8,12 @@
         </div>
         <div id="main-contents">
           <div>
-            <LoadingTemplate v-if="loading"></LoadingTemplate>
             <router-view
               v-bind:class="{ 'event-none': loading }"
               id="app-view"
               @SendLoadComplete="SendLoadComplete"
             ></router-view>
+            <LoadingTemplate v-if="loading"></LoadingTemplate>
           </div>
           <PageFooter></PageFooter>
         </div>
