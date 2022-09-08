@@ -9,10 +9,14 @@ Rails.application.routes.draw do
           # アカウント
           post "guides" => "guides#create"
           get "admins/me" => "admins#index"
+          patch "admins/:id" => "admins#update"
+          patch "guides/:id" => "guides#update"
           post "admins" => "admins#create"
           get "accounts" => "accounts#index"
           delete "guides/:id" => "guides#delete"
           delete "admins/:id" => "admins#delete"
+          get "guides/:token/schedules" => "guide_schedules#index"
+          patch "guides/:token/schedules" => "guide_schedules#update"
 
           # ツアー
           post "tours" => "tours#create"
