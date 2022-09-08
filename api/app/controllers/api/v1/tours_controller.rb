@@ -45,12 +45,11 @@ class Api::V1::ToursController < ApplicationController
       end
     end
 
-    # TODO: ガイドに予定入力メールを送信する
+    # ガイドに予定入力メールを送信
     guides.each do |guide|
       token = guide.tokens.find_by(tour_id: tour.id)
       url = format(URL_GUIDE_SCHEDULE_TOKEN, token: token.token)
-      logger.debug(guide.name) # ガイド名
-      logger.debug(url) # 送信するURL（トークン付き）
+      GuideScheduleInputMailer.creation_email(guide, url).deliver_now
     end
 
     # 入力したツアー情報を取得
