@@ -110,6 +110,11 @@
           {{ $t("pages.tours.delete.title") }}
         </a>
       </li>
+      <li>
+        <a @click="goTourSelectGuide()" href="javascript:void(0)">
+          {{ $t("pages.tours.select.title") }}
+        </a>
+      </li>
     </ul>
   </div>
 </template>
@@ -151,6 +156,10 @@ export default {
         // 「キャンセル」時の処理開始
         window.alert("キャンセルされました"); // 警告ダイアログを表示
       }
+    },
+    // ツアー担当ガイドを選択、決定するページへ遷移する
+    goTourSelectGuide() {
+      this.$router.push(`/tours/${this.tour.id}/selectguide`);
     },
     // ツアー状態によって背景色を変更(idを置き換える)
     changeToTourStateColor(code) {

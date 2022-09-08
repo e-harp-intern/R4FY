@@ -24,6 +24,9 @@ export default {
             delete: {
                 title: "ツアー取り消し",
             },
+            select: {
+                title: "担当ガイド選択画面へ",
+            },
             admin_name_show: {
                 welcome_message: "%{admin_name}さん、こんにちは！"
             }
