@@ -73,6 +73,7 @@ export default {
     sortBy(key) {
       table.methods.sortBy(key, this.guideschedules);
     },
+    // 参加の有無によってチェックボックスの表示・非表示
     buttoncheck(state) {
       if (state === 1) {
         return 1;
