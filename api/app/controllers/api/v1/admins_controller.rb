@@ -29,24 +29,22 @@ class Api::V1::AdminsController < ApplicationController
     render json: json_render_v1(true)
   end
 
-  # 　管理者情報（名前）の変更
-  def name_info_change
+  # 　管理者情報の変更をする
+  def update
     @admin = Admin.find(params[:id])
-    @admin.update(name: params[:name])
-    render json: json_render_v1(true)
-  end
+    # 　名前とメールを変更する条件
+    if !params[:name].nil? && !params[:email].nil?
+      @admin.update(name: params[:name], email: params[:email])
 
-  # 　管理者情報（メール）の変更
-  def email_info_change
-    @admin = Admin.find(params[:id])
-    @admin.update(email: params[:email])
-    render json: json_render_v1(true)
-  end
+    # 　名前だけを変更する条件
+    elsif !params[:name].nil? && params[:email].nil?
+      @admin.update(name: params[:name])
 
-  # 　管理者情報（名前とメール）の変更
-  def info_change
-    @admin = Admin.find(params[:id])
-    @admin.update(name: params[:name], email: params[:email])
+    # 　メールだけを変更する条件
+    else
+      @admin.update(email: params[:email])
+    end
+
     render json: json_render_v1(true)
   end
 end
