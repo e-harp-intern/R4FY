@@ -3,10 +3,21 @@
 class Api::V1::AccountsController < ApplicationController
   before_action :require_login
 
-  # 管理者アカウント一覧を取得
+  # アカウント一覧を取得
   def index
-    account_admins = Admin.where(is_invalid: false)
-    account_guides = Guide.where(is_invalid: false)
+    # 条件の初期値を設定
+    # 検索に名前があるかないか
+    name = params[:name] || ""
+    # 検索にメールがあるかないか
+    email = params[:email] || ""
+
+    account_admins = Admin
+                     .where("name LIKE ?", "%#{name}%")
+                     .where("email LIKE ?", "%#{email}%")
+    account_guides = Guide
+                     .where("name LIKE ?", "%#{name}%")
+                     .where("email LIKE ?", "%#{email}%")
+
     response = {
         admins: account_admins,
         guides: account_guides
