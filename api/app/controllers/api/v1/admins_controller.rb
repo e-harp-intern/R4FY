@@ -32,18 +32,14 @@ class Api::V1::AdminsController < ApplicationController
   # 　管理者情報の変更をする
   def update
     @admin = Admin.find(params[:id])
-    # 　名前とメールを変更する条件
-    if !params[:name].nil? && !params[:email].nil?
-      @admin.update(name: params[:name], email: params[:email])
+    update_name = params[:name]
+    update_email = params[:email]
 
     # 　名前だけを変更する条件
-    elsif !params[:name].nil? && params[:email].nil?
-      @admin.update(name: params[:name])
+    @admin.update(name: params[:name]) unless update_name.nil?
 
     # 　メールだけを変更する条件
-    else
-      @admin.update(email: params[:email])
-    end
+    @admin.update(email: params[:email]) unless update_email.nil?
 
     render json: json_render_v1(true)
   end
