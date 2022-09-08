@@ -6,13 +6,18 @@ class Api::V1::GuidesController < ApplicationController
   def create
     # ガイドアカウントに必要な情報を取得
     begin
-      user = Guide.new(email: params[:email], name: params[:name], memo: params[:memo]).save!
+      guide = Guide.new(email: params[:email], name: params[:name], memo: params[:memo])
+      guide.save!
+
+      # アカウント作成メールを送信
+      CreateAccountNotifyMailer.creation_email(guide, nil).deliver_now
 
     # バリデーション外であればエラー表示
     rescue StandardError
       render json: json_render_v1(false)
       return
     end
+
     # アカウントが作成されたら成功表示
     render json: json_render_v1(true)
   end
