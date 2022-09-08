@@ -6,13 +6,19 @@ class Api::V1::AdminsController < ApplicationController
   def create
     # 管理者アカウントに必要な情報を取得
     begin
-      user = Admin.new(email: params[:email], name: params[:name], password: create_temp_pass).save!
+      password = create_temp_pass
+      admin = Admin.new(email: params[:email], name: params[:name], password: password)
+      admin.save!
+
+      # アカウント作成メールを送信
+      CreateAccountNotifyMailer.creation_email(admin, password).deliver_now
 
     # バリデーション外であればエラー表示
     rescue StandardError
       render json: json_render_v1(false)
       return
     end
+
     # アカウントが作成されたら成功表示
     render json: json_render_v1(true)
   end
