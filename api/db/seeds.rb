@@ -33,6 +33,8 @@ Tour.create(name: "室蘭観光", tour_state_code: 1, start_datetime: "2020-09-2
             end_datetime: "2020-09-23T18:00:00", adult_num: 20, child_num: 6, guide_num: 8, remind_date: "2020-09-20", sent_remind: true, memo: "ガイドが多く必要です", schedule_input_deadline: "2020-09-22T21:00:00")
 Tour.create(name: "知床観光", tour_state_code: 1, start_datetime: "2020-09-20T19:00:00",
             end_datetime: "2020-09-21T18:00:00", adult_num: 2, child_num: 1, guide_num: 1, remind_date: "2020-09-19", sent_remind: true, memo: "", schedule_input_deadline: "2020-09-19T21:00:00")
+Tour.create(name: "ラーメン巡り", tour_state_code: 1, start_datetime: "2022-09-15T11:00:00",
+            end_datetime: "2022-09-16T15:00:00", adult_num: 15, child_num: 2, guide_num: 2, remind_date: "2022-09-13", sent_remind: true, memo: "1日目昼・夜、2日目朝・昼にラーメンを食べるツアーです。", schedule_input_deadline: "2020-09-08T23:55:00")
 
 # 管理者テストデータ
 Admin.create!(name: "管理者", email: "admin@mail.local", password: "password")
