@@ -110,6 +110,11 @@
           {{ $t("pages.tours.delete.title") }}
         </a>
       </li>
+      <li>
+        <a @click="alert_delete_guide()" href="javascript:void(0)">{{
+          $t("pages.tours.delete.guide")
+        }}</a>
+      </li>
     </ul>
   </div>
 </template>
@@ -140,7 +145,7 @@ export default {
       table.methods.sortBy(key, this.guideschedules);
     },
 
-    // 中止処理
+    // ツアー中止処理
     alert_disp() {
       if (window.confirm("ツアーの取り消しを実行しますか？")) {
         // 「OK」時の処理終了
@@ -150,6 +155,18 @@ export default {
       } else {
         // 「キャンセル」時の処理開始
         window.alert("キャンセルされました"); // 警告ダイアログを表示
+      }
+    },
+    // 担当ガイド中止処理
+    alert_delete_guide() {
+      if (window.confirm("担当ガイドの取り消しを実行しますか？")) {
+        // 「OK」時の処理終了
+        api.delete(`/api/v1/tours/${this.tour.id}/guides`);
+        window.alert("担当ガイドの取り消しを行いました。");
+        this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
+      } else {
+        // 「キャンセル」時の処理開始
+        window.alert("担当ガイド取り消しを中止しました。"); // 警告ダイアログを表示
       }
     },
     // ツアー状態によって背景色を変更(idを置き換える)
