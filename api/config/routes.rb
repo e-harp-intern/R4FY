@@ -13,8 +13,8 @@ Rails.application.routes.draw do
           get "accounts" => "accounts#index"
           delete "guides/:id" => "guides#delete"
           delete "admins/:id" => "admins#delete"
+          get "guides/:token/schedules" => "guides#index"
           patch "guides/:token/update" => "guides#update"
-          get "guides/:token" => "guides#index"
 
           # ツアー
           post "tours" => "tours#create"
