@@ -1,7 +1,7 @@
 <template>
   <div id="account-list-page">
     <!-- アカウントの一覧 -->
-    <h2>{{ $t("pages.accounts.title") }}</h2>
+    <h1>{{ $t("pages.accounts.title") }}</h1>
     <button @click="gocreatAccount()" id="create_account_btn">
       {{ $t("pages.createaccount.title") }}
     </button>
