@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           get "accounts" => "accounts#index"
           delete "guides/:id" => "guides#delete"
           delete "admins/:id" => "admins#delete"
+          put "guides/:token/schedule" => "guides#schedule"
 
           # ツアー
           post "tours" => "tours#create"
