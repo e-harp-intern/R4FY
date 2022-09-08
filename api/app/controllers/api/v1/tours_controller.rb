@@ -41,10 +41,13 @@ class Api::V1::ToursController < ApplicationController
         GuideSchedule.create(tour_id: tour.id, guide_id: guide.id)
         Token.new(token: generate_token, tour_id: tour.id, guide_id: guide.id).save!
       end
-    end
+      response = {
+      tour: JSON.parse(tour.to_json)
+     }
 
-    # 予定が作成されたら成功表示
-    render json: json_render_v1(true)
+      # 予定が作成されたら成功表示
+      render json: json_render_v1(true, response)
+    end
   end
 
   # トークンの生成
