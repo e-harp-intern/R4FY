@@ -23,11 +23,11 @@ class Api::V1::TourGuidesController < ApplicationController
       Tour.find(tour_id).update(tour_state_code: TOUR_STATE_CODE_ASSIGNED)
     end
 
-    # TODO: 成功時はメールを送信 #75 で実装予定
+    # 成功時に担当者にメールを送信
+    tour = Tour.find(tour_id)
     guides.each do |g|
       guide = Guide.find_by(id: g)
-      logger.debug(guide.name)
-      logger.debug(guide.email)
+      AssignNotifyMailer.creation_email(g,tour).deliver_now
     end
 
     # 成功時
