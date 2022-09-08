@@ -42,8 +42,8 @@ class Api::V1::ToursController < ApplicationController
         Token.new(token: generate_token, tour_id: tour.id, guide_id: guide.id).save!
       end
       response = {
-      tour: JSON.parse(tour.to_json)
-     }
+        tour: tour
+      }
 
       # 予定が作成されたら成功表示
       render json: json_render_v1(true, response)
