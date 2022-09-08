@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div>{{ guide_info }}</div>
     <div class="form-frame" v-if="isInput === 'false'">
       <form @submit.prevent="create" class="form-main">
         <div id="radio">
@@ -33,7 +34,7 @@
 </template>
 
 <script>
-// import api from "@/mixins/api";
+import api from "@/mixins/api";
 
 export default {
   data() {
@@ -41,6 +42,7 @@ export default {
       url: "",
       isInput: "false",
       guidetoken: "",
+      guide_info: [],
     };
   },
   created() {},
@@ -52,7 +54,7 @@ export default {
       }
     },
     async create() {
-      // const classpath = "APIのpath";
+      const classpath = "APIのpath";
 
       // 現在のURL(Path)からガイドのトークンを取得
       this.url = this.$route.path;
@@ -61,8 +63,8 @@ export default {
       const object = {
         token: this.guidetoken,
       };
-      // 参加できる：1
-      // 参加できない：-1
+      // 参加できる：true
+      // 参加できない：false
       if (
         document.querySelector("input[name=class]:checked").value ===
         "participate"
@@ -76,30 +78,51 @@ export default {
       // チェックボックスの値を取得出来ているかの確認
       alert(document.querySelector("input[name=class]:checked").value);
 
-      // try {
-      //   // ロード中にする
-      //   this.$emit("SendLoadComplete", false);
+      try {
+        // ロード中にする
+        this.$emit("SendLoadComplete", false);
 
-      //   // アカウント作成情報を送信
-      //   const response = await api.post(classpath, object, this.$router.push);
+        // アカウント作成情報を送信
+        const response = await api.post(classpath, object, this.$router.push);
 
-      //   // API完了
-      //   if (response.status === "success") {
-      //     // 成功
-      //     this.isInput = "true";
-      //     this.form_reset();
-      //     this.$router.push("/InputSchedule");
-      //   } else {
-      //     // 失敗
-      //     this.$router.push("?status=500").catch(() => {});
-      //   }
-      // } catch {
-      //   this.error = 500;
-      // } finally {
-      //   this.$emit("SendLoadComplete", true);
-      // }
+        // API完了
+        if (response.status === "success") {
+          // 成功
+          this.isInput = "true";
+          this.form_reset();
+          this.$router.push("/InputSchedule");
+        } else {
+          // 失敗
+          this.$router.push("?status=500").catch(() => {});
+        }
+      } catch {
+        this.error = 500;
+      } finally {
+        this.$emit("SendLoadComplete", true);
+      }
       this.isInput = "true";
     },
+  },
+  // tokenを使ってガイド情報を取得する
+  async beforeRouteEnter(to, from, next) {
+    // 現在のURL(Path)からガイドのトークンを取得
+    const url = `/api/v1/guides/`;
+    // const guidetoken = to.params.token;
+    const guidetoken = `tzW6XfapMSbp9W9LnZYNNA`;
+    const schedule = `/schedules`;
+    const path = url + guidetoken + schedule;
+
+    console.log(path);
+
+    // ツアー一覧データの取得
+    const response = await api.get(path, next);
+    const guideinfo = response.data;
+
+    console.log(guideinfo);
+
+    next((vm) => {
+      vm.guide_info = guideinfo;
+    });
   },
 };
 </script>
