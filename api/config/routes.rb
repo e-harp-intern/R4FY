@@ -9,8 +9,8 @@ Rails.application.routes.draw do
           # アカウント
           post "guides" => "guides#create"
           get "admins/me" => "admins#index"
-          patch "admins/update" => "admins#update"
-          patch "guides/update" => "guides#update"
+          patch "admins/:id" => "admins#update"
+          patch "guides/:id" => "guides#update"
           post "admins" => "admins#create"
           get "accounts" => "accounts#index"
           delete "guides/:id" => "guides#delete"

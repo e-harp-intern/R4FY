@@ -25,7 +25,7 @@ class Api::V1::GuidesController < ApplicationController
 
   # 　ガイド情報の変更をする
   def update
-    guide = Guide.find(params[:id])
+    guide = Guide.find_by(id: params[:id])
     name = params[:name]
     email = params[:email]
     memo = params[:memo]
