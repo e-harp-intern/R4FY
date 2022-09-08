@@ -25,19 +25,19 @@ class Api::V1::GuidesController < ApplicationController
 
   # 　ガイド情報の変更をする
   def update
-    @admin = Guide.find(params[:id])
-    update_name = params[:name]
-    update_email = params[:email]
-    update_memo = params[:memo]
+    guide = Guide.find(params[:id])
+    name = params[:name]
+    email = params[:email]
+    memo = params[:memo]
 
     # 　名前だけを変更する条件
-    @admin.update(name: params[:name]) unless update_name.nil?
+    guide.update(name: name) unless name.nil?
 
     # 　メールだけを変更する条件
-    @admin.update(email: params[:email]) unless update_email.nil?
+    guide.update(email: email) unless email.nil?
 
     # 　メモだけを変更する条件
-    @admin.update(memo: params[:memo]) unless update_memo.nil?
+    guide.update(memo: memo) unless memo.nil?
 
     render json: json_render_v1(true)
   end
