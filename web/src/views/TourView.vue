@@ -160,11 +160,12 @@ export default {
         window.alert("キャンセルされました"); // 警告ダイアログを表示
       }
     },
+
     // ツアー担当ガイドを選択、決定するページへ遷移する
     goTourSelectGuide() {
       this.$router.push(`/tours/${this.tour.id}/selectguide`);
     },
-    {
+
     // 担当ガイド中止処理
     alert_delete_guide() {
       if (window.confirm("担当ガイドの取り消しを実行しますか？")) {
@@ -177,6 +178,7 @@ export default {
         window.alert("担当ガイド取り消しを中止しました。"); // 警告ダイアログを表示
       }
     },
+
     // ツアー状態によって背景色を変更(idを置き換える)
     changeToTourStateColor(code) {
       if (code === 1) {
