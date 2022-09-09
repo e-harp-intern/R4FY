@@ -17,6 +17,7 @@ Rails.application.routes.draw do
           delete "admins/:id" => "admins#delete"
           get "guides/:token/schedules" => "guide_schedules#index"
           patch "guides/:token/schedules" => "guide_schedules#update"
+          post "tours/:tour_id/achievements/:guide_id" => "achievements#create"
 
           # ツアー
           post "tours" => "tours#create"
