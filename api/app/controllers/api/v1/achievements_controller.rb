@@ -6,7 +6,7 @@ class Api::V1::AchievementsController < ApplicationController
   def create
     # createですが、updateで保存しています
     achievements = TourGuide.find_by(id: params[:tour_id], id: params[:guide_id])
-    achievements.update(achievements_entered: false)
+    achievements.update(achievements_entered: achievements)
     render json: json_render_v1(true, achievements)
   end
 end
