@@ -38,8 +38,19 @@ export default {
                 false: "アカウントの作成に失敗しました。"
             }
         },
+        inputschedule: {
+                participate: "参加できる",
+                absent: "参加できない",
+                send: "送信完了"
+        },
         accounts: {
             title: "アカウント"
+
+        },
+        guides: {
+            schedules: {
+                info: "ツアーでの担当ガイドのスケジュール調整のため、参加できるか・できないかの入力をお願いいたします。"
+            }
         }
     },
     other: {
@@ -123,6 +134,8 @@ export default {
         memo: "メモ",
         start_datetime: "開始日時",
         end_datetime: "終了日時",
-        people_num_unit: "%{num} 名"
+        people_num_unit: "%{num} 名",
+        date_start_end: "%{start} ~ %{end}",
+        name: "%{name} 様"
     },
 };
