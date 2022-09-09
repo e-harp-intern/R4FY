@@ -23,6 +23,7 @@ Rails.application.routes.draw do
           get "tours" => "tours#index"
           get "tours/:id" => "tour#index"
           delete "tours/:id" => "tour#destroy"
+          get "tours/:id/templates" => "tours#show"
           
 
           # 担当ガイド
