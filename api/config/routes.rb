@@ -7,27 +7,38 @@ Rails.application.routes.draw do
           delete "logout" => "sessions#destroy"
 
           # アカウント
-          post "guides" => "guides#create"
-          get "admins/me" => "admins#index"
-          patch "admins/:id" => "admins#update"
-          patch "guides/:id" => "guides#update"
-          post "admins" => "admins#create"
           get "accounts" => "accounts#index"
-          delete "guides/:id" => "guides#delete"
+
+          # 管理者
+          post "admins" => "admins#create"
+          patch "admins/:id" => "admins#update"
           delete "admins/:id" => "admins#delete"
-          get "guides/:token/schedules" => "guide_schedules#index"
-          patch "guides/:token/schedules" => "guide_schedules#update"
+          get "admins/me" => "admins#index"
+
+          # ガイド
+          post "guides" => "guides#create"
+          patch "guides/:id" => "guides#update"
+          delete "guides/:id" => "guides#delete"
+
+          # スケジュール
+          get "schedules/:token" => "guide_schedules#index"
+          patch "schedules/:token" => "guide_schedules#update"
 
           # ツアー
           post "tours" => "tours#create"
           get "tours" => "tours#index"
           get "tours/:id" => "tour#index"
           delete "tours/:id" => "tour#destroy"
-          
 
-          # 担当ガイド
+          # ツアー／実績
+          post "tours/:tour_id/achievements/:guide_id" => "achievements#create"
+
+          # ツアー／担当ガイド
           post "tours/:id/guides" => "tour_guides#create"
           delete "tours/:id/guides" => "tour_guides#destroy"
+
+          # テンプレート
+          get "templates/:id" => "templates#index"
         end
     end
 

@@ -64,7 +64,7 @@ export default {
     },
     // ツアーが選択された場合に詳細ページへ遷移する
     gocreatAccount() {
-      this.$router.push(`/accounts`);
+      this.$router.push(`/accounts/create`);
     },
     async search() {
       const url = `/api/v1/accounts`;

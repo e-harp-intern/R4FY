@@ -89,7 +89,7 @@ export default {
     // 送信（参加情報を作成）
     async create() {
       // 送信先URL
-      const url = `/api/v1/guides/${this.$route.params.token}/schedules`;
+      const url = `/api/v1/schedules/${this.$route.params.token}`;
 
       // 送信情報を取得
       const possible = (() => {
@@ -134,7 +134,7 @@ export default {
   async beforeRouteEnter(to, from, next) {
     // ツアー一覧データの取得
     const { token } = to.params;
-    const url = `/api/v1/guides/${token}/schedules`;
+    const url = `/api/v1/schedules/${token}`;
     const response = await api.get(url, next);
     const { guide, tour, answered, possible } = response.data;
 

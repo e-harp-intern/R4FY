@@ -1,7 +1,10 @@
 <template>
   <div id="login">
+    <!-- アプリタイトル -->
+    <h1 class="app-name">{{ $t("app_name") }}</h1>
+
     <!-- タイトル -->
-    <h1>{{ $t("pages.login.title") }}</h1>
+    <h2>{{ $t("pages.login.title") }}</h2>
 
     <!-- 入力フォーム -->
     <div class="form-frame">
@@ -31,8 +34,18 @@
     </div>
 
     <!-- エラー時の表示 -->
-    <p v-if="this.error === 401">{{ $t("pages.login.error.status_401") }}</p>
-    <p v-if="this.error === 500">{{ $t("pages.login.error.status_500") }}</p>
+    <p v-if="this.error === 401" class="error-info">
+      {{ $t("pages.login.error.status_401") }}
+    </p>
+    <p v-if="this.error === 500" class="error-info">
+      {{ $t("pages.login.error.status_500") }}
+    </p>
+
+    <!-- 説明 -->
+    <div class="login_info">
+      <h2>{{ $t("pages.login.info_title") }}</h2>
+      <p>{{ $t("pages.login.info") }}</p>
+    </div>
   </div>
 </template>
 
@@ -40,6 +53,13 @@
 #login {
   position: relative;
 
+  .app-name {
+    margin-top: 1.5em;
+    border-bottom: 0.1em solid var(--color-theme);
+    display: inline-block;
+    padding: 0 2em;
+    box-sizing: border-box;
+  }
   .form-frame {
     margin: 0 auto;
     width: 640px;
@@ -67,6 +87,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .login_info {
+    display: inline-block;
+    width: auto;
+    padding: 1em;
+    margin: 0 auto;
+    margin-top: 2em;
+    background-color: var(--color-light-gray);
+    border-radius: 0.5em;
+    box-sizing: border-box;
+  }
+  .login_info > p {
+    text-align: left;
+    line-height: 1.75em;
+  }
+  .error-info {
+    font-weight: bold;
   }
 }
 </style>

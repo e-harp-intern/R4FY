@@ -48,7 +48,9 @@
           <td>{{ tour.name }}</td>
           <td>{{ datetimeFormat(tour.start_datetime) }}</td>
           <td>{{ datetimeFormat(tour.end_datetime) }}</td>
-          <td>{{ codeToTourStateString(tour.tour_state_code) }}</td>
+          <td :class="addStateClass(tour.tour_state_code)">
+            {{ codeToTourStateString(tour.tour_state_code) }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -85,6 +87,17 @@ export default {
     // ツアーが選択された場合に詳細ページへ遷移する
     goTourDetail(id) {
       this.$router.push(`/tours/${id}`);
+    },
+
+    // ツアー状態によって色を付ける
+    addStateClass(state) {
+      return {
+        CellState_1: state === 1,
+        CellState_2: state === 2,
+        CellState_4: state === 4,
+        CellState_8: state === 8,
+        CellState_256: state === 256,
+      };
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -161,5 +174,30 @@ table td:nth-of-type(3) {
 .nodata-error {
   text-align: center;
   padding: 0.5em;
+}
+
+.CellState_1 {
+  background-color: var(--color-yellow);
+  color: var(--color-white);
+}
+
+.CellState_2 {
+  background-color: var(-color-light-green);
+  color: var(--color-white);
+}
+
+.CellState_4 {
+  background-color: var(--color-orange);
+  color: var(--color-white);
+}
+
+.CellState_8 {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+.CellState_256 {
+  background-color: var(--color-red);
+  color: var(--color-white);
 }
 </style>
