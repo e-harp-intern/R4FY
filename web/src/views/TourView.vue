@@ -1,5 +1,6 @@
 <template>
   <div id="tour-page">
+    <!-- ページタイトル -->
     <h1>{{ $t("pages.tours.tour.title") }}</h1>
     <div id="tour-name">{{ tour.name }}</div>
 
@@ -114,6 +115,8 @@
         <a @click="goTourSelectGuide()" href="javascript:void(0)">
           {{ $t("pages.tours.select.title") }}
         </a>
+      </li>
+      <li>
         <a @click="alert_delete_guide()" href="javascript:void(0)">{{
           $t("pages.tours.delete.guide")
         }}</a>
@@ -212,22 +215,21 @@ export default {
     const response = await api.get(`/api/v1/tours/${to.params.id}`, next);
 
     // 各種情報のパース
-    const { tour } = response.data;
-    const guideschedules = response.data.guide_schedules;
-    const tourguides = response.data.tour_guides;
+    const { tour, guide_schedules, tour_guides } = response.data;
 
-    // ネスとした情報を扱いやすいようにコピー
-    for (const g of guideschedules) {
+    // 情報を扱いやすい形に変更
+    for (const g of guide_schedules) {
       g.name = g.guide.name;
       g.email = g.guide.email;
       g.state = guideStateMethod(g.answered, g.possible);
-      g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
+      g.assign = tour_guides.some((u) => u.guide.id === g.guide.id);
     }
 
+    // 画面へ情報を渡す
     next((vm) => {
       vm.tour = tour;
-      vm.guideschedules = guideschedules;
-      vm.tourguides = tourguides;
+      vm.guideschedules = guide_schedules;
+      vm.tourguides = tour_guides;
     });
   },
 };

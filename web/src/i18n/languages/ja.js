@@ -139,6 +139,7 @@ export default {
         end_datetime: "終了日時",
         people_num_unit: "%{num} 名",
         date_start_end: "%{start} ~ %{end}",
-        name: "%{name} 様"
+        name: "%{name} 様",
+        router_back: "前のページへ戻る"
     },
 };

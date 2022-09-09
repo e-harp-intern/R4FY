@@ -1,6 +1,16 @@
 <template>
   <div>
+    <!-- タイトル -->
     <h1>ツアー担当ガイド決定画面</h1>
+
+    <!-- 戻る -->
+    <ul>
+      <li>
+        <a @click="$router.back()" href="javascript:void(0);">{{
+          $t("common.router_back")
+        }}</a>
+      </li>
+    </ul>
 
     <!-- 参加ガイドの一覧 -->
     <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
@@ -27,6 +37,7 @@
             id="guide_body_tr"
             v-for="schedule in guideschedules"
             :key="schedule.id"
+            :class="grayoutLine(schedule.state)"
           >
             <td>
               <input
@@ -73,12 +84,20 @@ export default {
     sortBy(key) {
       table.methods.sortBy(key, this.guideschedules);
     },
+
     // 参加の有無によってチェックボックスの表示・非表示
     buttoncheck(state) {
       if (state === 1) {
         return 1;
       }
       return 2;
+    },
+
+    // 担当割り当てができない場合はグレーアウト
+    grayoutLine(state) {
+      return {
+        grayout: state !== 1,
+      };
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -105,6 +124,10 @@ export default {
       g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
     }
 
+    // 参加予定を並び替える
+    table.methods.sortBy("state", guideschedules);
+
+    // 画面へ情報を受け渡し
     next((vm) => {
       vm.tour = tour;
       vm.guideschedules = guideschedules;
@@ -156,5 +179,9 @@ export default {
 }
 h2 {
   margin: 50px 0 0 0;
+}
+
+#tours_list table tbody tr.grayout {
+  background-color: var(--color-dark-gray);
 }
 </style>
