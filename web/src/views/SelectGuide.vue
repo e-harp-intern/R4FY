@@ -125,6 +125,7 @@ export default {
     }
 
     // 参加予定を並び替える
+    table.methods.sortBy("", guideschedules);
     table.methods.sortBy("state", guideschedules);
 
     // 画面へ情報を受け渡し
