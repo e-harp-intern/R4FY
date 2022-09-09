@@ -29,15 +29,19 @@
             name="class"
             value="participate"
             id="participate"
+            v-model="possibleRadio"
           />
           <label for="participate"
             >{{ $t("pages.inputschedule.participate") }}
           </label>
           <br />
-          <input type="radio" name="class" value="absent" id="absent" /><label
-            for="absent"
-            >{{ $t("pages.inputschedule.absent") }}
-          </label>
+          <input
+            type="radio"
+            name="class"
+            value="absent"
+            id="absent"
+            v-model="possibleRadio"
+          /><label for="absent">{{ $t("pages.inputschedule.absent") }} </label>
         </div>
         <br />
         <div class="form-button-frame">
@@ -66,6 +70,7 @@ export default {
       tour: {},
       is_answered: false,
       is_possible: false,
+      possibleRadio: "",
     };
   },
   created() {},
@@ -139,6 +144,9 @@ export default {
       vm.tour = tour;
       vm.is_answered = answered;
       vm.is_possible = possible;
+      vm.possibleRadio = !answered
+        ? ""
+        : { true: "participate", false: "absent" }[possible];
     });
   },
 };
