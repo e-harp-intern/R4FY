@@ -21,8 +21,8 @@ Rails.application.routes.draw do
           delete "guides/:id" => "guides#delete"
 
           # スケジュール
-          get "guides/:token/schedules" => "guide_schedules#index"
-          patch "guides/:token/schedules" => "guide_schedules#update"
+          get "schedules/:token" => "guide_schedules#index"
+          patch "schedules/:token" => "guide_schedules#update"
 
           # ツアー
           post "tours" => "tours#create"
