@@ -29,9 +29,14 @@ class Api::V1::AdminsController < ApplicationController
     render json: json_render_v1(true, @current_user)
   end
 
+  # アカウントの論理削除
   def delete
     admins_delete = Admin.find_by(id: params[:id])
     admins_delete.update(is_invalid: true)
+
+    # アカウント削除の通知メール
+    DeleteAccountNotifyMailer.creation_email(admins_delete).deliver_now
+
     render json: json_render_v1(true)
   end
 
