@@ -45,10 +45,9 @@ export default {
   },
   methods: {
     layout() {
-      const layout = this.$route.meta.layout
-        ? `${this.$route.meta.layout}-layout`
-        : "default-layout";
-      return layout;
+      const layoutName = this.$route.meta.layout;
+      const layout = layoutName ? `${layoutName}-layout` : "default-layout";
+      return this.$route.name ? layout : "none-layout";
     },
     LoadComplete(flg) {
       this.loading = !flg;
