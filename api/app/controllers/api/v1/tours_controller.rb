@@ -65,10 +65,4 @@ class Api::V1::ToursController < ApplicationController
   def generate_token
     SecureRandom.urlsafe_base64
   end
-
-  # ツアーテンプレートの取得
-  def show
-    templates = TourTemplate.find_by(id: params[:id])
-    render json: json_render_v1(true, templates)
-  end
 end
