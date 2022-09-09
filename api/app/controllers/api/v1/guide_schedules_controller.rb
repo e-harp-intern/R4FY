@@ -1,7 +1,7 @@
 # ガイドの予定に関連する機能のコントローラーです
 
 class Api::V1::GuideSchedulesController < ApplicationController
-  before_action :require_login
+  before_action :require_login, except: %i[index update]
 
   # DBにガイドスケジュール(true/false)を反映
   def update

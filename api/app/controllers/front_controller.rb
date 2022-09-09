@@ -7,9 +7,19 @@ class FrontController < ActionController::Base
     if @current_user
       render file: Rails.root.join("public/index.html"), status: 200, layout: false,
              content_type: "text/html"
+      return
     end
 
-    # TODO: トークンでのログインチェック
+    # トークンでのログインチェック
+    path = request.fullpath.split("/")
+    if path.length >= 4 && path[1] == "guides" && path[3] == "schedules"
+      token = path[2]
+      if Token.find_by(token: token) != nil
+        render file: Rails.root.join("public/index.html"), status: 200, layout: false,
+               content_type: "text/html"
+        return
+      end
+    end
 
     # 権限がない場合はログインページへリダイレクト
     redirect_to "/"
