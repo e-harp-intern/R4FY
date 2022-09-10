@@ -11,7 +11,7 @@ module.exports = defineConfig({
   pages: {
     index: {
       entry: "src/main.js",
-      title: "[ここにタイトルを入れる]",
+      title: "観光ガイドスケジュール調整システム",
     },
   },
 });
