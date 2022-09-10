@@ -44,4 +44,9 @@ Rails.application.routes.draw do
 
     # フロント表示用
     get "*not_found" => "front#index"
+
+    # Not Found
+    post "*not_found" => "application#routing_error"
+    patch "*not_found" => "application#routing_error"
+    delete "*not_found" => "application#routing_error"
 end

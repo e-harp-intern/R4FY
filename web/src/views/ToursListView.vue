@@ -100,6 +100,9 @@ export default {
       };
     },
   },
+  created() {
+    this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
+  },
   async beforeRouteEnter(to, from, next) {
     // ツアー一覧データの取得
     const response = await api.get("/api/v1/tours", next);

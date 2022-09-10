@@ -55,7 +55,9 @@ export default {
       guides: [],
     };
   },
-  created() {},
+  created() {
+    this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
+  },
   methods: {
     // テーブル処理を共通メソッドに渡す
     addSortClass: (key) => table.methods.addSortClass(key),
