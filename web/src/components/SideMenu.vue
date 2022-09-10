@@ -10,7 +10,7 @@
           v-bind:key="value.path"
           :class="{ 'router-active': $route.path.startsWith(value.path) }"
         >
-          <router-link :to="value.path">{{ value.title }}</router-link>
+          <a @click="menuClick(value.path)">{{ value.title }}</a>
         </li>
       </ul>
     </nav>
@@ -32,6 +32,14 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    menuClick(path) {
+      if (path !== this.$route.path) {
+        this.$emit("SendLoadComplete", false);
+      }
+      this.$router.push(path);
+    },
   },
 };
 </script>
@@ -83,6 +91,7 @@ export default {
   color: var(--color-white);
   background-color: var(--color-dark-theme);
   opacity: 0.75;
+  cursor: pointer;
 }
 
 .router-active {
