@@ -11,7 +11,7 @@ class Api::V1::ToursController < ApplicationController
     word = params[:word] || ""
     start_date = Date.parse(params[:start_date] || Date.today.prev_month.strftime("%Y-%m-%d"))
     end_date = Date.parse(params[:end_date] || "9999-12-30").tomorrow
-    tour_state = params[:tour_state] || [TOUR_STATE_CODE_INCOMPLETE, TOUR_STATE_CODE_ASSIGNED, TOUR_STATE_CODE_COMPLETE]
+    tour_state = params[:tour_state] || [TOUR_STATE_CODE_INCOMPLETE, TOUR_STATE_CODE_ASSIGNED, TOUR_STATE_CODE_COMPLETE, TOUR_STATE_CODE_COMPLETE_RECORDED, TOUR_STATE_CODE_CANCEL]
 
     # 検索
     tours = Tour
