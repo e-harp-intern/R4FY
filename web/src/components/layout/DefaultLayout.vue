@@ -1,22 +1,24 @@
 <template>
   <div id="default-layout">
     <div id="app">
-      <SideMenu></SideMenu>
-      <div id="contents">
-        <div>
-          <PageHeader></PageHeader>
-        </div>
-        <div id="main-contents">
+      <SideMenu @SendLoadComplete="SendLoadComplete"></SideMenu>
+      <div id="main">
+        <div id="contents">
           <div>
-            <router-view
-              v-bind:class="{ 'event-none': loading }"
-              id="app-view"
-              @SendLoadComplete="SendLoadComplete"
-            ></router-view>
-            <LoadingTemplate v-if="loading"></LoadingTemplate>
+            <PageHeader></PageHeader>
           </div>
-          <PageFooter></PageFooter>
+          <div id="main-contents">
+            <div>
+              <router-view
+                v-bind:class="{ 'event-none': loading }"
+                id="app-view"
+                @SendLoadComplete="SendLoadComplete"
+              ></router-view>
+            </div>
+            <PageFooter></PageFooter>
+          </div>
         </div>
+        <LoadingTemplate v-if="loading"></LoadingTemplate>
       </div>
     </div>
   </div>
@@ -43,6 +45,7 @@ export default {
     return {
       number: 0,
       loading: false,
+      nextPath: "",
     };
   },
   methods: {
@@ -85,6 +88,11 @@ export default {
     position: relative;
     display: grid;
     grid-template-rows: 1fr auto;
+  }
+
+  #main {
+    position: relative;
+    max-width: 100%;
   }
 }
 </style>
