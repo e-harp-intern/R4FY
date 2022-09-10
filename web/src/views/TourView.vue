@@ -1,5 +1,6 @@
 <template>
   <div id="tour-page">
+    <!-- ページタイトル -->
     <h1>{{ $t("pages.tours.tour.title") }}</h1>
     <div id="tour-name">{{ tour.name }}</div>
 
@@ -111,6 +112,11 @@
         </a>
       </li>
       <li>
+        <a @click="goTourSelectGuide()" href="javascript:void(0)">
+          {{ $t("pages.tours.select.title") }}
+        </a>
+      </li>
+      <li>
         <a @click="alert_delete_guide()" href="javascript:void(0)">{{
           $t("pages.tours.delete.guide")
         }}</a>
@@ -157,6 +163,12 @@ export default {
         window.alert("キャンセルされました"); // 警告ダイアログを表示
       }
     },
+
+    // ツアー担当ガイドを選択、決定するページへ遷移する
+    goTourSelectGuide() {
+      this.$router.push(`/tours/${this.tour.id}/selectguide`);
+    },
+
     // 担当ガイド中止処理
     alert_delete_guide() {
       if (window.confirm("担当ガイドの取り消しを実行しますか？")) {
@@ -169,6 +181,7 @@ export default {
         window.alert("担当ガイド取り消しを中止しました。"); // 警告ダイアログを表示
       }
     },
+
     // ツアー状態によって背景色を変更(idを置き換える)
     changeToTourStateColor(code) {
       if (code === 1) {
@@ -202,22 +215,21 @@ export default {
     const response = await api.get(`/api/v1/tours/${to.params.id}`, null, next);
 
     // 各種情報のパース
-    const { tour } = response.data;
-    const guideschedules = response.data.guide_schedules;
-    const tourguides = response.data.tour_guides;
+    const { tour, guide_schedules, tour_guides } = response.data;
 
-    // ネスとした情報を扱いやすいようにコピー
-    for (const g of guideschedules) {
+    // 情報を扱いやすい形に変更
+    for (const g of guide_schedules) {
       g.name = g.guide.name;
       g.email = g.guide.email;
       g.state = guideStateMethod(g.answered, g.possible);
-      g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
+      g.assign = tour_guides.some((u) => u.guide.id === g.guide.id);
     }
 
+    // 画面へ情報を渡す
     next((vm) => {
       vm.tour = tour;
-      vm.guideschedules = guideschedules;
-      vm.tourguides = tourguides;
+      vm.guideschedules = guide_schedules;
+      vm.tourguides = tour_guides;
     });
   },
 };

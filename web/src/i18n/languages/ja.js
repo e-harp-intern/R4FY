@@ -29,6 +29,9 @@ export default {
                 title: "ツアー取り消し",
                 guide: "担当ガイド取り消し",
             },
+            select: {
+                title: "担当ガイド選択画面へ",
+            },
             admin_name_show: {
                 welcome_message: "%{admin_name}さん、こんにちは！"
             }
@@ -139,6 +142,7 @@ export default {
         end_datetime: "終了日時",
         people_num_unit: "%{num} 名",
         date_start_end: "%{start} ~ %{end}",
-        name: "%{name} 様"
+        name: "%{name} 様",
+        router_back: "前のページへ戻る"
     },
 };

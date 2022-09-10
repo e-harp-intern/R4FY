@@ -25,6 +25,9 @@
         "vue/no-side-effects-in-computed-properties": "off",
         "vue/no-parsing-error": "off",
         "no-restricted-syntax": "off",
-        "no-alert": "off"
+        "no-alert": "off",
+        "camelcase": "off",
+        "no-return-assign": "off",
+        "no-continue": "off"
     }
 }
