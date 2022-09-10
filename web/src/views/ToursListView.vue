@@ -105,10 +105,10 @@ export default {
   },
   async beforeRouteEnter(to, from, next) {
     // ツアー一覧データの取得
-    const response = await api.get("/api/v1/tours", next);
+    const response = await api.get("/api/v1/tours", null, next);
     const tours = response.data;
 
-    const responceAdmin = await api.get("/api/v1/admins/me", next);
+    const responceAdmin = await api.get("/api/v1/admins/me", null, next);
     const adminNameShow = responceAdmin.data;
 
     next((vm) => {

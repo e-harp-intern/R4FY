@@ -70,11 +70,17 @@ export default {
     },
     async search() {
       const url = `/api/v1/accounts`;
-      const name = `?name=${document.getElementById("name").value}`;
-      const email = `&email=${document.getElementById("email").value}`;
-      const path = url + name + email;
 
-      const response = await api.get(path, this.$router.push);
+      // 送信
+      const response = await api.get(
+        url,
+        {
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+        },
+        this.$router.push
+      );
+
       // 各種情報のパース
       const { admins } = response.data;
       const { guides } = response.data;
@@ -99,7 +105,7 @@ export default {
     },
   },
   async beforeRouteEnter(to, from, next) {
-    const response = await api.get(`/api/v1/accounts`, next);
+    const response = await api.get(`/api/v1/accounts`, null, next);
 
     // 各種情報のパース
     const { admins } = response.data;
