@@ -50,6 +50,11 @@ const routes = [
     name: "accounts",
     component: () => import("@/views/AccountView.vue"),
   },
+  {
+    path: "/logout",
+    name: "logout",
+    component: () => import("@/views/LogoutView.vue"),
+  },
 ];
 
 const router = new VueRouter({
