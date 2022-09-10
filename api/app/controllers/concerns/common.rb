@@ -9,7 +9,7 @@ module Common
   TOUR_STATE_CODE_CANCEL = 256
 
   # URLの型（別ファイルで定義したい）
-  URL_GUIDE_SCHEDULE_TOKEN = "http://localhost:8080/guides/%<token>s/schedules".freeze
+  URL_GUIDE_SCHEDULE_TOKEN = "#{ENV['SERVER_PATH']}#{'/guides/%<token>s/schedules'.freeze}".freeze
 
   # 仮パスワードを生成
   def create_temp_pass
