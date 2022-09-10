@@ -45,9 +45,9 @@ export default {
             }
         },
         inputschedule: {
-                participate: "参加できる",
-                absent: "参加できない",
-                send: "送信完了"
+            participate: "参加できる",
+            absent: "参加できない",
+            send: "送信完了"
         },
         accounts: {
             title: "アカウント"
@@ -57,6 +57,11 @@ export default {
             schedules: {
                 info: "ツアーでの担当ガイドのスケジュール調整のため、参加できるか・できないかの入力をお願いいたします。"
             }
+        },
+        logout: {
+            title: "ログアウト",
+            info: "ログアウト中です...",
+            alert: "ログアウトに失敗しました。"
         }
     },
     other: {

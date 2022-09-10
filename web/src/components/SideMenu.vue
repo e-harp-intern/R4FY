@@ -6,8 +6,11 @@
           v-for="value in menuList"
           v-bind:key="value.path"
           :class="{ 'router-active': $route.path.startsWith(value.path) }"
+          :style="value.styleMenu"
         >
-          <a @click="menuClick(value.path)">{{ value.title }}</a>
+          <a @click="menuClick(value.path)" :style="value.styleText">{{
+            value.title
+          }}</a>
         </li>
       </ul>
     </nav>
@@ -26,6 +29,12 @@ export default {
         {
           path: "/accounts",
           title: this.$i18n.t("pages.accounts.title"),
+        },
+        {
+          path: "/logout",
+          title: this.$i18n.t("pages.logout.title"),
+          styleMenu: { marginTop: "3em" },
+          styleText: {},
         },
       ],
     };
