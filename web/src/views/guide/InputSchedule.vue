@@ -135,7 +135,7 @@ export default {
     // ツアー一覧データの取得
     const { token } = to.params;
     const url = `/api/v1/schedules/${token}`;
-    const response = await api.get(url, next);
+    const response = await api.get(url, null, next);
     const { guide, tour, answered, possible } = response.data;
 
     // ページへ情報を受け渡し

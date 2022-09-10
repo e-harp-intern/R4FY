@@ -30,7 +30,10 @@ function apiSend(method, endPoint, json = null, next = null) {
 
 // 送信用メソッド（必ず next を設定）
 export default {
-  async get(endPoint, next = null) {
+  async get(endPoint, json = {}, next = null) {
+    if (json !== {}) {
+      endPoint = `${endPoint}?${new URLSearchParams(json)}`;
+    }
     return apiSend("GET", endPoint, null, next);
   },
   async post(endPoint, json = {}, next = null) {
@@ -39,7 +42,7 @@ export default {
   async patch(endPoint, json = {}, next = null) {
     return apiSend("PATCH", endPoint, json, next);
   },
-  async delete(endPoint, next = null) {
-    return apiSend("DELETE", endPoint, null, next);
+  async delete(endPoint, json = null, next = null) {
+    return apiSend("DELETE", endPoint, json, next);
   },
 };
