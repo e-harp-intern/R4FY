@@ -55,6 +55,14 @@ const routes = [
     name: "logout",
     component: () => import("@/views/LogoutView.vue"),
   },
+  {
+    path: "/*",
+    name: "inputschedule",
+    component: () => import("@/views/NotFoundView.vue"),
+    meta: {
+      layout: "simple",
+    },
+  },
 ];
 
 const router = new VueRouter({
