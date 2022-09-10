@@ -3,14 +3,22 @@
     <!-- タイトル -->
     <h1>ツアー担当ガイド決定画面</h1>
 
-    <!-- 戻る -->
-    <ul>
-      <li>
-        <a @click="$router.back()" href="javascript:void(0);">{{
-          $t("common.router_back")
-        }}</a>
-      </li>
-    </ul>
+    <!-- 決定ボタン -->
+    <div class="center">
+      <button
+        class="button-green button-large"
+        :class="guideNumError()"
+        @click="assignGuide()"
+      >
+        担当者を確定する
+      </button>
+      <button class="button-large" @click="$router.back()">キャンセル</button>
+    </div>
+
+    <!-- 情報 -->
+    <div class="center tour-info">
+      {{ currentGuideNum }} 人/ {{ tour.guide_num }} 人
+    </div>
 
     <!-- 参加ガイドの一覧 -->
     <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
@@ -38,13 +46,16 @@
             v-for="schedule in guideschedules"
             :key="schedule.id"
             :class="grayoutLine(schedule.state)"
+            class="hover-line"
+            @click="ChangeSelect(schedule.state, schedule.id)"
           >
             <td>
               <input
                 type="checkbox"
                 style="transform: scale(2)"
-                id="select-assign"
+                :id="schedule.id"
                 name="select-assign"
+                @click="ChangeSelect(schedule.state, schedule.id)"
                 v-if="isChecking === buttoncheck(schedule.state)"
               />
             </td>
@@ -72,9 +83,12 @@ export default {
       guideschedules: [],
       tourguides: [],
       isChecking: 1,
+      currentGuideNum: 0,
     };
   },
-  created() {},
+  created() {
+    this.currentGuideNum = this.CountCheckedGuideNum();
+  },
   methods: {
     // 共通処理を受け渡し
     codeToGuideStateString: (state) => common.codeToGuideStateString(state),
@@ -87,10 +101,32 @@ export default {
 
     // 参加の有無によってチェックボックスの表示・非表示
     buttoncheck(state) {
-      if (state === 1) {
-        return 1;
+      return state === 1 ? 1 : 2;
+    },
+
+    // チェック済みガイド数をカウントする
+    CountCheckedGuideNum() {
+      const num = this.guideschedules.reduce((c, g) => {
+        if (g.id === undefined) return c;
+        const elem = document.getElementById(g.id);
+        if (elem === null) return c;
+        c += elem.checked ? 1 : 0;
+        return c;
+      }, 0);
+      return num;
+    },
+
+    // チェックボックスを切り替える
+    ChangeSelect(state, id) {
+      if (state !== 1) {
+        return;
       }
-      return 2;
+
+      document.getElementById(id).checked =
+        !document.getElementById(id).checked;
+
+      // カウントを更新
+      this.currentGuideNum = this.CountCheckedGuideNum();
     },
 
     // 担当割り当てができない場合はグレーアウト
@@ -98,6 +134,51 @@ export default {
       return {
         grayout: state !== 1,
       };
+    },
+
+    // ガイドの数が予定通りなら色を変更
+    guideNumError() {
+      return {
+        guideNumError: this.currentGuideNum !== this.tour.guide_num,
+      };
+    },
+
+    // 担当ガイドを送信
+    async assignGuide() {
+      // 予定の人数と違う
+      if (this.currentGuideNum !== this.tour.guide_num) {
+        if (!window.confirm("ガイドの人数が予定と違いますが、確定しますか？")) {
+          window.alert("確定を取り消しました。");
+          return;
+        }
+      }
+
+      // 送信前の確認
+      if (!window.confirm("担当が割り当てられたガイドへメールを送信します。")) {
+        window.alert("送信を取り消しました。");
+        return;
+      }
+
+      // 送信メッセージの組み立て
+      const guides = [];
+      for (const g of this.guideschedules) {
+        if (g === null) continue;
+        const elem = document.getElementById(g.id);
+        if (elem === null || !elem.checked) continue;
+        guides.push(g.guide_id);
+      }
+
+      // 送信
+      try {
+        await api.post(
+          `/api/v1/tours/${this.tour.id}/guides`,
+          { guides },
+          this.$router.push
+        );
+        this.$router.push(`/tours/${this.tour.id}`);
+      } catch {
+        window.alert("送信エラーが発生しました。");
+      }
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -122,6 +203,7 @@ export default {
       g.email = g.guide.email;
       g.state = guideStateMethod(g.answered, g.possible);
       g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
+      g.id = `select-assign-${g.guide_id}`;
     }
 
     // 参加予定を並び替える
@@ -183,6 +265,19 @@ h2 {
 }
 
 #tours_list table tbody tr.grayout {
+  background-color: var(--color-dark-gray);
+}
+
+.tour-info {
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.hover-line:hover > td {
+  background-color: var(--color-theme);
+}
+
+.guideNumError {
   background-color: var(--color-dark-gray);
 }
 </style>

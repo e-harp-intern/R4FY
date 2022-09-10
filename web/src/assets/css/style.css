@@ -30,6 +30,10 @@ p {
 }
 
 /* よく使うパーツ */
+.center {
+    text-align: center;
+}
+
 p.info {
     margin: 2em auto 0;
     width: 100%;
@@ -59,6 +63,10 @@ button {
     transition: box-shadow .2s, opacity .2s;
     margin: 0 .5em;
     box-sizing: border-box;
+}
+
+button.button-large {
+    padding: 1em 2em;
 }
 
 button.button-red {
