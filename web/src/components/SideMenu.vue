@@ -1,9 +1,6 @@
 <template>
   <div id="menu-frame">
     <nav id="menu">
-      <div style="color: #ffffff; padding: 2em 0; text-align: center">
-        ロゴを入れる場所
-      </div>
       <ul>
         <li
           v-for="value in menuList"
