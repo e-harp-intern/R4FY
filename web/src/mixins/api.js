@@ -19,12 +19,16 @@ function apiSend(method, endPoint, json = null, next = null) {
         "Content-Type": "application/json",
       },
       body: json === null ? null : JSON.stringify(json),
-    }).then((response) => {
-      if (response.status === 401) {
-        next("/?status=401");
-      }
-      resolve(response.json());
-    });
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          next("/?status=401");
+        }
+        resolve(response.json());
+      })
+      .catch(() => {
+        next("/error");
+      });
   });
 }
 
