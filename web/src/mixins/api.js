@@ -31,7 +31,7 @@ function apiSend(method, endPoint, json = null, next = null) {
 // 送信用メソッド（必ず next を設定）
 export default {
   async get(endPoint, json = {}, next = null) {
-    if (json !== {}) {
+    if (json !== null && json !== {}) {
       endPoint = `${endPoint}?${new URLSearchParams(json)}`;
     }
     return apiSend("GET", endPoint, null, next);
