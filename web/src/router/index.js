@@ -56,8 +56,16 @@ const routes = [
     component: () => import("@/views/LogoutView.vue"),
   },
   {
+    path: "/error",
+    name: "error",
+    component: () => import("@/views/ErrorView.vue"),
+    meta: {
+      layout: "simple",
+    },
+  },
+  {
     path: "/*",
-    name: "inputschedule",
+    name: "notfound",
     component: () => import("@/views/NotFoundView.vue"),
     meta: {
       layout: "simple",
