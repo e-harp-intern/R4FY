@@ -14,6 +14,8 @@ class Api::V1::TourAchievementsController < ApplicationController
       achievements.push(achievement(guide.guide_id))
     end
 
-    render json: json_render_v1(true, achievements)
+    response = {}
+    response["achievements"] = achievements
+    render json: json_render_v1(true, response)
   end
 end
