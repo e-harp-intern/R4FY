@@ -9,6 +9,9 @@ module Achievement
     achievement = {}
     today = Date.today
 
+    # ガイド情報を追加
+    achievement["guide_id"] = guide_id
+
     # 前回出席ツアーを検索
     achievement["lasttime"] = TourGuide
                               .where(guide_id: guide_id, achievements_entered: true) # 指定ガイドの入力済み実績のみ取得
