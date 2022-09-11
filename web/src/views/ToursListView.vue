@@ -104,16 +104,20 @@ export default {
     this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
   },
   async beforeRouteEnter(to, from, next) {
-    // ツアー一覧データの取得
-    const response = await api.get("/api/v1/tours", null, next);
-    const tours = response.data;
+    // 並列で情報を取得
+    await Promise.all([
+      api.get("/api/v1/tours", null, next),
+      api.get("/api/v1/admins/me", null, next),
+    ]).then((result) => {
+      // 情報を分解
+      const tours = result[0].data;
+      const admin = result[1].data;
 
-    const responceAdmin = await api.get("/api/v1/admins/me", null, next);
-    const adminNameShow = responceAdmin.data;
-
-    next((vm) => {
-      vm.tours = tours;
-      vm.adminNameShow = adminNameShow;
+      // ページへ渡す
+      next((vm) => {
+        vm.tours = tours;
+        vm.adminNameShow = admin;
+      });
     });
   },
 };
