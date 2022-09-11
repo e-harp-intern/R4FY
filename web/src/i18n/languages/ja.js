@@ -81,7 +81,8 @@ export default {
     button: {
         login: "ログイン",
         send: "送信",
-        password_reset: "パスワードの再発行"
+        password_reset: "パスワードの再発行",
+        cancel: "キャンセル"
     },
     placeholder: {
         email: "email",
