@@ -46,6 +46,9 @@
         </div>
         <br />
         <div class="form-button-frame">
+          <button class="" @click="$router.back()">
+            {{ $t("button.cancel") }}
+          </button>
           <button type="submit" class="button-green">
             {{ $t("button.send") }}
           </button>
