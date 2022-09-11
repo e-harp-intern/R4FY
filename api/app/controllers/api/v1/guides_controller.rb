@@ -1,5 +1,6 @@
 # ガイドアカウントを作成するためのコントローラー
 class Api::V1::GuidesController < ApplicationController
+  include Achievement
   before_action :require_login
 
   # ガイドアカウントを作成するメソッド
@@ -20,6 +21,25 @@ class Api::V1::GuidesController < ApplicationController
 
     # アカウントが作成されたら成功表示
     render json: json_render_v1(true)
+  end
+
+  # ガイド詳細の取得
+  def index
+    # 情報の取得
+    guide = Guide.find(params[:id])
+
+    # 存在しない場合はエラーを返す
+    if guide.nil? || guide.is_invalid
+      render json: json_render_v1(false, status: 204)
+      return
+    end
+
+    # 実績の取得
+    response = {}
+    response["guide"] = guide
+    response["achievement"] = achievement(params[:id])
+
+    render json: json_render_v1(true, response)
   end
 
   # ガイドアカウントの論理削除
