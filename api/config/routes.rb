@@ -31,6 +31,7 @@ Rails.application.routes.draw do
           delete "tours/:id" => "tour#destroy"
 
           # ツアー／実績
+          get "tours/:tour_id/achievements" => "tour_achievements#index"
           post "tours/:tour_id/achievements/:guide_id" => "achievements#create"
 
           # ツアー／担当ガイド
