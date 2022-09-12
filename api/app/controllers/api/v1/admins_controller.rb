@@ -1,6 +1,5 @@
 # 管理者アカウントを作成するためのコントローラー
 class Api::V1::AdminsController < ApplicationController
-  include Achievement
   before_action :require_login
 
   # 　管理者アカウント作成のメソッド
@@ -30,7 +29,6 @@ class Api::V1::AdminsController < ApplicationController
     if params[:id] == "me"
       response = {}
       response["admin"] = @current_user
-
     else
       # IDから取得
       admin = Admin.find(params[:id])
