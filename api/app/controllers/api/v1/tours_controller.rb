@@ -65,4 +65,16 @@ class Api::V1::ToursController < ApplicationController
   def generate_token
     SecureRandom.urlsafe_base64
   end
+
+  # ガイドの参加可否情報を変更
+  def update
+    tour_id = params[:tour_id]
+    guide_id = params[:guide_id]
+    guide_schedules = GuideSchedule.find_by(tour_id: tour_id, guide_id: guide_id)
+    possible = params[:possible]
+
+    # 参加可否入力
+    guide_schedules.update(possible: possible)
+    render json: json_render_v1(true, guide_schedules)
+  end
 end

@@ -38,6 +38,7 @@ Rails.application.routes.draw do
           # ツアー／担当ガイド
           post "tours/:id/guides" => "tour_guides#create"
           delete "tours/:id/guides" => "tour_guides#destroy"
+          patch "tours/:tour_id/guides/:guide_id/schedules" => "tours#update"
 
           # テンプレート
           get "templates/:id" => "templates#index"
