@@ -16,7 +16,7 @@ table.table-normal {
   tbody tr:nth-child(odd) {
     background-color: var(--color-gray);
   }
-  tr:nth-child(even) {
+  tbody tr:nth-child(even) {
     background-color: var(--color-light-gray);
   }
 
@@ -37,5 +37,10 @@ table.table-normal {
     transform: scale(1.01);
     opacity: 0.8;
     cursor: pointer;
+  }
+
+  // グレーアウト
+  tbody tr.grayout {
+    background-color: var(--color-dark-gray);
   }
 }

@@ -44,7 +44,7 @@
           <tr
             v-for="schedule in guideschedules"
             :key="schedule.id"
-            :class="grayoutLine(schedule.state)"
+            :class="tableCSS(schedule.state)"
             class="hover-line"
             @click="ChangeSelect(schedule.state, schedule.id)"
           >
@@ -129,9 +129,10 @@ export default {
     },
 
     // 担当割り当てができない場合はグレーアウト
-    grayoutLine(state) {
+    tableCSS(state) {
       return {
         grayout: state !== 1,
+        "table-hover": state === 1,
       };
     },
 
@@ -232,17 +233,9 @@ h2 {
   margin: 50px 0 0 0;
 }
 
-#tours_list table tbody tr.grayout {
-  background-color: var(--color-dark-gray);
-}
-
 .tour-info {
   padding: 1em;
   box-sizing: border-box;
-}
-
-.hover-line:hover > td {
-  background-color: var(--color-theme);
 }
 
 .guideNumError {
