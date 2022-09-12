@@ -13,7 +13,7 @@ Rails.application.routes.draw do
           post "admins" => "admins#create"
           patch "admins/:id" => "admins#update"
           delete "admins/:id" => "admins#delete"
-          get "admins/me" => "admins#index"
+          get "admins/:id" => "admins#index"
 
           # ガイド
           post "guides" => "guides#create"

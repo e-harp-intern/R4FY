@@ -25,8 +25,26 @@ class Api::V1::AdminsController < ApplicationController
 
   # 　管理者名を取得する
   def index
-    # 　管理者名を表示
-    render json: json_render_v1(true, @current_user)
+    # /meの場合、自身の情報を取得
+    if params[:id] == "me"
+      response = {}
+      response["admin"] = @current_user
+    else
+      # IDから取得
+      admin = Admin.find(params[:id])
+
+      # 存在しない場合はエラーを返す
+      if admin.nil? || admin.is_invalid
+        render json: json_render_v1(false, status: 204)
+        return
+      end
+
+      # 実績の取得
+      response = {}
+      response["admin"] = admin
+
+    end
+    render json: json_render_v1(true, response)
   end
 
   # アカウントの論理削除
