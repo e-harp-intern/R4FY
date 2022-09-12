@@ -12,7 +12,7 @@
     <button @click="goTourDetail('create')" id="create_tour_btn">
       {{ $t("pages.tours.create.title") }}
     </button>
-    <table>
+    <table class="table-normal">
       <thead>
         <tr>
           <th @click="sortBy('name')" :class="addSortClass('name')">
@@ -40,14 +40,14 @@
       </thead>
       <tbody>
         <tr
-          id="tours_body_tr"
           v-for="tour in tours"
           :key="tour.id"
           @click="goTourDetail(tour.id)"
+          class="table-hover"
         >
           <td>{{ tour.name }}</td>
-          <td>{{ datetimeFormat(tour.start_datetime) }}</td>
-          <td>{{ datetimeFormat(tour.end_datetime) }}</td>
+          <td class="center">{{ datetimeFormat(tour.start_datetime) }}</td>
+          <td class="center">{{ datetimeFormat(tour.end_datetime) }}</td>
           <td :class="addStateClass(tour.tour_state_code)">
             {{ codeToTourStateString(tour.tour_state_code) }}
           </td>
@@ -124,48 +124,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*テーブル全体の設定*/
-table {
-  clear: both;
-  margin: 1em auto;
-  padding: 0;
-  width: 100%;
-}
-/*テーブルの色分け*/
-table thead tr {
-  background-color: var(--color-theme);
-  color: var(--color-white);
-}
-table tbody tr:nth-child(odd) {
-  background-color: var(--color-gray);
-}
-table tr:nth-child(even) {
-  background-color: var(--color-light-gray);
-}
-/*テーブル内の要素ごとの配置*/
-table thead th {
-  font-size: 0.85em;
-  padding: 1em;
-}
-table th,
-table td {
-  padding: 0.35em 1em;
-}
-//列ごとにalignする
-table td:nth-of-type(2),
-table td:nth-of-type(3) {
-  text-align: center;
-}
+@import "@/assets/css/table.scss";
 
-/* テーブルマウスオーバー時 */
-#tours_body_tr:hover,
-#tours_body_tr:focus,
-#tours_body_tr:active {
-  -webkit-transform: scale(1.01);
-  transform: scale(1.01);
-  opacity: 0.8;
-  cursor: pointer;
-}
 #create_tour_btn {
   float: right;
   padding: 0.5em 1.3em;
@@ -178,10 +138,14 @@ table td:nth-of-type(3) {
   font-size: 1.25em;
 }
 
+/* ------------ データが無い場合の表示 ------------ */
+
 .nodata-error {
   text-align: center;
   padding: 0.5em;
 }
+
+/* ------------ 状態によって色を付ける ------------ */
 
 .CellState_1 {
   background-color: var(--color-yellow);

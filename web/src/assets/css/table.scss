@@ -1,0 +1,46 @@
+/*テーブル全体の設定*/
+table.table-normal {
+  // テーブルの設定
+  clear: both;
+  margin: 1em auto;
+  padding: 0;
+  width: 100%;
+
+  // ヘッダ部分の設定
+  thead tr {
+    background-color: var(--color-theme);
+    color: var(--color-white);
+  }
+
+  // 偶奇で色を変える
+  tbody tr:nth-child(odd) {
+    background-color: var(--color-gray);
+  }
+  tbody tr:nth-child(even) {
+    background-color: var(--color-light-gray);
+  }
+
+  // 各セルのデザイン
+  th {
+    font-size: 0.85em;
+    padding: 1em;
+  }
+  td {
+    padding: 0.35em 1em;
+  }
+
+  // 行をホバーした時
+  tbody tr.table-hover:hover,
+  tbody tr.table-hover:focus,
+  tbody tr.table-hover:active {
+    -webkit-transform: scale(1.01);
+    transform: scale(1.01);
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  // グレーアウト
+  tbody tr.grayout {
+    background-color: var(--color-dark-gray);
+  }
+}
