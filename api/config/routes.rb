@@ -40,7 +40,8 @@ Rails.application.routes.draw do
           delete "tours/:id/guides" => "tour_guides#destroy"
 
           # テンプレート
-          get "templates/:id" => "templates#index"
+          get "templates/:id" => "template#index"
+          get "templates" => "templates#index"
         end
     end
 
