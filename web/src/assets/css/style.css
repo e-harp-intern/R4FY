@@ -53,6 +53,7 @@ p.info_red {
 button {
     min-width: 5em;
     font-size: 1em;
+    font-weight: bold;
     background-color: var(--color-gray);
     border: none;
     color: var(--color-text);
