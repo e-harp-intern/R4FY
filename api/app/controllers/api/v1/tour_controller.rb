@@ -21,7 +21,26 @@ class Api::V1::TourController < ApplicationController
   # ツアーを中止にする
   def destroy
     tour_delete = Tour.find_by(id: params[:id])
-    tour_delete.update(tour_state_code: TOUR_STATE_CODE_CANCEL)
-    render json: json_render_v1(true)
+    guide_id = TourGuide.find_by(id: params[:id]).guide_id
+
+    # 担当者決定後の場合
+    if tour_delete.tour_state_code == 2
+      guide = Guide.find_by(id: guide_id)
+      TourCancelNotifyMailer.cancel_email(guide, tour_delete).deliver_now
+      # tour_delete.update(tour_state_code: TOUR_STATE_CODE_CANCEL)
+      render json: json_render_v1(true, tour_delete)
+    else
+      # 担当者決定前の場合
+      guides_id = GuideSchedule.where(tour_id: params[:id])
+      guides = Guide.where(id: guides_id)
+
+      guides.each do |guide|
+        TourCancelNotifyMailer.cancel_email(guide, tour_delete).deliver_now
+      end
+
+      # tour_delete.update(tour_state_code: TOUR_STATE_CODE_CANCEL
+      render json: json_render_v1(true, guides)
+    end
+    nil
   end
 end
