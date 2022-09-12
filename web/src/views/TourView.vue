@@ -87,11 +87,13 @@
         </thead>
         <tbody>
           <tr v-for="schedule in guideschedules" :key="schedule.id">
-            <td v-if="schedule.assign">{{ $t("table.guide.assign_mark") }}</td>
+            <td class="center" v-if="schedule.assign">
+              {{ $t("table.guide.assign_mark") }}
+            </td>
             <td v-else></td>
             <td>{{ schedule.name }}</td>
             <td>{{ schedule.email }}</td>
-            <td>
+            <td class="center">
               {{ codeToGuideStateString(schedule.state) }}
             </td>
           </tr>

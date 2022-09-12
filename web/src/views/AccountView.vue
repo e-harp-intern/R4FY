@@ -27,7 +27,7 @@
         </thead>
         <tbody>
           <tr v-for="account in accounts" :key="account.number">
-            <td>{{ account.authority }}</td>
+            <td class="center">{{ account.authority }}</td>
             <td>{{ account.name }}</td>
             <td>{{ account.email }}</td>
           </tr>
