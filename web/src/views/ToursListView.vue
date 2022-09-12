@@ -189,7 +189,7 @@ table td:nth-of-type(3) {
 }
 
 .CellState_2 {
-  background-color: var(-color-light-green);
+  background-color: var(--color-light-green);
   color: var(--color-white);
 }
 
