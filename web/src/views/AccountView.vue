@@ -10,8 +10,8 @@
         {{ $t("pages.createaccount.title") }}
       </button>
     </div>
-    <div id="account_list">
-      <table>
+    <div>
+      <table class="table-normal">
         <thead>
           <tr>
             <th @click="sortBy('authority')" :class="addSortClass('authority')">
@@ -26,11 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            id="account_body_tr"
-            v-for="account in accounts"
-            :key="account.number"
-          >
+          <tr v-for="account in accounts" :key="account.number">
             <td>{{ account.authority }}</td>
             <td>{{ account.name }}</td>
             <td>{{ account.email }}</td>
@@ -135,39 +131,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*テーブル全体の設定*/
-#account_list table {
-  font-size: 1.25em;
-  margin: 0 auto;
-  padding: 0;
-  width: 100%;
-}
-/*テーブルの色分け*/
-#account_list table thead tr {
-  background-color: var(--color-theme);
-  color: var(--color-white);
-}
-#account_list table tbody tr:nth-child(odd) {
-  background-color: var(--color-gray);
-}
-#account_list table tr:nth-child(even) {
-  background-color: var(--color-light-gray);
-}
-/*テーブル内の要素ごとの配置*/
-#account_list table thead th {
-  padding: 1em;
-}
-#account_list table th,
-#account_list table td {
-  padding: 0.35em 1em;
-}
-//列ごとにalignする
-#account_list table td:nth-of-type(1),
-#account_list table td:nth-of-type(2),
-#account_list table td:nth-of-type(4),
-#account_list table td:nth-of-type(5) {
-  text-align: center;
-}
+@import "@/assets/css/table.scss";
+
 h2 {
   margin: 50px 0 0 0;
 }
