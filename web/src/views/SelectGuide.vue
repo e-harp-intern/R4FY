@@ -22,8 +22,8 @@
 
     <!-- 参加ガイドの一覧 -->
     <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
-    <div id="tours_list">
-      <table>
+    <div>
+      <table class="table-normal">
         <thead>
           <tr>
             <th @click="sortBy('assign')" :class="addSortClass('assign')">
@@ -42,14 +42,13 @@
         </thead>
         <tbody>
           <tr
-            id="guide_body_tr"
             v-for="schedule in guideschedules"
             :key="schedule.id"
             :class="grayoutLine(schedule.state)"
             class="hover-line"
             @click="ChangeSelect(schedule.state, schedule.id)"
           >
-            <td>
+            <td class="center">
               <input
                 type="checkbox"
                 style="transform: scale(2)"
@@ -61,7 +60,7 @@
             </td>
             <td>{{ schedule.name }}</td>
             <td>{{ schedule.email }}</td>
-            <td>
+            <td class="center">
               {{ codeToGuideStateString(schedule.state) }}
             </td>
           </tr>
@@ -221,45 +220,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/table.scss";
+
 #tour-name {
   font-size: 3em;
   text-align: center;
   margin: 0;
 }
 
-/*テーブル全体の設定*/
-#tours_list table {
-  font-size: 1.25em;
-  margin: 0 auto;
-  padding: 0;
-  width: 100%;
-}
-
-/*テーブルの色分け*/
-#tours_list table thead tr {
-  background-color: var(--color-theme);
-  color: var(--color-white);
-}
-#tours_list table tbody tr:nth-child(odd) {
-  background-color: var(--color-gray);
-}
-#tours_list table tr:nth-child(even) {
-  background-color: var(--color-light-gray);
-}
-/*テーブル内の要素ごとの配置*/
-#tours_list table thead th {
-  padding: 1em;
-}
-#tours_list table th,
-#tours_list table td {
-  padding: 0.35em 1em;
-}
-//列ごとにalignする
-#tours_list table td:nth-of-type(1),
-#tours_list table td:nth-of-type(2),
-#tours_list table td:nth-of-type(4) {
-  text-align: center;
-}
 h2 {
   margin: 50px 0 0 0;
 }
