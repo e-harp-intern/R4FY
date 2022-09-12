@@ -6,10 +6,9 @@ class FrontController < ActionController::Base
 
     # APIの場合は 404 JSON
     if path.length >= 2 && path[1] == "api"
-      render json: {status: "error", data: {}}, 404
+      render json: { status: "error", data: {} }, status: 404
       return
     end
-
 
     # 管理者ログインチェック
     @current_user = @current_user || Admin.find_by(id: session[:user_id])
