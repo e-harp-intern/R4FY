@@ -26,10 +26,11 @@ class Api::V1::GuidesController < ApplicationController
   def delete
     guides_delete = Guide.find_by(id: params[:id])
     guides_delete.update(is_invalid: true)
-    render json: json_render_v1(true)
 
     # アカウント削除の通知メール
-    DeleteAccountNotifyMailer.delete_email(guide).deliver_now
+    DeleteAccountNotifyMailer.delete_email(guides_delete).deliver_now
+
+    render json: json_render_v1(true)
   end
 
   # 　ガイド情報の変更をする

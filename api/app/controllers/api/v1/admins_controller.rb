@@ -35,7 +35,7 @@ class Api::V1::AdminsController < ApplicationController
     admins_delete.update(is_invalid: true)
 
     # アカウント削除の通知メール
-    DeleteAccountNotifyMailer.creation_email(admins_delete).deliver_now
+    DeleteAccountNotifyMailer.delete_email(admins_delete).deliver_now
 
     render json: json_render_v1(true)
   end
