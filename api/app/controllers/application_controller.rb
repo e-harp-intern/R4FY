@@ -32,7 +32,7 @@ class ApplicationController < ActionController::API
     @current_user = @current_user || Admin.find_by(id: session[:user_id])
     return if @current_user
 
-    render json: json_render_v1(false, { error: "unauthorized", hint: "login required for access", status: 403 }),
+    render json: json_render_v1(false, { error: "unauthorized", hint: "login required for access", status: 401 }),
            status: :unauthorized
   end
 
