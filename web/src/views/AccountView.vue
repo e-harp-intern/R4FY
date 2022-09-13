@@ -26,7 +26,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="account in accounts" :key="account.number">
+          <tr
+            v-for="account in accounts"
+            :key="account.number"
+            class="table-hover"
+            @click="tableLink(account.id, account.authority)"
+          >
             <td class="center">{{ account.authority }}</td>
             <td>{{ account.name }}</td>
             <td>{{ account.email }}</td>
@@ -60,6 +65,26 @@ export default {
     sortBy(key) {
       table.methods.sortBy(key, this.accounts);
     },
+
+    // テーブルクリック時の処理
+    tableLink(id, type) {
+      // 定義
+      const type_admin = this.$t("account.admin");
+      const type_guide = this.$t("account.guide");
+
+      // URL生成
+      let url = "";
+      if (type === type_admin) url = `/accounts/admins/${id}`;
+      else if (type === type_guide) url = `/accounts/guides/${id}`;
+      else {
+        alert(this.$t("pages.accounts.link_alert"));
+        return;
+      }
+
+      // 移動
+      this.$router.push(url);
+    },
+
     // ツアーが選択された場合に詳細ページへ遷移する
     gocreatAccount() {
       this.$router.push(`/accounts/create`);
