@@ -5,7 +5,7 @@ class Api::V1::TemplateController < ApplicationController
 
   # ツアーテンプレートの取得
   def index
-    templates = TourTemplate.find_by(id: params[:id])
-    render json: json_render_v1(true, templates)
+    template = TourTemplate.find_by(id: params[:id])
+    render json: json_render_v1(true, template)
   end
 end
