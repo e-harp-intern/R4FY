@@ -74,7 +74,7 @@ class Api::V1::ToursController < ApplicationController
     possible = params[:possible]
 
     # 参加可否入力
-    guide_schedules.update(possible: possible)
+    guide_schedules.update(answered: true, possible: possible)
     render json: json_render_v1(true, guide_schedules)
   end
 end
