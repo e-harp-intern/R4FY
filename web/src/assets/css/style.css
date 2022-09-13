@@ -20,6 +20,11 @@ p {
     padding-left: .5em;
 }
 
+#default-layout h3 {
+    border-left: .25em solid var(--color-theme);
+    padding-left: .5em;
+}
+
 /*テーブルソートの部品*/
 .asc::after {
     content: "▼";

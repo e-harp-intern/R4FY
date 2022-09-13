@@ -50,8 +50,17 @@ export default {
             send: "送信完了"
         },
         accounts: {
-            title: "アカウント"
-
+            title: "アカウント",
+            link_alert: "エラーが発生しました。",
+            guides: {
+                title: "ガイド詳細情報",
+                title_achievement: "実績情報",
+                title_last_tour: "最後に参加したツアー",
+                no_last_tour: "ツアー未参加です。",
+                title_participation_tours: "過去5回のツアー情報",
+                no_participation_tours: "取得できるツアー情報が存在しませんでした。",
+                link_guide_edit: "ガイド情報を編集する"
+            }
         },
         guides: {
             schedules: {
@@ -106,7 +115,7 @@ export default {
             adult_num: "人数を入力してください",
             child_num: "いない場合「0」を入力してください",
             guide_num: "必ず人数を入力してください",
-        }
+        },
     },
     table: {
         tour_participant_num: {
