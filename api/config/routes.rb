@@ -43,6 +43,7 @@ Rails.application.routes.draw do
           # テンプレート
           get "templates/:id" => "template#index"
           get "templates" => "templates#index"
+          post "templates" => "templates#create"
         end
     end
 
