@@ -58,18 +58,36 @@ class Api::V1::AdminsController < ApplicationController
     render json: json_render_v1(true)
   end
 
-  # 　管理者情報の変更をする
+  # 管理者情報の変更をする
   def update
     admin = Admin.find_by(id: params[:id])
-    name = params[:name]
-    email = params[:email]
 
-    # 　名前だけを変更する条件
-    admin.update(name: name) unless name.nil?
+    # 変更を行う管理者が変更対象の管理者と一致するか
+    if admin == @current_user
+      name = params[:name]
+      email = params[:email]
+      password = params[:password]
 
-    # 　メールだけを変更する条件
-    admin.update(email: email) unless email.nil?
+      # 名前だけを変更する条件
+      admin.update(name: name) unless name.nil?
 
-    render json: json_render_v1(true)
+      # メールだけを変更する条件
+      admin.update(email: email) unless email.nil?
+
+      # パスワードだけを変更する条件
+      admin.update(password: password) unless password.nil?
+
+      render json: json_render_v1(true)
+      nil
+
+    # 他の管理者のIDを指定した場合
+    elsif @current_user.id != admin.id
+      render json: json_render_v1(false, status: 403)
+      nil
+
+    # それ以外
+    else
+      render json: json_render_v1(false)
+    end
   end
 end
