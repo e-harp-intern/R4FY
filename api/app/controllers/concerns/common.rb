@@ -10,7 +10,7 @@ module Common
 
   # URLの型（別ファイルで定義したい）
   URL_GUIDE_SCHEDULE_TOKEN = "#{ENV['SERVER_PATH']}#{'/guides/%<token>s/schedules'.freeze}".freeze
-  URL_ADMIN_PASSWORD_RESET_TOKEN = "http://localhost:8080//rest/%<token>s".freeze
+  URL_ADMIN_PASSWORD_RESET_TOKEN = "#{ENV['SERVER_PATH']}#{'/reset/%<token>s'.freeze}".freeze
 
   # 仮パスワードを生成
   def create_temp_pass
