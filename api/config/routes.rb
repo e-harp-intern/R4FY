@@ -14,6 +14,7 @@ Rails.application.routes.draw do
           patch "admins/:id" => "admins#update"
           delete "admins/:id" => "admins#delete"
           get "admins/:id" => "admins#index"
+          post "password/:token" => "password#create"
 
           # ガイド
           post "guides" => "guides#create"
