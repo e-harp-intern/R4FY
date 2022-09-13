@@ -111,7 +111,7 @@ export default {
     ]).then((result) => {
       // 情報を分解
       const tours = result[0].data;
-      const admin = result[1].data;
+      const { admin } = result[1].data;
 
       // ページへ渡す
       next((vm) => {
