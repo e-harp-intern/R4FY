@@ -59,6 +59,8 @@
         <tr
           v-for="participation_tour in participation_tours"
           :key="participation_tour.id"
+          class="table-hover"
+          @click="goTourDetail(participation_tour.id)"
         >
           <td>{{ participation_tour.name }}</td>
           <td>{{ datetimeFormat(participation_tour.start_datetime) }}</td>
@@ -67,7 +69,34 @@
       </tbody>
     </table>
     <div v-if="participation_tours.length === 0" class="center">
-      {{ $t("pages.accounts.guides.no_participation_tours") }}
+      {{ $t("pages.accounts.guides.no_tours") }}
+    </div>
+
+    <!-- 参加予定のツアー -->
+    <h3>{{ $t("pages.accounts.guides.title_assign_tours") }}</h3>
+    <table class="table-normal">
+      <thead>
+        <tr>
+          <th>{{ $t("table.tour.name") }}</th>
+          <th>{{ $t("table.tour.start_datetime") }}</th>
+          <th>{{ $t("table.tour.end_datetime") }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="assign_tour in assign_tours"
+          :key="assign_tour.id"
+          class="table-hover"
+          @click="goTourDetail(assign_tour.id)"
+        >
+          <td>{{ assign_tour.name }}</td>
+          <td>{{ datetimeFormat(assign_tour.start_datetime) }}</td>
+          <td>{{ datetimeFormat(assign_tour.end_datetime) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div v-if="assign_tours.length === 0" class="center">
+      {{ $t("pages.accounts.guides.no_tours") }}
     </div>
   </div>
 </template>
@@ -83,10 +112,16 @@ export default {
       achievement: {},
       last_tour: {},
       participation_tours: [],
+      assign_tours: [],
     };
   },
   methods: {
     datetimeFormat: (d) => common.datetimeFormat(d),
+
+    // ツアーが選択された場合に詳細ページへ遷移する
+    goTourDetail(id) {
+      this.$router.push(`/tours/${id}`);
+    },
   },
   async beforeRouteEnter(to, from, next) {
     const response = await api.get(
@@ -99,6 +134,7 @@ export default {
       vm.guide = response.data.guide;
       vm.achievement = response.data.achievement;
       vm.last_tour = response.data.achievement.last_tour || {};
+      vm.assign_tours = response.data.achievement.assign_tours || {};
       vm.participation_tours =
         response.data.achievement.participation_tours || [];
     });

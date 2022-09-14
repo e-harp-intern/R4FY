@@ -59,8 +59,9 @@ export default {
                 title_last_tour: "最後に参加したツアー",
                 no_last_tour: "ツアー未参加です。",
                 title_participation_tours: "過去5回のツアー情報",
-                no_participation_tours: "取得できるツアー情報が存在しませんでした。",
-                link_guide_edit: "ガイド情報を編集する"
+                no_tours: "取得できるツアー情報が存在しませんでした。",
+                link_guide_edit: "ガイド情報を編集する",
+                title_assign_tours: "担当割り当て済みのツアー"
             }
         },
         guides: {

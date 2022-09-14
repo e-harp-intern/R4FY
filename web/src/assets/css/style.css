@@ -23,6 +23,7 @@ p {
 #default-layout h3 {
     border-left: .25em solid var(--color-theme);
     padding-left: .5em;
+    margin-bottom: 0;
 }
 
 /*テーブルソートの部品*/
