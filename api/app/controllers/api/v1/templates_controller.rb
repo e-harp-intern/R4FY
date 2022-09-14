@@ -18,8 +18,8 @@ class Api::V1::TemplatesController < ApplicationController
 
   # ツアーテンプレートの作成
   def create
-    tour_templates = TourTemplate.new(name: params[:name], start_datetime: params[:start_datetime],
-                                      end_datetime: params[:end_datetime], guide_num: params[:guide_num])
+    tour_template = TourTemplate.new(name: params[:name], start_datetime: params[:start_datetime],
+                                     end_datetime: params[:end_datetime], guide_num: params[:guide_num])
 
     # ツアーテンプレートの保存
     ApplicationRecord.transaction do
