@@ -23,7 +23,7 @@ export default {
                 tour_setting_title: "ツアー操作"
             },
             create: {
-                title: "ツアー新規追加",
+                title: "ツアー追加",
                 create_api_error: "エラーが発生しました。日付等を確認してもう一度お試しください。"
             },
             delete: {
@@ -38,7 +38,7 @@ export default {
             }
         },
         createaccount: {
-            title: "アカウント作成",
+            title: "アカウント追加",
             detail: "以下のフォームに情報を入力してください。送信ボタンを押すと、アカウント作成通知メールが、入力したメールアドレス宛に送信されます。",
             message: {
                 true: "アカウントを作成しました。",
@@ -93,7 +93,9 @@ export default {
         login: "ログイン",
         send: "送信",
         password_reset: "パスワードの再発行",
-        cancel: "キャンセル"
+        cancel: "キャンセル",
+        account_create: "＋アカウント作成",
+        tour_create: "＋ツアー作成"
     },
     placeholder: {
         email: "email",
