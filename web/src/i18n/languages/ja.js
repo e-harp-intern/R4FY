@@ -71,6 +71,12 @@ export default {
                 info: "ツアーでの担当ガイドのスケジュール調整のため、参加できるか・できないかの入力をお願いいたします。"
             }
         },
+        password_reset: {
+            title: "パスワードの再設定",
+            alert_password: "入力されたパスワードが違います。",
+            alert_api: "エラーが発生しました。もう一度お試しください。",
+            alert_ok: "パスワードを再設定しました。ログイン画面からログインしてください。"
+        },
         logout: {
             title: "ログアウト",
             info: "ログアウト中です...",
@@ -97,16 +103,19 @@ export default {
         password_reset: "パスワードの再発行",
         cancel: "キャンセル",
         account_create: "＋アカウント作成",
-        tour_create: "＋ツアー作成"
+        tour_create: "＋ツアー作成",
+        submit: "確定"
     },
     placeholder: {
         email: "email",
-        password: "password"
+        password: "password",
+        password_reenter: "password"
     },
     label: {
         name: "名前：",
         email: "メールアドレス：",
         password: "パスワード：",
+        password_reenter: "パスワード（再入力）：",
         memo: "メモ：",
         tour_name: "ツアー名：",
         start_datetime: "開始日時：",
