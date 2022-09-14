@@ -27,7 +27,7 @@
         <button @click="search()">検索</button>
       </div>
       <button @click="gocreatAccount()" id="create_account_btn">
-        {{ $t("pages.createaccount.title") }}
+        {{ $t("button.account_create") }}
       </button>
     </div>
 

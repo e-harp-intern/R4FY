@@ -10,7 +10,7 @@
     <br />
     <h1>{{ $t("pages.tours.title") }}</h1>
     <button @click="goTourDetail('create')" id="create_tour_btn">
-      {{ $t("pages.tours.create.title") }}
+      {{ $t("button.tour_create") }}
     </button>
     <table class="table-normal">
       <thead>
