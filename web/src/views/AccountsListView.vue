@@ -5,6 +5,22 @@
 
     <!-- 検索ボックス -->
     <div class="buttons-frame">
+      <div class="search-left">
+        <button
+          class="tab-button"
+          :class="{ 'button-theme': table_is_admin }"
+          @click="table_is_admin = true"
+        >
+          {{ $t("account.admin") }}
+        </button>
+        <button
+          class="tab-button"
+          :class="{ 'button-theme': !table_is_admin }"
+          @click="table_is_admin = false"
+        >
+          {{ $t("account.guide") }}
+        </button>
+      </div>
       <div class="search-frame">
         <input class="search-box" type="text" id="name" placeholder="name" />
         <input class="search-box" type="text" id="email" placeholder="email" />
@@ -16,37 +32,39 @@
     </div>
 
     <!-- 一覧テーブル -->
-    <div>
-      <table class="table-normal">
-        <thead>
-          <tr>
-            <th @click="sortBy('authority')" :class="addSortClass('authority')">
-              {{ $t("table.account.authority") }}
-            </th>
-            <th @click="sortBy('name')" :class="addSortClass('name')">
-              {{ $t("table.account.name") }}
-            </th>
-            <th @click="sortBy('email')" :class="addSortClass('email')">
-              {{ $t("table.account.email") }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="account in accounts"
-            :key="account.number"
-            :class="{
-              'table-hover': account.authority === $t('account.guide'),
-            }"
-            @click="tableLink(account.id, account.authority)"
-          >
-            <td class="center">{{ account.authority }}</td>
-            <td>{{ account.name }}</td>
-            <td>{{ account.email }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="table-normal tabe-margin-0">
+      <thead>
+        <tr>
+          <th @click="sortBy('authority')" :class="addSortClass('authority')">
+            {{ $t("table.account.authority") }}
+          </th>
+          <th @click="sortBy('name')" :class="addSortClass('name')">
+            {{ $t("table.account.name") }}
+          </th>
+          <th @click="sortBy('email')" :class="addSortClass('email')">
+            {{ $t("table.account.email") }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="account in accounts.filter(
+            (a) =>
+              a.authority ===
+              (table_is_admin ? $t('account.admin') : $t('account.guide'))
+          )"
+          :key="account.number"
+          :class="{
+            'table-hover': account.authority === $t('account.guide'),
+          }"
+          @click="tableLink(account.id, account.authority)"
+        >
+          <td class="center">{{ account.authority }}</td>
+          <td>{{ account.name }}</td>
+          <td>{{ account.email }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -62,6 +80,7 @@ export default {
       admins: [],
       accounts: [],
       guides: [],
+      table_is_admin: true,
     };
   },
   created() {
@@ -184,11 +203,25 @@ h2 {
   align-items: center;
 }
 
+.search-left {
+  margin-top: auto;
+  margin-right: auto;
+}
+
+.tab-button {
+  margin: 0 0.1em;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  font-size: large;
+  padding: 0.5em 2em;
+}
+
 .search-frame {
   display: inline-block;
   background-color: var(--color-light-gray);
   padding: 0.5em;
   border-radius: var(--default-radius);
+  margin-bottom: 0.5em;
 }
 
 .search-box {
