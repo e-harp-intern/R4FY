@@ -14,6 +14,7 @@ Rails.application.routes.draw do
           patch "admins/:id" => "admins#update"
           delete "admins/:id" => "admins#delete"
           get "admins/:id" => "admins#index"
+          post "password/:token" => "password#create"
           post "admins/:id/password/reset" => "password_reset#create"
 
           # ガイド
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
           # テンプレート
           get "templates/:id" => "template#index"
           get "templates" => "templates#index"
+          post "templates" => "templates#create"
         end
     end
 
