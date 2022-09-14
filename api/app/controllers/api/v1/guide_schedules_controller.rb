@@ -16,11 +16,6 @@ class Api::V1::GuideSchedulesController < ApplicationController
       return
     end
 
-    # 参加したガイド全員の実績を入力していない場合、ツアー状態コードを実施済みへ変更する
-    tour_guides = TourGuide.where(tour_id: tour.id, achievements_entered: false)
-    count = tour_guides.count
-    tour.update(tour_state_code: TOUR_STATE_CODE_COMPLETE) if count != 0
-
     # 参加可否入力期限が過ぎていた場合
     if tour.schedule_input_deadline <= DateTime.now
       render json: json_render_v1(false, { state: "error" })
