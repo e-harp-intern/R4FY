@@ -15,6 +15,7 @@ Rails.application.routes.draw do
           delete "admins/:id" => "admins#delete"
           get "admins/:id" => "admins#index"
           post "password/:token" => "password#create"
+          post "admins/:id/password/reset" => "password_reset#create"
 
           # ガイド
           post "guides" => "guides#create"

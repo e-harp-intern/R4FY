@@ -20,6 +20,11 @@ p {
     padding-left: .5em;
 }
 
+#default-layout h3 {
+    border-left: .25em solid var(--color-theme);
+    padding-left: .5em;
+}
+
 /*テーブルソートの部品*/
 .asc::after {
     content: "▼";
@@ -80,13 +85,18 @@ button.button-green {
     color: var(--color-white);
 }
 
+button.button-theme {
+    background-color: var(--color-theme);
+    color: var(--color-white);
+}
+
 button:hover {
     opacity: .7;
     box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.15);
 }
 
 button:focus {
-    opacity: .6;
+    opacity: .98;
 }
 
 button:active {

@@ -15,7 +15,7 @@ const routes = [
   {
     path: "/accounts/create",
     name: "createaccount",
-    component: () => import("@/views/CreateAccount.vue"),
+    component: () => import("@/views/accounts/CreateAccountView.vue"),
   },
   {
     path: "/tours",
@@ -25,22 +25,22 @@ const routes = [
   {
     path: "/tours/create",
     name: "input",
-    component: () => import("@/views/CreateTour.vue"),
+    component: () => import("@/views/tours/CreateTourView.vue"),
   },
   {
     path: "/tours/:id",
     name: "tour",
-    component: () => import("@/views/TourView.vue"),
+    component: () => import("@/views/tours/TourDetailView.vue"),
   },
   {
     path: "/tours/:id/selectguide",
     name: "tour",
-    component: () => import("@/views/SelectGuide.vue"),
+    component: () => import("@/views/tours/SelectGuidesView.vue"),
   },
   {
     path: "/guides/:token/schedules",
     name: "inputschedule",
-    component: () => import("@/views/guide/InputSchedule.vue"),
+    component: () => import("@/views/guide/InputScheduleView.vue"),
     meta: {
       layout: "simple",
     },
@@ -48,7 +48,12 @@ const routes = [
   {
     path: "/accounts",
     name: "accounts",
-    component: () => import("@/views/AccountView.vue"),
+    component: () => import("@/views/AccountsListView.vue"),
+  },
+  {
+    path: "/accounts/guides/:id",
+    name: "guide_detail",
+    component: () => import("@/views/accounts/GuideDetailView.vue"),
   },
   {
     path: "/logout",
