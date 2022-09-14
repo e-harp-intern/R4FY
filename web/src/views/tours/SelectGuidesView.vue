@@ -55,6 +55,7 @@
                 :id="schedule.id"
                 name="select-assign"
                 @click="ChangeSelect(schedule.state, schedule.id)"
+                v-model="schedule.assign"
                 v-if="isChecking === buttoncheck(schedule.state)"
               />
             </td>
