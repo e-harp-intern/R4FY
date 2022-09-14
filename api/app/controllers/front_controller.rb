@@ -21,8 +21,7 @@ class FrontController < ActionController::Base
     # トークンでのログインチェック
     if path.length >= 4 && ((path[1] == "guides" && path[3] == "schedules") || path[1] == "reset")
       render file: Rails.root.join("public/index.html"), status: 200, layout: false,
-              content_type: "text/html"
-      end
+             content_type: "text/html"
     end
 
     # 権限がない場合はログインページへリダイレクト
