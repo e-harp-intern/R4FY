@@ -48,7 +48,7 @@ class Api::V1::AdminsController < ApplicationController
   end
 
   # アカウントの論理削除
-  def delete
+  def destroy
     admins_delete = Admin.find_by(id: params[:id])
     admins_delete.update(is_invalid: true)
 

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
           # 管理者
           post "admins" => "admins#create"
           patch "admins/:id" => "admins#update"
-          delete "admins/:id" => "admins#delete"
+          delete "admins/:id" => "admins#destroy"
           get "admins/:id" => "admins#index"
           post "password/reset" => "password_reset#create"
           post "password/:token" => "password#create"
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
           # ガイド
           post "guides" => "guides#create"
           patch "guides/:id" => "guides#update"
-          delete "guides/:id" => "guides#delete"
+          delete "guides/:id" => "guides#destroy"
           get "guides/:id" => "guides#index"
 
           # スケジュール

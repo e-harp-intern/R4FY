@@ -43,7 +43,7 @@ class Api::V1::GuidesController < ApplicationController
   end
 
   # ガイドアカウントの論理削除
-  def delete
+  def destroy
     guides_delete = Guide.find_by(id: params[:id])
     guides_delete.update(is_invalid: true)
 
