@@ -25,7 +25,7 @@ class Api::V1::GuideSchedulesController < ApplicationController
     # ガイドアカウントが有効な場合
     guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
     guide_schedules.update(answered: true, possible: params[:possible])
-    render json: json_render_v1(true, guides)
+    render json: json_render_v1(true, guide)
   end
 
   # ガイド情報・関連したツアー情報・入力済の参加可否情報の表示
