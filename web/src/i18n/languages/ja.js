@@ -24,6 +24,7 @@ export default {
             },
             create: {
                 title: "ツアー新規追加",
+                create_api_error: "エラーが発生しました。日付等を確認してもう一度お試しください。"
             },
             delete: {
                 title: "ツアー取り消し",

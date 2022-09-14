@@ -109,7 +109,7 @@ export default {
           this.$router.push("/tourslist");
         } else {
           // 失敗
-          this.$router.push("?status=500").catch(() => {});
+          alert(this.$t("pages.tours.create.create_api_error"));
         }
       } catch {
         this.error = 500;
