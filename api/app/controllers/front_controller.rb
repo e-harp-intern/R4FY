@@ -19,13 +19,10 @@ class FrontController < ActionController::Base
     end
 
     # トークンでのログインチェック
-    if path.length >= 4 && ((path[1] == "guides" && path[3] == "schedules") || path[1] == "reset")
-      token = path[2]
-      if Token.find_by(token: token) != nil
-        render file: Rails.root.join("public/index.html"), status: 200, layout: false,
-               content_type: "text/html"
-        return
-      end
+    if (path.length >= 4 && (path[1] == "guides" && path[3] == "schedules")) || (path.length >= 2 && path[1] == "reset")
+      render file: Rails.root.join("public/index.html"), status: 200, layout: false,
+             content_type: "text/html"
+      return
     end
 
     # 権限がない場合はログインページへリダイレクト
