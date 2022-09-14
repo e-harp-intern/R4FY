@@ -100,8 +100,7 @@ export default {
         // API完了
         if (response.status === "success") {
           // 成功
-          this.form_reset();
-          this.$router.push("/tourslist");
+          this.$router.push("/accounts");
         } else {
           // 失敗
           this.$router.push("?status=500").catch(() => {});
