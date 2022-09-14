@@ -14,6 +14,11 @@ class Api::V1::AchievementsController < ApplicationController
     # 実績入力
     achievements.update(achievements_entered: true)
 
+    # 全てのツアー実績が記入済みであれば、ツアー状態を更新
+    tour_guides = TourGuide.where(tour_id: tour_id, achievements_entered: true)
+    count = tour_guides.count
+    Tour.find_by(id: tour_id).update(tour_state_code: TOUR_STATE_CODE_COMPLETE_RECORDED) if count.zero?
+
     # 出席だけ入力
     achievements.update(attend: attend) unless attend.nil?
 
