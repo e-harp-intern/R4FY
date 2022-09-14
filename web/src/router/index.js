@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "login",
+    name: "LoginView",
     component: () => import("@/views/LoginView.vue"),
     meta: {
       layout: "simple",
@@ -14,32 +14,32 @@ const routes = [
   },
   {
     path: "/accounts/create",
-    name: "createaccount",
+    name: "CreateAccountView",
     component: () => import("@/views/accounts/CreateAccountView.vue"),
   },
   {
     path: "/tours",
-    name: "tourslist",
+    name: "ToursListView",
     component: () => import("@/views/ToursListView.vue"),
   },
   {
     path: "/tours/create",
-    name: "input",
+    name: "CreateTourView",
     component: () => import("@/views/tours/CreateTourView.vue"),
   },
   {
     path: "/tours/:id",
-    name: "tour",
+    name: "TourDetailView",
     component: () => import("@/views/tours/TourDetailView.vue"),
   },
   {
     path: "/tours/:id/selectguide",
-    name: "tour",
+    name: "SelectGuidesView",
     component: () => import("@/views/tours/SelectGuidesView.vue"),
   },
   {
     path: "/guides/:token/schedules",
-    name: "inputschedule",
+    name: "InputScheduleView",
     component: () => import("@/views/guide/InputScheduleView.vue"),
     meta: {
       layout: "simple",
@@ -47,22 +47,22 @@ const routes = [
   },
   {
     path: "/accounts",
-    name: "accounts",
+    name: "AccountsListView",
     component: () => import("@/views/AccountsListView.vue"),
   },
   {
     path: "/accounts/guides/:id",
-    name: "guide_detail",
+    name: "GuideDetailView",
     component: () => import("@/views/accounts/GuideDetailView.vue"),
   },
   {
     path: "/logout",
-    name: "logout",
+    name: "LogoutView",
     component: () => import("@/views/LogoutView.vue"),
   },
   {
     path: "/error",
-    name: "error",
+    name: "ErrorView",
     component: () => import("@/views/ErrorView.vue"),
     meta: {
       layout: "simple",
@@ -70,7 +70,7 @@ const routes = [
   },
   {
     path: "/*",
-    name: "notfound",
+    name: "NotFoundView",
     component: () => import("@/views/NotFoundView.vue"),
     meta: {
       layout: "simple",
