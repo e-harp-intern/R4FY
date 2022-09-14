@@ -100,6 +100,7 @@ export default {
         // API完了
         if (response.status === "success") {
           // 成功
+          alert(this.$t("pages.createaccount.message.true"));
           this.$router.push("/accounts");
         } else {
           // 失敗
