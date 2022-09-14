@@ -1,4 +1,4 @@
-# ログインせずにパスワードを変更するAPI
+# トークンを用いてパスワードを変更するAPI
 class Api::V1::PasswordController < ApplicationController
   def create
     token = PasswordResetToken.find_by(token: params[:token])
