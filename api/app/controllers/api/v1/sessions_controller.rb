@@ -5,7 +5,6 @@ class Api::V1::SessionsController < ApplicationController
   # ログインのメソッド
   def create
     user = Admin.find_by(email: params[:session][:email].downcase)
-    session[:user_id] = nil
     if user&.authenticate(params[:session][:password]) && Admin.find_by(email: user.email).is_invalid == false
       # ログイン成功
       session[:user_id] = user.id

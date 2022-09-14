@@ -150,10 +150,10 @@ export default {
     },
 
     // ツアー中止処理
-    alert_disp() {
+    async alert_disp() {
       if (window.confirm("ツアーの取り消しを実行しますか？")) {
         // 「OK」時の処理終了
-        api.delete(`/api/v1/tours/${this.tour.id}`);
+        await api.delete(`/api/v1/tours/${this.tour.id}`);
         window.alert("ツアーの中止を行いました。");
         this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
       } else {
@@ -168,10 +168,10 @@ export default {
     },
 
     // 担当ガイド中止処理
-    alert_delete_guide() {
+    async alert_delete_guide() {
       if (window.confirm("担当ガイドの取り消しを実行しますか？")) {
         // 「OK」時の処理終了
-        api.delete(`/api/v1/tours/${this.tour.id}/guides`);
+        await api.delete(`/api/v1/tours/${this.tour.id}/guides`);
         window.alert("担当ガイドの取り消しを行いました。");
         this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
       } else {

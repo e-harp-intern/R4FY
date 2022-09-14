@@ -61,6 +61,14 @@ const routes = [
     component: () => import("@/views/LogoutView.vue"),
   },
   {
+    path: "/reset/:token",
+    name: "PasswordResetView",
+    component: () => import("@/views/PasswordResetView.vue"),
+    meta: {
+      layout: "simple",
+    },
+  },
+  {
     path: "/error",
     name: "ErrorView",
     component: () => import("@/views/ErrorView.vue"),
