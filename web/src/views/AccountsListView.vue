@@ -2,45 +2,69 @@
   <div id="account-list-page">
     <!-- アカウントの一覧 -->
     <h1>{{ $t("pages.accounts.title") }}</h1>
-    <div class="search">
-      <input type="text" id="name" placeholder="name" />
-      <input type="text" id="email" placeholder="email" />
-      <button @click="search()">検索</button>
+
+    <!-- 検索ボックス -->
+    <div class="buttons-frame">
+      <div class="search-left">
+        <button
+          class="tab-button"
+          :class="{ 'button-theme': table_is_admin }"
+          @click="table_is_admin = true"
+        >
+          {{ $t("account.admin") }}
+        </button>
+        <button
+          class="tab-button"
+          :class="{ 'button-theme': !table_is_admin }"
+          @click="table_is_admin = false"
+        >
+          {{ $t("account.guide") }}
+        </button>
+      </div>
+      <div class="search-frame">
+        <input class="search-box" type="text" id="name" placeholder="name" />
+        <input class="search-box" type="text" id="email" placeholder="email" />
+        <button @click="search()">検索</button>
+      </div>
       <button @click="gocreatAccount()" id="create_account_btn">
         {{ $t("pages.createaccount.title") }}
       </button>
     </div>
-    <div>
-      <table class="table-normal">
-        <thead>
-          <tr>
-            <th @click="sortBy('authority')" :class="addSortClass('authority')">
-              {{ $t("table.account.authority") }}
-            </th>
-            <th @click="sortBy('name')" :class="addSortClass('name')">
-              {{ $t("table.account.name") }}
-            </th>
-            <th @click="sortBy('email')" :class="addSortClass('email')">
-              {{ $t("table.account.email") }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="account in accounts"
-            :key="account.number"
-            :class="{
-              'table-hover': account.authority === $t('account.guide'),
-            }"
-            @click="tableLink(account.id, account.authority)"
-          >
-            <td class="center">{{ account.authority }}</td>
-            <td>{{ account.name }}</td>
-            <td>{{ account.email }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+    <!-- 一覧テーブル -->
+    <table class="table-normal tabe-margin-0">
+      <thead>
+        <tr>
+          <th @click="sortBy('authority')" :class="addSortClass('authority')">
+            {{ $t("table.account.authority") }}
+          </th>
+          <th @click="sortBy('name')" :class="addSortClass('name')">
+            {{ $t("table.account.name") }}
+          </th>
+          <th @click="sortBy('email')" :class="addSortClass('email')">
+            {{ $t("table.account.email") }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="account in accounts.filter(
+            (a) =>
+              a.authority ===
+              (table_is_admin ? $t('account.admin') : $t('account.guide'))
+          )"
+          :key="account.number"
+          :class="{
+            'table-hover': account.authority === $t('account.guide'),
+          }"
+          @click="tableLink(account.id, account.authority)"
+        >
+          <td class="center">{{ account.authority }}</td>
+          <td>{{ account.name }}</td>
+          <td>{{ account.email }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -56,6 +80,7 @@ export default {
       admins: [],
       accounts: [],
       guides: [],
+      table_is_admin: true,
     };
   },
   created() {
@@ -163,15 +188,43 @@ export default {
 h2 {
   margin: 50px 0 0 0;
 }
+
 #create_account_btn {
   float: right;
   padding: 0.5em 1.3em;
-  margin-bottom: 1em;
   background-color: var(--color-green);
   color: var(--color-white);
 }
-// 検索ボックス右寄せ
-.search {
-  text-align: right;
+
+// 検索ボックス
+.buttons-frame {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.search-left {
+  margin-top: auto;
+  margin-right: auto;
+}
+
+.tab-button {
+  margin: 0 0.1em;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  font-size: large;
+  padding: 0.5em 2em;
+}
+
+.search-frame {
+  display: inline-block;
+  background-color: var(--color-light-gray);
+  padding: 0.5em;
+  border-radius: var(--default-radius);
+  margin-bottom: 0.5em;
+}
+
+.search-box {
+  margin: 0 0.25em;
 }
 </style>
