@@ -36,20 +36,32 @@ class Api::V1::GuideSchedulesController < ApplicationController
 
   # ガイド情報・関連したツアー情報・入力済の参加可否情報の表示
   def index
+    # パラメーター
     token = Token.find_by(token: params[:token])
+    tour = Tour.find_by(id: token.tour_id)
+
+    # ツアーが中止済みの場合
+    if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
+      render json: json_render_v1(false, { state: "tour canceled" })
+      return
+    end
+
+    # トークンが存在しないとき
     if token.nil?
       render json: json_render_v1(false)
-    else
-      guide = Guide.find_by(id: token.guide_id)
-      tour = Tour.find_by(id: token.tour_id)
-      guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
-      response = {
-        guide: JSON.parse(guide.to_json),
-        tour: JSON.parse(tour.to_json),
-        answered: JSON.parse(guide_schedules.answered.to_json),
-        possible: JSON.parse(guide_schedules.possible.to_json)
-      }
-      render json: json_render_v1(true, response)
+      return
     end
+
+    guide = Guide.find_by(id: token.guide_id)
+    tour = Tour.find_by(id: token.tour_id)
+    guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
+    response = {
+      guide: JSON.parse(guide.to_json),
+      tour: JSON.parse(tour.to_json),
+      answered: JSON.parse(guide_schedules.answered.to_json),
+      possible: JSON.parse(guide_schedules.possible.to_json)
+    }
+
+    render json: json_render_v1(true, response)
   end
 end
