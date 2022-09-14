@@ -32,6 +32,7 @@ Rails.application.routes.draw do
           get "tours" => "tours#index"
           get "tours/:id" => "tour#index"
           delete "tours/:id" => "tour#destroy"
+          patch "tours/:id" => "tour#update"
 
           # ツアー／実績
           get "tours/:tour_id/achievements" => "tour_achievements#index"
