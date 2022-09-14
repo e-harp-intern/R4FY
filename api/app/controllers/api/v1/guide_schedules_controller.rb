@@ -10,15 +10,15 @@ class Api::V1::GuideSchedulesController < ApplicationController
     guide = Guide.find_by(id: token.guide_id)
     tour = Tour.find_by(id: token.tour_id)
 
-    # ガイドアカウントが無効な場合
-    if guide.is_invalid == true
-      render json: json_render_v1(false)
-      return
-    end
-
     # ツアーが中止済みの場合
     if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
       render json: json_render_v1(false, { state: "tour canceled" })
+      return
+    end
+
+    # ガイドアカウントが無効な場合
+    if guide.is_invalid == true
+      render json: json_render_v1(false)
       return
     end
 
