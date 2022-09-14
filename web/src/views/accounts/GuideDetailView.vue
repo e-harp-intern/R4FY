@@ -4,7 +4,7 @@
     <h1>{{ $t("pages.accounts.guides.title") }}</h1>
 
     <!-- 有効なユーザーの場合のみ表示 -->
-    <div v-if="is_invalid">
+    <div v-if="!is_invalid">
       <!-- 操作 -->
       <ul>
         <li>
@@ -147,7 +147,7 @@ export default {
     );
 
     next((vm) => {
-      vm.is_invalid = response.status !== "success";
+      vm.is_invalid = !(response.status === "success");
       vm.guide = response.data.guide;
       vm.achievement = response.data.achievement;
       vm.last_tour = response.data.achievement?.last_tour || {};
