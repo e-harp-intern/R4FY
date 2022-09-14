@@ -3,48 +3,88 @@
     <!-- アプリタイトル -->
     <h1 class="app-name">{{ $t("app_name") }}</h1>
 
-    <!-- タイトル -->
-    <h2>{{ $t("pages.login.title") }}</h2>
+    <!-- 通常時の表示 -->
+    <div v-if="!password_reset">
+      <!-- タイトル -->
+      <h2>{{ $t("pages.login.title") }}</h2>
 
-    <!-- 入力フォーム -->
-    <div class="form-frame">
-      <form @submit.prevent="login" class="login-form">
-        <div class="form-tabel">
-          <label>{{ $t("label.email") }}</label
-          ><input
-            type="text"
-            :placeholder="$t('placeholder.email')"
-            id="email"
-          />
-          <label>{{ $t("label.password") }}</label
-          ><input
-            type="text"
-            :placeholder="$t('placeholder.password')"
-            id="password"
-          />
-        </div>
-        <br />
-        <div class="login-button-frame">
-          <router-link to="">{{ $t("button.password_reset") }}</router-link>
-          <button type="submit" class="button-green">
-            {{ $t("button.login") }}
-          </button>
-        </div>
-      </form>
+      <!-- 入力フォーム -->
+      <div class="form-frame">
+        <form @submit.prevent="login" class="login-form">
+          <div class="form-tabel">
+            <label>{{ $t("label.email") }}</label
+            ><input
+              type="text"
+              :placeholder="$t('placeholder.email')"
+              id="email"
+            />
+            <label>{{ $t("label.password") }}</label
+            ><input
+              type="text"
+              :placeholder="$t('placeholder.password')"
+              id="password"
+            />
+          </div>
+          <br />
+          <div class="login-button-frame">
+            <a href="javascript:void(0)" @click="showPasswordRestMail(true)">{{
+              $t("button.password_reset")
+            }}</a>
+            <button type="submit" class="button-green">
+              {{ $t("button.login") }}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- エラー時の表示 -->
+      <p v-if="this.error === 401" class="error-info">
+        {{ $t("pages.login.error.status_401") }}
+      </p>
+      <p v-if="this.error === 500" class="error-info">
+        {{ $t("pages.login.error.status_500") }}
+      </p>
+
+      <!-- 説明 -->
+      <div class="login_info">
+        <h2>{{ $t("pages.login.info_title") }}</h2>
+        <p>{{ $t("pages.login.info") }}</p>
+      </div>
     </div>
 
-    <!-- エラー時の表示 -->
-    <p v-if="this.error === 401" class="error-info">
-      {{ $t("pages.login.error.status_401") }}
-    </p>
-    <p v-if="this.error === 500" class="error-info">
-      {{ $t("pages.login.error.status_500") }}
-    </p>
+    <!-- パスワードリセット時の表示 -->
+    <div v-else>
+      <!-- タイトル -->
+      <h2>{{ $t("pages.login.title_reset") }}</h2>
 
-    <!-- 説明 -->
-    <div class="login_info">
-      <h2>{{ $t("pages.login.info_title") }}</h2>
-      <p>{{ $t("pages.login.info") }}</p>
+      <!-- 入力フォーム -->
+      <div class="form-frame">
+        <form @submit.prevent="send_reset_mail" class="login-form">
+          <div class="form-tabel">
+            <label>{{ $t("label.email") }}</label
+            ><input
+              type="text"
+              :placeholder="$t('placeholder.email')"
+              id="reset_email"
+            />
+          </div>
+          <br />
+          <div class="login-button-frame">
+            <a href="javascript:void(0)" @click="showPasswordRestMail(false)">{{
+              $t("button.login")
+            }}</a>
+            <button type="submit" class="button-green">
+              {{ $t("button.send_mail") }}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 説明 -->
+      <div class="login_info">
+        <h2>{{ $t("pages.login.info_title") }}</h2>
+        <p>{{ $t("pages.login.reset_info") }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -115,9 +155,34 @@ export default {
   data() {
     return {
       error: null,
+      password_reset: false,
     };
   },
   methods: {
+    // パスワードリセット画面切り替え
+    showPasswordRestMail(flg) {
+      this.password_reset = flg;
+    },
+
+    // パスワードリセットメール送信
+    async send_reset_mail() {
+      // 送信
+      const response = await api.post(
+        `/api/v1/password/reset`,
+        {
+          email: document.getElementById("reset_email").value,
+        },
+        this.$router.push
+      );
+
+      // アラート
+      if (response.status === "error") {
+        alert(this.$t("pages.login.alert_reset_mail_error"));
+      } else {
+        alert(this.$t("pages.login.alert_reset_mail"));
+      }
+    },
+
     async login() {
       const apiLogin = "/api/v1/login";
       const nextPage = "/tours";
