@@ -22,6 +22,7 @@ class FrontController < ActionController::Base
     if (path.length >= 4 && (path[1] == "guides" && path[3] == "schedules")) || (path.length >= 2 && path[1] == "reset")
       render file: Rails.root.join("public/index.html"), status: 200, layout: false,
              content_type: "text/html"
+      return
     end
 
     # 権限がない場合はログインページへリダイレクト
