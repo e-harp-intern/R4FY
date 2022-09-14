@@ -236,6 +236,12 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
 
+#tour-name {
+  font-size: 3em;
+  text-align: center;
+  margin: 0;
+}
+
 h2 {
   margin: 50px 0 0 0;
 }
