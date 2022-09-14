@@ -15,6 +15,9 @@
     <table class="table-normal">
       <thead>
         <tr>
+          <th @click="sortBy('id')" :class="addSortClass('id')">
+            {{ $t("table.tour.id") }}
+          </th>
           <th @click="sortBy('name')" :class="addSortClass('name')">
             {{ $t("table.tour.name") }}
           </th>
@@ -45,6 +48,7 @@
           @click="goTourDetail(tour.id)"
           class="table-hover"
         >
+          <td class="center">{{ tour.id }}</td>
           <td>{{ tour.name }}</td>
           <td class="center">{{ datetimeFormat(tour.start_datetime) }}</td>
           <td class="center">{{ datetimeFormat(tour.end_datetime) }}</td>

@@ -129,6 +129,7 @@ export default {
             sum_num: "合計"
         },
         tour: {
+            id: "ID",
             name: "ツアー名",
             start_datetime: "開始日時",
             end_datetime: "終了日時",
