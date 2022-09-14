@@ -9,19 +9,19 @@ class Api::V1::GuideSchedulesController < ApplicationController
     guide = Guide.find_by(id: token.guide_id)
     tour = Tour.find_by(id: token.tour_id)
 
-    # ガイドアカウントが有効な場合
-    if guide.is_invalid == false && DateTime.now < tour.schedule_input_deadline
-      guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
-      guide_schedules.update(answered: true, possible: params[:possible])
-      render json: json_render_v1(true, guide)
+    # ガイドアカウントが無効な場合
+    if guide.is_invalid == true
+      render json: json_render_v1(false)
 
     # 参加可否入力期限が過ぎていた場合
     elsif tour.schedule_input_deadline <= DateTime.now
       render json: json_render_v1(false, "入力期限を過ぎています")
 
-    # ガイドアカウントが無効な場合
+    # ガイドアカウントが有効な場合
     else
-      render json: json_render_v1(false)
+      guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
+      guide_schedules.update(answered: true, possible: params[:possible])
+      render json: json_render_v1(true, guide)
     end
     nil
   end
