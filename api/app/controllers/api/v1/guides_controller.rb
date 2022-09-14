@@ -47,6 +47,10 @@ class Api::V1::GuidesController < ApplicationController
     guides_delete = Guide.find_by(id: params[:id])
     guides_delete.update(is_invalid: true)
 
+    # トークンの削除
+    tokens = Token.where(guide_id: params[:id])
+    tokens.destroy_all
+
     # アカウント削除の通知メール
     DeleteAccountNotifyMailer.delete_email(guides_delete).deliver_now
 
