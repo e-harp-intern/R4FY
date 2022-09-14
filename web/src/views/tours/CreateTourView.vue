@@ -106,7 +106,7 @@ export default {
         if (response.status === "success") {
           // 成功
           this.form_reset();
-          this.$router.push("/tourslist");
+          this.$router.push(`/tours/${response.data.tour.id}`);
         } else {
           // 失敗
           alert(this.$t("pages.tours.create.create_api_error"));
