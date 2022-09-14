@@ -16,4 +16,9 @@ module Common
   def create_temp_pass
     (0...8).map { ("0".."9").to_a[rand(10)] }.join
   end
+
+  # トークンの生成
+  def generate_token
+    SecureRandom.urlsafe_base64
+  end
 end
