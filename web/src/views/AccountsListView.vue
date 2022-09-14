@@ -2,14 +2,20 @@
   <div id="account-list-page">
     <!-- アカウントの一覧 -->
     <h1>{{ $t("pages.accounts.title") }}</h1>
-    <div class="search">
-      <input type="text" id="name" placeholder="name" />
-      <input type="text" id="email" placeholder="email" />
-      <button @click="search()">検索</button>
+
+    <!-- 検索ボックス -->
+    <div class="buttons-frame">
+      <div class="search-frame">
+        <input class="search-box" type="text" id="name" placeholder="name" />
+        <input class="search-box" type="text" id="email" placeholder="email" />
+        <button @click="search()">検索</button>
+      </div>
       <button @click="gocreatAccount()" id="create_account_btn">
         {{ $t("pages.createaccount.title") }}
       </button>
     </div>
+
+    <!-- 一覧テーブル -->
     <div>
       <table class="table-normal">
         <thead>
@@ -163,15 +169,29 @@ export default {
 h2 {
   margin: 50px 0 0 0;
 }
+
 #create_account_btn {
   float: right;
   padding: 0.5em 1.3em;
-  margin-bottom: 1em;
   background-color: var(--color-green);
   color: var(--color-white);
 }
-// 検索ボックス右寄せ
-.search {
-  text-align: right;
+
+// 検索ボックス
+.buttons-frame {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.search-frame {
+  display: inline-block;
+  background-color: var(--color-light-gray);
+  padding: 0.5em;
+  border-radius: var(--default-radius);
+}
+
+.search-box {
+  margin: 0 0.25em;
 }
 </style>
