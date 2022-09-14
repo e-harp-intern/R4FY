@@ -63,4 +63,36 @@ class Api::V1::TourController < ApplicationController
       nil
     end
   end
+
+  # ツアーの情報を変更する
+  def update
+    # パラメータ
+    tour = Tour.find_by(id: params[:id])
+    name = params[:name]
+    guide_num = params[:guide_num]
+    adult_num = params[:adult_num]
+    child_num = params[:child_num]
+    remind_date = params[:remind_date]
+    schedule_input_deadline = params[:schedule_input_deadline]
+
+    # 名前だけを変更する条件
+    tour.update(name: name) unless name.nil?
+
+    # 必要ガイド数だけ変更する場合
+    tour.update(guide_num: guide_num) unless guide_num.nil?
+
+    # 大人の参加者数だけ変更する場合
+    tour.update(adult_num: adult_num) unless adult_num.nil?
+
+    # 子供の人数だけ変更する場合
+    tour.update(child_num: child_num) unless child_num.nil?
+
+    # リマインド日付だけ変更する場合
+    tour.update(remind_date: remind_date) unless remind_date.nil?
+
+    # 予定入力期限だけ変更する場合
+    tour.update(schedule_input_deadline: schedule_input_deadline) unless schedule_input_deadline.nil?
+
+    render json: json_render_v1(true, tour)
+  end
 end
