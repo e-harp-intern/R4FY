@@ -16,6 +16,12 @@ class Api::V1::GuideSchedulesController < ApplicationController
       return
     end
 
+    # ツアーが中止済みの場合
+    if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
+      render json: json_render_v1(false, { state: "tour canceled" })
+      return
+    end
+
     # 参加可否入力期限が過ぎていた場合
     if tour.schedule_input_deadline <= DateTime.now
       render json: json_render_v1(false, { state: "error" })
