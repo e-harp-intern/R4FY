@@ -15,15 +15,17 @@ class Api::V1::TourController < ApplicationController
       guide_schedules: JSON.parse(guide_schedules.to_json(include: [:guide])),
       tour_guides: JSON.parse(tour_guides.to_json(include: [:guide]))
     }
-    render json: json_render_v1(true)
+    render json: json_render_v1(true, response)
   end
 
   # ツアーを中止にする
   def destroy
     tour_delete = Tour.find_by(id: params[:id])
 
-    # 担当者決定前の場合
+    # ツアー状態コードによって、メールの送信対象を変える
     case tour_delete.tour_state_code
+
+    # 担当者決定前の場合
     when TOUR_STATE_CODE_INCOMPLETE
 
       guide_schedules = GuideSchedule.where(tour_id: params[:id])
