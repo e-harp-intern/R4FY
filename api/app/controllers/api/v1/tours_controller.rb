@@ -30,19 +30,13 @@ class Api::V1::ToursController < ApplicationController
     schedule_input_deadline = params[:schedule_input_deadline]
 
     # 入力期限が無記入, 空文字のとき
-    case schedule_input_deadline
-    when nil, ""
-      schedule_input_deadline = "9999-12-30"
-    end
+    schedule_input_deadline = "9999-12-30" if [nil, ""].include?(schedule_input_deadline)
 
     # リマインドパラメーター
     remind_date = params[:remind_date]
 
     # リマインドが無記入, 空文字のとき
-    case remind_date
-    when nil, ""
-      remind_date = "9999-12-30"
-    end
+    remind_date = "9999-12-30" if [nil, ""].include?(remind_date)
 
     # 新しいツアーを作成
     tour = Tour.new(name: params[:name], start_datetime: params[:start_datetime],
