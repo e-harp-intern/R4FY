@@ -38,9 +38,21 @@ class Api::V1::ToursController < ApplicationController
     # リマインドが無記入, 空文字のとき
     remind_date = "9999-12-30" if [nil, ""].include?(remind_date)
 
+    # 子供パラメーター
+    child_num = params[:child_num]
+    child_num = 0 if [nil, ""].include?(child_num)
+
+    # 大人パラメーター
+    adult_num = params[:adult_num]
+    adult_num = 0 if [nil, ""].include?(adult_num)
+
+    # ガイドパラメーター
+    guide_num = params[:guide_num]
+    guide_num = 0 if [nil, ""].include?(guide_num)
+
     # 新しいツアーを作成
     tour = Tour.new(name: params[:name], start_datetime: params[:start_datetime],
-                    end_datetime: params[:end_datetime], adult_num: params[:adult_num], child_num: params[:child_num], guide_num: params[:guide_num], schedule_input_deadline: schedule_input_deadline, remind_date: remind_date, memo: params[:memo], sent_remind: false)
+                    end_datetime: params[:end_datetime], adult_num: adult_num, child_num: child_num, guide_num: guide_num, schedule_input_deadline: schedule_input_deadline, remind_date: remind_date, memo: params[:memo], sent_remind: false)
 
     # ガイドのリストを取得（削除済みをのぞく）
     guides = Guide.where(is_invalid: false)
