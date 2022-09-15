@@ -20,7 +20,7 @@
             />
             <label>{{ $t("label.password") }}</label
             ><input
-              type="text"
+              type="password"
               :placeholder="$t('placeholder.password')"
               id="password"
             />
