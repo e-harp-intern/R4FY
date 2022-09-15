@@ -5,9 +5,16 @@ class Api::V1::GuideSchedulesController < ApplicationController
 
   # DBにガイドスケジュール(true/false)を反映
   def update
-    # パラメータ
+    # トークンパラメータ
     token = Token.find_by(token: params[:token])
-    guide = Guide.find_by(id: token.guide_id)
+
+    # トークンが存在しないとき
+    if token.nil?
+      render json: json_render_v1(false)
+      return
+    end
+
+    # ツアーパラメーター
     tour = Tour.find_by(id: token.tour_id)
 
     # ツアーが中止済みの場合
@@ -15,6 +22,9 @@ class Api::V1::GuideSchedulesController < ApplicationController
       render json: json_render_v1(false, { state: "tour canceled" })
       return
     end
+
+    # ガイドパラメーター
+    guide = Guide.find_by(id: token.guide_id)
 
     # ガイドアカウントが無効な場合
     if guide.is_invalid == true
@@ -36,19 +46,21 @@ class Api::V1::GuideSchedulesController < ApplicationController
 
   # ガイド情報・関連したツアー情報・入力済の参加可否情報の表示
   def index
-    # パラメーター
+    # トークンパラメーター
     token = Token.find_by(token: params[:token])
+
+    # トークンが存在しないとき
+    if token.nil?
+      render json: json_render_v1(false)
+      return
+    end
+
+    # ツアーパラメーター
     tour = Tour.find_by(id: token.tour_id)
 
     # ツアーが中止済みの場合
     if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
       render json: json_render_v1(false, { state: "tour canceled" })
-      return
-    end
-
-    # トークンが存在しないとき
-    if token.nil?
-      render json: json_render_v1(false)
       return
     end
 
