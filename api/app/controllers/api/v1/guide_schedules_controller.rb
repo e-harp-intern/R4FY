@@ -23,6 +23,18 @@ class Api::V1::GuideSchedulesController < ApplicationController
       return
     end
 
+    # ツアーが開始済みの場合
+    if tour.start_datetime < Date.today
+      render json: json_render_v1(false)
+      return
+    end
+
+    # 担当者が決定済の場合
+    if tour.tour_state_code != TOUR_STATE_CODE_INCOMPLETE
+      render json: json_render_v1(false)
+      return
+    end
+
     # ガイドパラメーター
     guide = Guide.find_by(id: token.guide_id)
 
@@ -61,6 +73,18 @@ class Api::V1::GuideSchedulesController < ApplicationController
     # ツアーが中止済みの場合
     if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
       render json: json_render_v1(false, { state: "tour canceled" })
+      return
+    end
+
+    # ツアーが開始済みの場合
+    if tour.start_datetime < Date.today
+      render json: json_render_v1(false)
+      return
+    end
+
+    # 担当者が決定済の場合
+    if tour.tour_state_code != TOUR_STATE_CODE_INCOMPLETE
+      render json: json_render_v1(false)
       return
     end
 
