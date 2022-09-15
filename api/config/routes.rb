@@ -33,6 +33,7 @@ Rails.application.routes.draw do
           get "tours/:id" => "tour#index"
           delete "tours/:id" => "tour#destroy"
           patch "tours/:id" => "tour#update"
+          post "tours/:tour_id/schedules/mail" => "tour_schedules#create"
 
           # ツアー／実績
           get "tours/:tour_id/achievements" => "tour_achievements#index"
