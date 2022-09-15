@@ -7,7 +7,10 @@ class Api::V1::TourGuidesController < ApplicationController
     # パラメータの受け取り
     tour_id = params[:id]
     guides = params[:guides]
-    send_mail = params[:send_mail]
+
+    # send_mailは初期値はtrue
+    send_mail = true
+    send_mail = params[:send_mail] unless params[:send_mail].nil? || params[:send_mail] == ""
 
     # トランザクション（失敗時は保存しない）
     ApplicationRecord.transaction do
