@@ -2,7 +2,6 @@ require "securerandom"
 
 class Api::V1::TourSchedulesController < ApplicationController
   include Schedule
-  include Common
   before_action :require_login
 
   def create
