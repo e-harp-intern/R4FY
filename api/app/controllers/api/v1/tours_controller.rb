@@ -26,9 +26,27 @@ class Api::V1::ToursController < ApplicationController
 
   # 　ツアーの追加
   def create
+    # 入力期限パラメーター
+    schedule_input_deadline = params[:schedule_input_deadline]
+
+    # 入力期限が無記入, 空文字のとき
+    case schedule_input_deadline
+    when nil, ""
+      schedule_input_deadline = "9999-12-30"
+    end
+
+    # リマインドパラメーター
+    remind_date = params[:remind_date]
+
+    # リマインドが無記入, 空文字のとき
+    case remind_date
+    when nil, ""
+      remind_date = "9999-12-30"
+    end
+
     # 新しいツアーを作成
     tour = Tour.new(name: params[:name], start_datetime: params[:start_datetime],
-                    end_datetime: params[:end_datetime], adult_num: params[:adult_num], child_num: params[:child_num], guide_num: params[:guide_num], schedule_input_deadline: params[:schedule_input_deadline], remind_date: params[:remind_date], memo: params[:memo], sent_remind: false)
+                    end_datetime: params[:end_datetime], adult_num: params[:adult_num], child_num: params[:child_num], guide_num: params[:guide_num], schedule_input_deadline: schedule_input_deadline, remind_date: remind_date, memo: params[:memo], sent_remind: false)
 
     # ガイドのリストを取得（削除済みをのぞく）
     guides = Guide.where(is_invalid: false)
