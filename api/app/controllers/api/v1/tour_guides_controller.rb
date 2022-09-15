@@ -8,6 +8,9 @@ class Api::V1::TourGuidesController < ApplicationController
     tour_id = params[:id]
     guides = params[:guides]
 
+    # send_mailは初期値はtrue
+    send_mail = params[:send_mail] || true
+
     # トランザクション（失敗時は保存しない）
     ApplicationRecord.transaction do
       # 同じツアーIDの担当情報を削除（物理）
@@ -23,11 +26,13 @@ class Api::V1::TourGuidesController < ApplicationController
       Tour.find(tour_id).update(tour_state_code: TOUR_STATE_CODE_ASSIGNED)
     end
 
-    # 成功時に担当者にメールを送信
-    tour = Tour.find(tour_id)
-    guides.each do |g|
-      guide = Guide.find_by(id: g)
-      AssignNotifyMailer.creation_email(guide, tour).deliver_now
+    # 成功時にsend_mailがtrueなら担当者にメールを送信
+    if send_mail == true
+      tour = Tour.find(tour_id)
+      guides.each do |g|
+        guide = Guide.find_by(id: g)
+        AssignNotifyMailer.creation_email(guide, tour).deliver_now
+      end
     end
 
     # 成功時
