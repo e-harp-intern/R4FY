@@ -50,7 +50,7 @@ class Api::V1::TourGuidesController < ApplicationController
       # 全員にメールを送信
       tour_guides.each do |tour_guide|
         guide = Guide.find_by(id: tour_guide.guide_id)
-        TourCancelNotifyMailer.cancel_email(guide, tour_delete).deliver_now
+        AssignCancelNotifyMailer.cancel_email(guide, tour_delete).deliver_now
       end
 
       # 同じツアーIDの担当情報を削除（物理）
