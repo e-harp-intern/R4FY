@@ -61,7 +61,7 @@ class Api::V1::ToursController < ApplicationController
     guides.each do |guide|
       token = guide.tokens.find_by(tour_id: tour.id)
       url = format(URL_GUIDE_SCHEDULE_TOKEN, token: token.token)
-      GuideScheduleInputMailer.creation_email(guide, url).deliver_now
+      GuideScheduleInputMailer.creation_email(guide, url, tour).deliver_now
     end
 
     # 入力したツアー情報を取得
