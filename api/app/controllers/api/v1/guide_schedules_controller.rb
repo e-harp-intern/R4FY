@@ -5,10 +5,26 @@ class Api::V1::GuideSchedulesController < ApplicationController
 
   # DBにガイドスケジュール(true/false)を反映
   def update
-    # パラメータ
+    # トークンパラメータ
     token = Token.find_by(token: params[:token])
-    guide = Guide.find_by(id: token.guide_id)
+
+    # トークンが存在しないとき
+    if token.nil?
+      render json: json_render_v1(false)
+      return
+    end
+
+    # ツアーパラメーター
     tour = Tour.find_by(id: token.tour_id)
+
+    # ツアーが中止済みの場合
+    if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
+      render json: json_render_v1(false, { state: "tour canceled" })
+      return
+    end
+
+    # ガイドパラメーター
+    guide = Guide.find_by(id: token.guide_id)
 
     # ガイドアカウントが無効な場合
     if guide.is_invalid == true
@@ -23,27 +39,43 @@ class Api::V1::GuideSchedulesController < ApplicationController
     end
 
     # ガイドアカウントが有効な場合
-    guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
-    guide_schedules.update(answered: true, possible: params[:possible])
+    guide_schedule = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
+    guide_schedule.update(answered: true, possible: params[:possible])
     render json: json_render_v1(true, guide)
   end
 
   # ガイド情報・関連したツアー情報・入力済の参加可否情報の表示
   def index
+    # トークンパラメーター
     token = Token.find_by(token: params[:token])
+
+    # トークンが存在しないとき
     if token.nil?
       render json: json_render_v1(false)
-    else
-      guide = Guide.find_by(id: token.guide_id)
-      tour = Tour.find_by(id: token.tour_id)
-      guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
-      response = {
-        guide: JSON.parse(guide.to_json),
-        tour: JSON.parse(tour.to_json),
-        answered: JSON.parse(guide_schedules.answered.to_json),
-        possible: JSON.parse(guide_schedules.possible.to_json)
-      }
-      render json: json_render_v1(true, response)
+      return
     end
+
+    # ツアーパラメーター
+    tour = Tour.find_by(id: token.tour_id)
+
+    # ツアーが中止済みの場合
+    if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
+      render json: json_render_v1(false, { state: "tour canceled" })
+      return
+    end
+
+    # トークンが存在し、ツアーが中止されていないとき
+    guide = Guide.find_by(id: token.guide_id)
+    tour = Tour.find_by(id: token.tour_id)
+    guide_schedule = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
+
+    # 出力するデータの整形
+    response = {
+      guide: guide,
+      tour: tour,
+      guide_schedule: guide_schedule
+    }
+
+    render json: json_render_v1(true, response)
   end
 end
