@@ -39,8 +39,8 @@ class Api::V1::GuideSchedulesController < ApplicationController
     end
 
     # ガイドアカウントが有効な場合
-    guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
-    guide_schedules.update(answered: true, possible: params[:possible])
+    guide_schedule = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
+    guide_schedule.update(answered: true, possible: params[:possible])
     render json: json_render_v1(true, guide)
   end
 
@@ -64,14 +64,16 @@ class Api::V1::GuideSchedulesController < ApplicationController
       return
     end
 
+    # トークンが存在し、ツアーが中止されていないとき
     guide = Guide.find_by(id: token.guide_id)
     tour = Tour.find_by(id: token.tour_id)
-    guide_schedules = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
+    guide_schedule = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
+
+    # 出力するデータの整形
     response = {
-      guide: JSON.parse(guide.to_json),
-      tour: JSON.parse(tour.to_json),
-      answered: JSON.parse(guide_schedules.answered.to_json),
-      possible: JSON.parse(guide_schedules.possible.to_json)
+      guide: guide,
+      tour: tour,
+      guide_schedule: guide_schedule
     }
 
     render json: json_render_v1(true, response)
