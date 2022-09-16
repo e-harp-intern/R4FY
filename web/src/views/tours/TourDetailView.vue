@@ -165,14 +165,14 @@ export default {
 
     // ツアー中止処理
     async alert_disp() {
-      if (window.confirm("ツアーの取り消しを実行しますか？")) {
+      if (window.confirm(this.$t("pages.tours.tour.alert1"))) {
         // 「OK」時の処理終了
         await api.delete(`/api/v1/tours/${this.tour.id}`);
-        window.alert("ツアーの中止を行いました。");
+        window.alert(this.$t("pages.tours.tour.alert2"));
         this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
       } else {
         // 「キャンセル」時の処理開始
-        window.alert("キャンセルされました"); // 警告ダイアログを表示
+        window.alert(this.$t("pages.tours.tour.alert3")); // 警告ダイアログを表示
       }
     },
 
@@ -183,14 +183,14 @@ export default {
 
     // 担当ガイド中止処理
     async alert_delete_guide() {
-      if (window.confirm("担当ガイドの取り消しを実行しますか？")) {
+      if (window.confirm(this.$t("pages.tours.tour.alert4"))) {
         // 「OK」時の処理終了
         await api.delete(`/api/v1/tours/${this.tour.id}/guides`);
-        window.alert("担当ガイドの取り消しを行いました。");
+        window.alert(this.$t("pages.tours.tour.alert5"));
         this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
       } else {
         // 「キャンセル」時の処理開始
-        window.alert("担当ガイド取り消しを中止しました。"); // 警告ダイアログを表示
+        window.alert(this.$t("pages.tours.tour.alert6")); // 警告ダイアログを表示
       }
     },
 
