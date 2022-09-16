@@ -19,8 +19,12 @@ class Api::V1::TourSchedulesMailerController < ApplicationController
     token = Token.new(token: generate_token, tour_id: params[:tour_id], guide_id: params[:guide_id])
     token.save!
 
+    # メール用情報の取得
+    tour = Tour.find_by(id: params[:tour_id])
+    guide = Guide.find_by(id: params[:guide_id])
+
     # メール送信
-    guide_schedule_mailer(Guide.find_by(id: params[:guide_id]), token)
+    guide_schedule_mailer(guide, token, tour)
 
     render json: json_render_v1(true)
   end

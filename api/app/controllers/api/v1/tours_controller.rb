@@ -68,12 +68,12 @@ class Api::V1::ToursController < ApplicationController
         GuideSchedule.create(tour_id: tour.id, guide_id: guide.id)
         Token.new(token: generate_token, tour_id: tour.id, guide_id: guide.id).save!
       end
-    end
 
-    # ガイドに予定入力メールを送信
-    guides.each do |guide|
-      token = guide.tokens.find_by(tour_id: tour.id)
-      guide_schedule_mailer(guide, token)
+      # ガイドに予定入力メールを送信
+      guides.each do |guide|
+        token = guide.tokens.find_by(tour_id: tour.id, guide_id: guide.id)
+        guide_schedule_mailer(guide, token, tour)
+      end
     end
 
     # 入力したツアー情報を取得
