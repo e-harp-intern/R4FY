@@ -50,6 +50,7 @@ export default {
       // パスワードが違う
       if (password !== re_password) {
         alert(this.$t("pages.password_reset.alert_password"));
+        return;
       }
 
       // 送信
