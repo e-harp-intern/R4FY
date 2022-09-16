@@ -83,6 +83,11 @@ export default {
         guides: {
             schedules: {
                 info: "ツアーでの担当ガイドのスケジュール調整のため、参加できるか・できないかの入力をお願いいたします。"
+            },
+            selectguide:{
+                title: "ツアー担当ガイド決定画面",
+                person: "人",
+                person2: "人/",
             }
         },
         password_reset: {
@@ -119,7 +124,8 @@ export default {
         account_create: "＋アカウント作成",
         tour_create: "＋ツアー作成",
         send_mail: "メールを送信",
-        submit: "確定"
+        submit: "確定",
+        assign: "担当者を確定する",
     },
     placeholder: {
         email: "email",
