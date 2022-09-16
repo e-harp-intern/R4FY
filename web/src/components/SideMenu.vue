@@ -31,6 +31,10 @@ export default {
           title: this.$i18n.t("pages.accounts.title"),
         },
         {
+          path: "/myaccount",
+          title: this.$i18n.t("pages.myaccount.title"),
+        },
+        {
           path: "/logout",
           title: this.$i18n.t("pages.logout.title"),
           styleMenu: { marginTop: "3em" },

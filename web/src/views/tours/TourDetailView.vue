@@ -18,9 +18,13 @@
         <p class="outline">{{ $t("common.start_datetime") }}</p>
         <p class="value">{{ datetimeFormat(tour.start_datetime) }}</p>
       </article>
-      <article class="info" id="state">
+      <article
+        class="info state"
+        id="state"
+        :class="changeToTourStateColor(tour.tour_state_code)"
+      >
         <p class="outline">{{ $t("pages.tours.tour.tour_state_title") }}</p>
-        <p class="value">{{ changeToTourStateColor(tour.tour_state_code) }}</p>
+        <p class="value">{{ codeToTourStateString(tour.tour_state_code) }}</p>
       </article>
     </div>
 
@@ -86,7 +90,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="schedule in guideschedules" :key="schedule.id">
+          <tr
+            v-for="schedule in guideschedules"
+            :key="schedule.id"
+            class="table-hover"
+            @click="LinkGuide(schedule.guide_id)"
+          >
             <td class="center" v-if="schedule.assign">
               {{ $t("table.guide.assign_mark") }}
             </td>
@@ -149,16 +158,21 @@ export default {
       table.methods.sortBy(key, this.guideschedules);
     },
 
+    // ガイドへのリンク
+    LinkGuide(id) {
+      this.$router.push(`/accounts/guides/${id}`);
+    },
+
     // ツアー中止処理
     async alert_disp() {
-      if (window.confirm("ツアーの取り消しを実行しますか？")) {
+      if (window.confirm(this.$t("pages.tours.tour.alert1"))) {
         // 「OK」時の処理終了
         await api.delete(`/api/v1/tours/${this.tour.id}`);
-        window.alert("ツアーの中止を行いました。");
+        window.alert(this.$t("pages.tours.tour.alert2"));
         this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
       } else {
         // 「キャンセル」時の処理開始
-        window.alert("キャンセルされました"); // 警告ダイアログを表示
+        window.alert(this.$t("pages.tours.tour.alert3")); // 警告ダイアログを表示
       }
     },
 
@@ -169,36 +183,26 @@ export default {
 
     // 担当ガイド中止処理
     async alert_delete_guide() {
-      if (window.confirm("担当ガイドの取り消しを実行しますか？")) {
+      if (window.confirm(this.$t("pages.tours.tour.alert4"))) {
         // 「OK」時の処理終了
         await api.delete(`/api/v1/tours/${this.tour.id}/guides`);
-        window.alert("担当ガイドの取り消しを行いました。");
+        window.alert(this.$t("pages.tours.tour.alert5"));
         this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
       } else {
         // 「キャンセル」時の処理開始
-        window.alert("担当ガイド取り消しを中止しました。"); // 警告ダイアログを表示
+        window.alert(this.$t("pages.tours.tour.alert6")); // 警告ダイアログを表示
       }
     },
 
     // ツアー状態によって背景色を変更(idを置き換える)
     changeToTourStateColor(code) {
-      if (code === 1) {
-        const obj = document.getElementById("state");
-        obj.id = "state1";
-      } else if (code === 2) {
-        const obj = document.getElementById("state");
-        obj.id = "state2";
-      } else if (code === 4) {
-        const obj = document.getElementById("state");
-        obj.id = "state4";
-      } else if (code === 8) {
-        const obj = document.getElementById("state");
-        obj.id = "state8";
-      } else if (code === 256) {
-        const obj = document.getElementById("state");
-        obj.id = "state256";
-      }
-      return this.codeToTourStateString(code);
+      return {
+        state1: code === 1,
+        state2: code === 2,
+        state4: code === 4,
+        state8: code === 8,
+        state256: code === 256,
+      };
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -272,22 +276,22 @@ h2 {
 #date {
   background-color: var(--color-green);
 }
-#state {
+.state {
   background-color: var(--color-red);
 }
-#state1 {
+.state1 {
   background-color: var(--color-yellow);
 }
-#state2 {
+.state2 {
   background-color: var(--color-light-green);
 }
-#state4 {
+.state4 {
   background-color: var(--color-orange);
 }
-#state8 {
+.state8 {
   background-color: var(--color-blue);
 }
-#state256 {
+.state256 {
   background-color: var(--color-red);
 }
 #num table {

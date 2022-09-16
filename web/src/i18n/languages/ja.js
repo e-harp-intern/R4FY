@@ -24,7 +24,13 @@ export default {
                 tour_state_title: "ツアー実施状態",
                 requirement_guide_num_title: "必要ガイド人数",
                 guide_list_title: "参加予定一覧",
-                tour_setting_title: "ツアー操作"
+                tour_setting_title: "ツアー操作",
+                alert1: "ツアーの取り消しを実行しますか？",
+                alert2: "ツアーの中止を行いました。",
+                alert3: "キャンセルされました",
+                alert4: "担当ガイドの取り消しを実行しますか？",
+                alert5: "担当ガイドの取り消しを行いました。",
+                alert6: "担当ガイド取り消しを中止しました。"
             },
             create: {
                 title: "ツアー追加",
@@ -70,9 +76,18 @@ export default {
                 link_accounts_list: "一覧画面へ戻る"
             }
         },
+        myaccount: {
+            title: "マイアカウント情報",
+
+        },
         guides: {
             schedules: {
                 info: "ツアーでの担当ガイドのスケジュール調整のため、参加できるか・できないかの入力をお願いいたします。"
+            },
+            selectguide:{
+                title: "ツアー担当ガイド決定画面",
+                person: "人",
+                person2: "人/",
             }
         },
         password_reset: {
@@ -112,6 +127,7 @@ export default {
         submit: "確定",
         searchbar: "詳細検索",
         search: "検索",
+        assign: "担当者を確定する",
     },
     placeholder: {
         email: "email",

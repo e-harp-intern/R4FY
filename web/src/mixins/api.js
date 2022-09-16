@@ -36,7 +36,16 @@ function apiSend(method, endPoint, json = null, next = null) {
 export default {
   async get(endPoint, json = {}, next = null) {
     if (json !== null && json !== {}) {
-      endPoint = `${endPoint}?${new URLSearchParams(json)}`;
+      let add = "";
+      const keys = Object.keys(json);
+      for (const key of keys) {
+        if (key === null) continue;
+        if (Array.isArray(json[key])) {
+          add += `&${key}[]=${json[key].join(`&${key}[]=`)}`;
+          delete json[key];
+        }
+      }
+      endPoint = `${endPoint}?${new URLSearchParams(json)}${add}`;
     }
     return apiSend("GET", endPoint, null, next);
   },
