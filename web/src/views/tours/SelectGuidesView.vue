@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- タイトル -->
-    <h1>ツアー担当ガイド決定画面</h1>
+    <h1>{{ $t("pages.guides.selectguide.title") }}</h1>
 
     <!-- 決定ボタン -->
     <div class="center">
@@ -10,14 +10,17 @@
         :class="guideNumError()"
         @click="assignGuide()"
       >
-        担当者を確定する
+        {{ $t("button.assign") }}
       </button>
-      <button class="button-large" @click="$router.back()">キャンセル</button>
+      <button class="button-large" @click="$router.back()">
+        {{ $t("button.cancel") }}
+      </button>
     </div>
 
     <!-- 情報 -->
     <div class="center tour-info">
-      {{ currentGuideNum }} 人/ {{ tour.guide_num }} 人
+      {{ currentGuideNum }} {{ $t("pages.guides.selectguide.person2") }}
+      {{ tour.guide_num }} {{ $t("pages.guides.selectguide.person") }}
     </div>
 
     <!-- 参加ガイドの一覧 -->
