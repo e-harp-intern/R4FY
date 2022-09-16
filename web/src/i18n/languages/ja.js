@@ -70,6 +70,10 @@ export default {
                 link_accounts_list: "一覧画面へ戻る"
             }
         },
+        myaccount: {
+            title: "マイアカウント情報",
+
+        },
         guides: {
             schedules: {
                 info: "ツアーでの担当ガイドのスケジュール調整のため、参加できるか・できないかの入力をお願いいたします。"
