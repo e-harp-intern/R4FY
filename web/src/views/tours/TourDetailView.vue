@@ -19,7 +19,7 @@
         <p class="value">{{ datetimeFormat(tour.start_datetime) }}</p>
       </article>
       <article
-        class="info"
+        class="info state"
         id="state"
         :class="changeToTourStateColor(tour.tour_state_code)"
       >
@@ -266,22 +266,22 @@ h2 {
 #date {
   background-color: var(--color-green);
 }
-#state {
+.state {
   background-color: var(--color-red);
 }
-#state1 {
+.state1 {
   background-color: var(--color-yellow);
 }
-#state2 {
+.state2 {
   background-color: var(--color-light-green);
 }
-#state4 {
+.state4 {
   background-color: var(--color-orange);
 }
-#state8 {
+.state8 {
   background-color: var(--color-blue);
 }
-#state256 {
+.state256 {
   background-color: var(--color-red);
 }
 #num table {
