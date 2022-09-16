@@ -7,11 +7,12 @@
     --color-dark-gray: #888888;
     --color-gray: #cccccc;
     --color-white: #F6FFFF;
-    --color-red: #C11F34;
+    --color-tour-state-code-cancel: #C11F34;
     --color-green: #008899;
-    --color-light-green: #00990d;
-    --color-yellow: #b9b603;
-    --color-orange: #df4c08;
-    --color-blue: #005c99;
+    --color-red: #C11F34;
+    --color-tour-state-code-assigned: #00990d;
+    --color-tour-state-code-incomplete: #b9b603;
+    --color-tour-state-code-complete-recorded: #df4c08;
+    --color-tour-state-code-complete: #005c99;
     --default-radius: .5em;
 }

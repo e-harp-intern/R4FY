@@ -277,22 +277,22 @@ h2 {
   background-color: var(--color-green);
 }
 .state {
-  background-color: var(--color-red);
+  background-color: var(--color-tour-state-code-cancel);
 }
 .state1 {
-  background-color: var(--color-yellow);
+  background-color: var(--color-tour-state-code-incomplete);
 }
 .state2 {
-  background-color: var(--color-light-green);
+  background-color: var(--color-tour-state-code-assigned);
 }
 .state4 {
-  background-color: var(--color-orange);
+  background-color: var(--color-tour-state-code-complete);
 }
 .state8 {
-  background-color: var(--color-blue);
+  background-color: var(--color-tour-state-code-complete-recorded);
 }
 .state256 {
-  background-color: var(--color-red);
+  background-color: var(--color-tour-state-code-cancel);
 }
 #num table {
   margin: auto;
