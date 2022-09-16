@@ -90,7 +90,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="schedule in guideschedules" :key="schedule.id">
+          <tr
+            v-for="schedule in guideschedules"
+            :key="schedule.id"
+            class="table-hover"
+            @click="LinkGuide(schedule.guide_id)"
+          >
             <td class="center" v-if="schedule.assign">
               {{ $t("table.guide.assign_mark") }}
             </td>
@@ -151,6 +156,11 @@ export default {
     addSortClass: (key) => table.methods.addSortClass(key),
     sortBy(key) {
       table.methods.sortBy(key, this.guideschedules);
+    },
+
+    // ガイドへのリンク
+    LinkGuide(id) {
+      this.$router.push(`/accounts/guides/${id}`);
     },
 
     // ツアー中止処理
