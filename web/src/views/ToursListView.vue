@@ -12,6 +12,57 @@
     <button @click="goTourDetail('create')" id="create_tour_btn">
       {{ $t("button.tour_create") }}
     </button>
+    <button type="checkbox" id="search_btn">
+      {{ $t("button.searchbar") }}
+    </button>
+
+    <br />
+    <div class="form-frame">
+      <form @submit.prevent="search" class="form-main">
+        <div class="form-tabel">
+          <!--ツアー名-->
+          <label>{{ $t("label.tour_name") }}</label
+          ><input
+            type="text"
+            :placeholder="$t('label.detail.tour_name')"
+            id="tour_name"
+            required
+          />
+          <!--開始日時-->
+          <label>{{ $t("label.start_datetime") }}</label
+          ><input type="datetime-local" id="start_datetime" required />
+          <!--終了日時-->
+          <label>{{ $t("label.end_datetime") }}</label
+          ><input type="datetime-local" id="end_datetime" required />
+          <!-- ツアー状態 --->
+          <input type="checkbox" name="state" value="state1" />{{
+            $t("state.tour.1")
+          }}
+          <input type="checkbox" name="state" value="state2" />{{
+            $t("state.tour.2")
+          }}
+          <input type="checkbox" name="state" value="state4" />{{
+            $t("state.tour.4")
+          }}
+          <input type="checkbox" name="state" value="state8" />{{
+            $t("state.tour.8")
+          }}
+          <input type="checkbox" name="state" value="state256" />{{
+            $t("state.tour.256")
+          }}
+          <br />
+          <!-- 最大人数 -->
+          {{ $t("label.max_num") }}
+          <input type="number" name="number" />
+        </div>
+        <br />
+        <div class="form-button-frame">
+          <button type="submit" class="button-green">
+            {{ $t("button.search") }}
+          </button>
+        </div>
+      </form>
+    </div>
     <table class="table-normal">
       <thead>
         <tr>
@@ -137,6 +188,13 @@ export default {
   background-color: var(--color-green);
   color: var(--color-white);
 }
+#search_btn {
+  float: right;
+  padding: 0.5em 1.3em;
+  margin-bottom: 1em;
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
 
 #admin_show_name {
   font-size: 1.25em;
@@ -174,5 +232,32 @@ export default {
 .CellState_256 {
   background-color: var(--color-red);
   color: var(--color-white);
+}
+
+.form-frame {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 640px;
+  background-color: var(--color-light-gray);
+  box-sizing: border-box;
+  border-radius: 0.5em;
+}
+
+.form-tabel {
+  width: 80%;
+  display: inline-grid;
+  grid-template-columns: auto 1fr;
+  grid-row-gap: 0.5em;
+}
+
+.form-tabel label {
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.form-main {
+  padding: 2em;
 }
 </style>
