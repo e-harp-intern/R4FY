@@ -2,9 +2,6 @@
 <template>
   <div>
     <h1>{{ $t("pages.myaccount.title") }}</h1>
-    <button id="password_reset_btn">
-      {{ $t("button.password_reset") }}
-    </button>
     <!-- マイアカウント情報をテーブルで表示-->
     <table class="table-normal tabe-margin-0">
       <thead>
@@ -24,6 +21,9 @@
         </tr>
       </tbody>
     </table>
+    <button id="password_reset_btn">
+      {{ $t("button.password_reset") }}
+    </button>
   </div>
 </template>
 
