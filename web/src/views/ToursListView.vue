@@ -9,33 +9,45 @@
     </p>
     <br />
     <h1>{{ $t("pages.tours.title") }}</h1>
-    <button @click="goTourDetail('create')" id="create_tour_btn">
-      {{ $t("button.tour_create") }}
-    </button>
-    <button type="checkbox" id="search_btn" @click="isChecking = !isChecking">
-      {{ $t("button.searchbar") }}
-    </button>
 
-    <br />
-    <div class="form-frame" v-if="isChecking === true">
+    <!-- テーブル上部のボタン -->
+    <div class="button-frame">
+      <button @click="goTourDetail('create')" id="create_tour_btn">
+        {{ $t("button.tour_create") }}
+      </button>
+      <button type="checkbox" id="search_btn" @click="isChecking = !isChecking">
+        {{ $t("button.searchbar") }}
+      </button>
+    </div>
+
+    <!-- 詳細検索 -->
+    <div class="search-form-frame" v-if="isChecking === true">
       <form @submit.prevent="search" class="form-main">
         <div class="form-tabel">
           <!--ツアー名-->
-          <label>{{ $t("label.tour_name") }}</label
-          ><input
-            type="text"
-            :placeholder="$t('label.detail.tour_name')"
-            id="tour_name"
-          />
+          <div>
+            <label>{{ $t("label.tour_name") }}</label
+            ><input
+              type="text"
+              :placeholder="$t('label.detail.tour_name')"
+              id="tour_name"
+            />
+          </div>
+
           <!-- 最大人数 -->
-          <label> {{ $t("label.max_num") }} </label>
-          <input type="number" name="number" />
+          <div>
+            <label> {{ $t("label.max_num") }} </label>
+            <input type="number" name="number" />
+          </div>
+
           <!--開始日時-->
-          <label>{{ $t("label.start_datetime") }}</label
-          ><input type="date" id="start_datetime" />
-          <!--終了日時-->
-          <label>{{ $t("label.end_datetime") }}</label
-          ><input type="date" id="end_datetime" />
+          <div>
+            <label>{{ $t("label.start_datetime") }}</label
+            ><input type="date" id="start_datetime" />
+            <label>{{ $t("label.time_to") }}</label
+            ><input type="date" id="end_datetime" />
+          </div>
+
           <!-- ツアー状態 --->
           <input type="checkbox" id="state1" value="1" />
           <label for="state1">{{ $t("state.tour.1") }}</label>
@@ -58,6 +70,8 @@
         </div>
       </form>
     </div>
+
+    <!-- 一覧テーブル -->
     <table class="table-normal">
       <thead>
         <tr>
@@ -182,7 +196,7 @@ export default {
       if (document.getElementById("state256").checked) {
         statelist.push(256);
       }
-      console.log(statelist);
+
       request.tour_state = statelist;
 
       // 送信
@@ -218,14 +232,12 @@ export default {
 @import "@/assets/css/table.scss";
 
 #create_tour_btn {
-  float: right;
   padding: 0.5em 1.3em;
   margin-bottom: 1em;
   background-color: var(--color-green);
   color: var(--color-white);
 }
 #search_btn {
-  float: right;
   padding: 0.5em 1.3em;
   margin-bottom: 1em;
   background-color: var(--color-green);
@@ -272,27 +284,22 @@ export default {
 
 /* ------------ 検索バー関連 ------------ */
 
-.form-frame {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 950px;
+.button-frame {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.search-form-frame {
+  display: block;
   background-color: var(--color-light-gray);
-  box-sizing: border-box;
   border-radius: 0.5em;
 }
 
 .form-tabel {
-  width: 40%;
-  display: inline-grid;
-  grid-template-columns: auto 1fr;
-  grid-row-gap: 0.5em;
+  display: inline-block;
 }
 
 .form-tabel label {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .form-main {

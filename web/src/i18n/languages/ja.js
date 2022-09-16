@@ -110,7 +110,7 @@ export default {
         tour_create: "＋ツアー作成",
         send_mail: "メールを送信",
         submit: "確定",
-        searchbar: "▼検索バー",
+        searchbar: "詳細検索",
         search: "検索",
     },
     placeholder: {
@@ -139,6 +139,7 @@ export default {
             child_num: "いない場合「0」を入力してください",
             guide_num: "必ず人数を入力してください",
         },
+        time_to: "～"
     },
     table: {
         tour_participant_num: {
