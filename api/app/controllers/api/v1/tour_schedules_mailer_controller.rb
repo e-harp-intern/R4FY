@@ -1,6 +1,6 @@
 require "securerandom"
 
-class Api::V1::TourSchedulesController < ApplicationController
+class Api::V1::TourSchedulesMailerController < ApplicationController
   include Schedule
   before_action :require_login
 
