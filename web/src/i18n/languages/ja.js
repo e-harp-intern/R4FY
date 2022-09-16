@@ -129,7 +129,7 @@ export default {
         end_datetime: "終了日時：",
         adult_num: "大人人数：",
         child_num: "子供人数：",
-        max_num: "最大人数",
+        max_num: "最大人数：",
         guide_num: "ガイド人数：",
         schedule_input_deadline: "参加可否入力期限：",
         remind_date: "リマインド日：",

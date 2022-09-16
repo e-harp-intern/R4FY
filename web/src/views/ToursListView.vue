@@ -28,6 +28,9 @@
             id="tour_name"
             required
           />
+          <!-- 最大人数 -->
+          <label> {{ $t("label.max_num") }} </label>
+          <input type="number" name="number" />
           <!--開始日時-->
           <label>{{ $t("label.start_datetime") }}</label
           ><input type="datetime-local" id="start_datetime" required />
@@ -50,10 +53,6 @@
           <input type="checkbox" name="state" value="state256" />{{
             $t("state.tour.256")
           }}
-          <br />
-          <!-- 最大人数 -->
-          {{ $t("label.max_num") }}
-          <input type="number" name="number" />
         </div>
         <br />
         <div class="form-button-frame">
@@ -234,17 +233,19 @@ export default {
   color: var(--color-white);
 }
 
+/* ------------ 検索バー関連 ------------ */
+
 .form-frame {
   margin: 0 auto;
   width: 100%;
-  max-width: 640px;
+  max-width: 950px;
   background-color: var(--color-light-gray);
   box-sizing: border-box;
   border-radius: 0.5em;
 }
 
 .form-tabel {
-  width: 80%;
+  width: 40%;
   display: inline-grid;
   grid-template-columns: auto 1fr;
   grid-row-gap: 0.5em;
@@ -253,7 +254,7 @@ export default {
 .form-tabel label {
   height: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: center;
   align-items: center;
 }
 
