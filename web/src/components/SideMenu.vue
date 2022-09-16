@@ -31,7 +31,7 @@ export default {
           title: this.$i18n.t("pages.accounts.title"),
         },
         {
-          path: "/accounts/myaccount",
+          path: "/myaccount",
           title: this.$i18n.t("pages.myaccount.title"),
         },
         {
