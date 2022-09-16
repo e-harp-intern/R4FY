@@ -12,12 +12,12 @@
     <button @click="goTourDetail('create')" id="create_tour_btn">
       {{ $t("button.tour_create") }}
     </button>
-    <button type="checkbox" id="search_btn">
+    <button type="checkbox" id="search_btn" @click="isChecking = !isChecking">
       {{ $t("button.searchbar") }}
     </button>
 
     <br />
-    <div class="form-frame">
+    <div class="form-frame" v-if="isChecking === true">
       <form @submit.prevent="search" class="form-main">
         <div class="form-tabel">
           <!--ツアー名-->
@@ -26,33 +26,29 @@
             type="text"
             :placeholder="$t('label.detail.tour_name')"
             id="tour_name"
-            required
           />
           <!-- 最大人数 -->
           <label> {{ $t("label.max_num") }} </label>
           <input type="number" name="number" />
           <!--開始日時-->
           <label>{{ $t("label.start_datetime") }}</label
-          ><input type="datetime-local" id="start_datetime" required />
+          ><input type="date" id="start_datetime" />
           <!--終了日時-->
           <label>{{ $t("label.end_datetime") }}</label
-          ><input type="datetime-local" id="end_datetime" required />
+          ><input type="date" id="end_datetime" />
           <!-- ツアー状態 --->
-          <input type="checkbox" name="state" value="state1" />{{
-            $t("state.tour.1")
-          }}
-          <input type="checkbox" name="state" value="state2" />{{
-            $t("state.tour.2")
-          }}
-          <input type="checkbox" name="state" value="state4" />{{
-            $t("state.tour.4")
-          }}
-          <input type="checkbox" name="state" value="state8" />{{
-            $t("state.tour.8")
-          }}
-          <input type="checkbox" name="state" value="state256" />{{
-            $t("state.tour.256")
-          }}
+          <input type="checkbox" id="state1" value="1" />
+          <label for="state1">{{ $t("state.tour.1") }}</label>
+          <input type="checkbox" id="state2" value="2" />
+          <label for="state2">{{ $t("state.tour.2") }}</label>
+          <input type="checkbox" id="state4" value="4" />
+          <label for="state4">{{ $t("state.tour.4") }}</label>
+          <input type="checkbox" id="state8" value="8" />
+          <label for="state8">{{ $t("state.tour.8") }}</label>
+          <input type="checkbox" id="state256" value="256" /><label
+            for="state256"
+            >{{ $t("state.tour.256") }}</label
+          >
         </div>
         <br />
         <div class="form-button-frame">
@@ -124,6 +120,7 @@ export default {
     return {
       tours: [],
       adminNameShow: {},
+      isChecking: false,
     };
   },
   computed: {},
@@ -152,6 +149,46 @@ export default {
         CellState_8: state === 8,
         CellState_256: state === 256,
       };
+    },
+    async search() {
+      const url = `/api/v1/tours`;
+
+      const request = {
+        word: document.getElementById("tour_name").value,
+      };
+      // 開始月日
+      if (document.getElementById("start_datetime").value !== "") {
+        request.start_date = document.getElementById("start_datetime").value;
+      }
+      // 終了月日
+      if (document.getElementById("end_datetime").value !== "") {
+        request.end_date = document.getElementById("end_datetime").value;
+      }
+
+      const statelist = [];
+
+      if (document.getElementById("state1").checked) {
+        statelist.push(1);
+      }
+      if (document.getElementById("state2").checked) {
+        statelist.push(2);
+      }
+      if (document.getElementById("state4").checked) {
+        statelist.push(4);
+      }
+      if (document.getElementById("state8").checked) {
+        statelist.push(8);
+      }
+      if (document.getElementById("state256").checked) {
+        statelist.push(256);
+      }
+      console.log(statelist);
+      request.tour_state = statelist;
+
+      // 送信
+      const response = await api.get(url, request, this.$router.push);
+
+      this.tours = response.data;
     },
   },
   created() {
