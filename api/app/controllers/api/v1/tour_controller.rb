@@ -30,14 +30,15 @@ class Api::V1::TourController < ApplicationController
 
       guide_schedules = GuideSchedule.where(tour_id: params[:id])
 
+      # ツアー状態をキャンセルに変更
+      tour_delete.update(tour_state_code: TOUR_STATE_CODE_CANCEL)
+
       # 全員にメールを送信
       guide_schedules.each do |guide_schedules|
         guides = Guide.find_by(id: guide_schedules.guide_id)
         TourCancelNotifyMailer.cancel_email(guides, tour_delete).deliver_now
       end
 
-      # ツアー状態をキャンセルに変更
-      tour_delete.update(tour_state_code: TOUR_STATE_CODE_CANCEL)
       render json: json_render_v1(true)
       nil
 
@@ -51,14 +52,15 @@ class Api::V1::TourController < ApplicationController
 
       tour_guides = TourGuide.where(id: params[:id])
 
+      # ツアー状態をキャンセルに変更
+      tour_delete.update(tour_state_code: TOUR_STATE_CODE_CANCEL)
+
       # 担当者のみにメールを送信
       tour_guides.each do |tour_guides|
         guide = Guide.find_by(id: tour_guides.guide_id)
         TourCancelNotifyMailer.cancel_email(guide, tour_delete).deliver_now
       end
 
-      # ツアー状態をキャンセルに変更
-      tour_delete.update(tour_state_code: TOUR_STATE_CODE_CANCEL)
       render json: json_render_v1(true)
       nil
     end
