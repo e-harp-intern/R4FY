@@ -49,7 +49,7 @@ class Api::V1::ToursController < ApplicationController
     # ガイドに予定入力メールを送信
     guides.each do |guide|
       token = guide.tokens.find_by(tour_id: tour.id)
-      schedule(guide, token)
+      guide_schedule_mailer(guide, token)
     end
 
     # 入力したツアー情報を取得

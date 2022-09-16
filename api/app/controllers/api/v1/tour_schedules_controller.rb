@@ -20,7 +20,7 @@ class Api::V1::TourSchedulesController < ApplicationController
     token.save!
 
     # メール送信
-    schedule(Guide.find_by(id: params[:guide_id]), token)
+    guide_schedule_mailer(Guide.find_by(id: params[:guide_id]), token)
 
     render json: json_render_v1(true)
   end
