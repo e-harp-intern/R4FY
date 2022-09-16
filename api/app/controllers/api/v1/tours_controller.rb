@@ -2,6 +2,7 @@
 require "securerandom"
 
 class Api::V1::ToursController < ApplicationController
+  include Schedule
   before_action :require_login
 
   # ツアー一覧を降順取得
@@ -72,8 +73,7 @@ class Api::V1::ToursController < ApplicationController
     # ガイドに予定入力メールを送信
     guides.each do |guide|
       token = guide.tokens.find_by(tour_id: tour.id)
-      url = format(URL_GUIDE_SCHEDULE_TOKEN, token: token.token)
-      GuideScheduleInputMailer.creation_email(guide, url, tour).deliver_now
+      guide_schedule_mailer(guide, token)
     end
 
     # 入力したツアー情報を取得
