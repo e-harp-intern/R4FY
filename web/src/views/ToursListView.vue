@@ -152,27 +152,27 @@ export default {
 /* ------------ 状態によって色を付ける ------------ */
 
 .CellState_1 {
-  background-color: var(--color-yellow);
+  background-color: var(--color-tour-state-code-incomplete);
   color: var(--color-white);
 }
 
 .CellState_2 {
-  background-color: var(--color-light-green);
+  background-color: var(--color-tour-state-code-assigned);
   color: var(--color-white);
 }
 
 .CellState_4 {
-  background-color: var(--color-orange);
+  background-color: var(--color-tour-state-code-complete);
   color: var(--color-white);
 }
 
 .CellState_8 {
-  background-color: var(--color-blue);
+  background-color: var(--color-tour-state-code-complete-recorded);
   color: var(--color-white);
 }
 
 .CellState_256 {
-  background-color: var(--color-red);
+  background-color: var(--color-tour-state-code-cancel);
   color: var(--color-white);
 }
 </style>
