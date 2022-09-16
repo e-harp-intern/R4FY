@@ -18,9 +18,13 @@
         <p class="outline">{{ $t("common.start_datetime") }}</p>
         <p class="value">{{ datetimeFormat(tour.start_datetime) }}</p>
       </article>
-      <article class="info" id="state">
+      <article
+        class="info state"
+        id="state"
+        :class="changeToTourStateColor(tour.tour_state_code)"
+      >
         <p class="outline">{{ $t("pages.tours.tour.tour_state_title") }}</p>
-        <p class="value">{{ changeToTourStateColor(tour.tour_state_code) }}</p>
+        <p class="value">{{ codeToTourStateString(tour.tour_state_code) }}</p>
       </article>
     </div>
 
@@ -182,23 +186,13 @@ export default {
 
     // ツアー状態によって背景色を変更(idを置き換える)
     changeToTourStateColor(code) {
-      if (code === 1) {
-        const obj = document.getElementById("state");
-        obj.id = "state1";
-      } else if (code === 2) {
-        const obj = document.getElementById("state");
-        obj.id = "state2";
-      } else if (code === 4) {
-        const obj = document.getElementById("state");
-        obj.id = "state4";
-      } else if (code === 8) {
-        const obj = document.getElementById("state");
-        obj.id = "state8";
-      } else if (code === 256) {
-        const obj = document.getElementById("state");
-        obj.id = "state256";
-      }
-      return this.codeToTourStateString(code);
+      return {
+        state1: code === 1,
+        state2: code === 2,
+        state4: code === 4,
+        state8: code === 8,
+        state256: code === 256,
+      };
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -272,22 +266,22 @@ h2 {
 #date {
   background-color: var(--color-green);
 }
-#state {
+.state {
   background-color: var(--color-red);
 }
-#state1 {
+.state1 {
   background-color: var(--color-yellow);
 }
-#state2 {
+.state2 {
   background-color: var(--color-light-green);
 }
-#state4 {
+.state4 {
   background-color: var(--color-orange);
 }
-#state8 {
+.state8 {
   background-color: var(--color-blue);
 }
-#state256 {
+.state256 {
   background-color: var(--color-red);
 }
 #num table {
