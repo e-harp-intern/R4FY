@@ -26,7 +26,7 @@
     <!-- フォーム -->
     <div class="form-frame" v-if="!isInput && !error">
       <div class="form-main">
-        <div>
+        <div id="select-button-frame">
           <button
             class="button-green"
             :class="buttonGray(is_possible !== null && !is_possible)"
@@ -189,5 +189,18 @@ export default {
 .form-main > * {
   margin-top: 1em;
   font-size: x-large;
+}
+
+#select-button-frame {
+  display: flex;
+  padding: 0.5em;
+  box-sizing: border-box;
+  justify-content: space-around;
+}
+
+#select-button-frame > button {
+  display: inline-block;
+  flex: 1;
+  white-space: nowrap;
 }
 </style>
