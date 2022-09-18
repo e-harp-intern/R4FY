@@ -18,6 +18,7 @@ export default {
         },
         tours: {
             title: "ツアー",
+            title_search: "詳細検索",
             no_data_error: "表示するデータがありません。検索条件を指定、もしくはツアーの新規追加をしてください。",
             tour: {
                 title: "ツアー詳細",
@@ -84,7 +85,7 @@ export default {
             schedules: {
                 info: "ツアーでの担当ガイドのスケジュール調整のため、参加できるか・できないかの入力をお願いいたします。"
             },
-            selectguide:{
+            selectguide: {
                 title: "ツアー担当ガイド決定画面",
                 person: "人",
                 person2: "人/",
@@ -125,6 +126,8 @@ export default {
         tour_create: "＋ツアー作成",
         send_mail: "メールを送信",
         submit: "確定",
+        searchbar: "詳細検索",
+        search: "検索",
         assign: "担当者を確定する",
     },
     placeholder: {
@@ -143,6 +146,7 @@ export default {
         end_datetime: "終了日時：",
         adult_num: "大人人数：",
         child_num: "子供人数：",
+        max_num: "最大人数：",
         guide_num: "ガイド人数：",
         schedule_input_deadline: "参加可否入力期限：",
         remind_date: "リマインド日：",
@@ -152,6 +156,7 @@ export default {
             child_num: "いない場合「0」を入力してください",
             guide_num: "必ず人数を入力してください",
         },
+        time_to: "～"
     },
     table: {
         tour_participant_num: {
@@ -182,7 +187,7 @@ export default {
     },
     state: {
         tour: {
-            1: "未実施(担当ガイド未決定)",
+            1: "未実施（担当ガイド未決定）",
             2: "担当者決定済み",
             4: "実施済み（実績未記入）",
             8: "実績記入済み",

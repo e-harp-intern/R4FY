@@ -9,9 +9,67 @@
     </p>
     <br />
     <h1>{{ $t("pages.tours.title") }}</h1>
-    <button @click="goTourDetail('create')" id="create_tour_btn">
-      {{ $t("button.tour_create") }}
-    </button>
+
+    <!-- テーブル上部のボタン -->
+    <div class="button-frame">
+      <button @click="goTourDetail('create')" id="create_tour_btn">
+        {{ $t("button.tour_create") }}
+      </button>
+      <button type="checkbox" id="search_btn" @click="isChecking = !isChecking">
+        {{ $t("button.searchbar") }}
+      </button>
+    </div>
+
+    <!-- 詳細検索 -->
+    <div class="search-form-frame" v-if="isChecking === true">
+      <h3>{{ $t("pages.tours.title_search") }}</h3>
+      <form @submit.prevent="search" class="form-main">
+        <div class="form-tabel">
+          <!--ツアー名-->
+          <span class="search-box">
+            <label>{{ $t("label.tour_name") }}</label
+            ><input
+              type="text"
+              :placeholder="$t('label.detail.tour_name')"
+              id="tour_name"
+            />
+          </span>
+
+          <!--開始日時-->
+          <div class="search-box">
+            <label>{{ $t("label.start_datetime") }}</label
+            ><input type="date" id="start_datetime" />
+            <label> {{ $t("label.time_to") }} </label
+            ><input type="date" id="end_datetime" />
+          </div>
+
+          <!-- ツアー状態 --->
+          <div class="search-box" id="search-from-state">
+            <input type="checkbox" id="state1" value="1" checked />
+            <label for="state1">{{ $t("state.tour.1") }}</label>
+            <input type="checkbox" id="state2" value="2" checked />
+            <label for="state2">{{ $t("state.tour.2") }}</label>
+            <input type="checkbox" id="state4" value="4" checked />
+            <label for="state4">{{ $t("state.tour.4") }}</label>
+            <input type="checkbox" id="state8" value="8" checked />
+            <label for="state8">{{ $t("state.tour.8") }}</label>
+            <input type="checkbox" id="state256" value="256" checked /><label
+              for="state256"
+              >{{ $t("state.tour.256") }}</label
+            >
+          </div>
+        </div>
+
+        <!-- 検索ボタン -->
+        <div class="form-button-frame">
+          <button type="submit" class="button-green">
+            {{ $t("button.search") }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 一覧テーブル -->
     <table class="table-normal">
       <thead>
         <tr>
@@ -74,6 +132,7 @@ export default {
     return {
       tours: [],
       adminNameShow: {},
+      isChecking: false,
     };
   },
   computed: {},
@@ -103,6 +162,46 @@ export default {
         CellState_256: state === 256,
       };
     },
+    async search() {
+      const url = `/api/v1/tours`;
+
+      const request = {
+        word: document.getElementById("tour_name").value,
+      };
+      // 開始月日
+      if (document.getElementById("start_datetime").value !== "") {
+        request.start_date = document.getElementById("start_datetime").value;
+      }
+      // 終了月日
+      if (document.getElementById("end_datetime").value !== "") {
+        request.end_date = document.getElementById("end_datetime").value;
+      }
+
+      const statelist = [];
+
+      if (document.getElementById("state1").checked) {
+        statelist.push(1);
+      }
+      if (document.getElementById("state2").checked) {
+        statelist.push(2);
+      }
+      if (document.getElementById("state4").checked) {
+        statelist.push(4);
+      }
+      if (document.getElementById("state8").checked) {
+        statelist.push(8);
+      }
+      if (document.getElementById("state256").checked) {
+        statelist.push(256);
+      }
+
+      request.tour_state = statelist;
+
+      // 送信
+      const response = await api.get(url, request, this.$router.push);
+
+      this.tours = response.data;
+    },
   },
   created() {
     this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
@@ -131,7 +230,12 @@ export default {
 @import "@/assets/css/table.scss";
 
 #create_tour_btn {
-  float: right;
+  padding: 0.5em 1.3em;
+  margin-bottom: 1em;
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+#search_btn {
   padding: 0.5em 1.3em;
   margin-bottom: 1em;
   background-color: var(--color-green);
@@ -174,5 +278,42 @@ export default {
 .CellState_256 {
   background-color: var(--color-tour-state-code-cancel);
   color: var(--color-white);
+}
+
+/* ------------ 検索バー関連 ------------ */
+
+.button-frame {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.search-form-frame {
+  display: block;
+  background-color: var(--color-light-gray);
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+  padding: 0.5em 2em 1em;
+}
+
+.form-tabel {
+  display: inline-block;
+}
+
+.form-button-frame {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.search-box {
+  padding: 0.5em;
+}
+
+#search-from-state > input {
+  padding: 0.5em;
+  margin-left: 1em;
+}
+
+.form-main {
+  padding-top: 1em;
 }
 </style>
