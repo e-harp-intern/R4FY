@@ -84,6 +84,10 @@ export default {
         guides: {
             schedules: {
                 info: "ツアーでの担当ガイドのスケジュール調整のため、参加できるか・できないかの入力をお願いいたします。"
+                , error: "エラーが発生しました。時間を置いてもう一度お試しください。",
+                button_absent: "参加できない",
+                button_participate: "参加できる",
+                alert_no_input: "参加できるかできないかを選択してください。"
             },
             selectguide: {
                 title: "ツアー担当ガイド決定画面",
@@ -156,7 +160,8 @@ export default {
             child_num: "いない場合「0」を入力してください",
             guide_num: "必ず人数を入力してください",
         },
-        time_to: "～"
+        time_to: "～",
+        send_info: "送信内容："
     },
     table: {
         tour_participant_num: {
