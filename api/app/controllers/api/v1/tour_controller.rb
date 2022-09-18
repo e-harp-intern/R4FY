@@ -9,12 +9,19 @@ class Api::V1::TourController < ApplicationController
     tour_guides = TourGuide.where(tour_id: params[:id]).includes(:guide)
     guide_schedules = GuideSchedule.where(tour_id: params[:id]).includes(:guide)
 
+    # ツアーが存在しない場合
+    if tours.nil?
+      render json: json_render_v1(false, {}), status: 404
+      return
+    end
+
     # レスポンスの形を作成
     response = {
       tour: tours,
       guide_schedules: JSON.parse(guide_schedules.to_json(include: [:guide])),
       tour_guides: JSON.parse(tour_guides.to_json(include: [:guide]))
     }
+
     render json: json_render_v1(true, response)
   end
 
