@@ -2,8 +2,11 @@
   <div>
     <!-- メッセージ -->
     <div v-if="!isInput && error === 500">
-      エラーが発生しました。時間を置いてもう一度お試しください。
+      {{ $t("pages.guides.schedules.error") }}
     </div>
+
+    <!-- タイトル -->
+    <h1>{{ $t("app_name") }}</h1>
 
     <!-- ガイド・ツアー情報 -->
     <div class="tour-info">
@@ -24,28 +27,32 @@
     <div class="form-frame" v-if="!isInput">
       <form @submit.prevent="create" class="form-main">
         <div id="radio">
-          <input
-            type="radio"
-            name="class"
-            value="participate"
-            id="participate"
-            v-model="possibleRadio"
-          />
-          <label for="participate"
-            >{{ $t("pages.inputschedule.participate") }}
-          </label>
-          <br />
-          <input
-            type="radio"
-            name="class"
-            value="absent"
-            id="absent"
-            v-model="possibleRadio"
-          /><label for="absent">{{ $t("pages.inputschedule.absent") }} </label>
+          <div>
+            <input
+              type="radio"
+              name="class"
+              value="participate"
+              id="participate"
+              v-model="possibleRadio"
+            />
+            <label for="participate"
+              >{{ $t("pages.inputschedule.participate") }}
+            </label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="class"
+              value="absent"
+              id="absent"
+              v-model="possibleRadio"
+            /><label for="absent"
+              >{{ $t("pages.inputschedule.absent") }}
+            </label>
+          </div>
         </div>
-        <br />
         <div class="form-button-frame">
-          <button type="submit" class="button-green">
+          <button type="submit" class="button-green button-large">
             {{ $t("button.send") }}
           </button>
         </div>
@@ -161,6 +168,15 @@ export default {
   margin: auto;
   width: auto;
   padding: 1em;
-  margin: 1em 0;
+  margin: 1em 0.5em;
+}
+
+.form-button-frame {
+  margin-top: 2em;
+}
+
+.form-main > * {
+  margin-top: 1em;
+  font-size: x-large;
 }
 </style>
