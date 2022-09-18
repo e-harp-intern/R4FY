@@ -18,6 +18,7 @@ export default {
         },
         tours: {
             title: "ツアー",
+            title_search: "詳細検索",
             no_data_error: "表示するデータがありません。検索条件を指定、もしくはツアーの新規追加をしてください。",
             tour: {
                 title: "ツアー詳細",
@@ -84,7 +85,7 @@ export default {
             schedules: {
                 info: "ツアーでの担当ガイドのスケジュール調整のため、参加できるか・できないかの入力をお願いいたします。"
             },
-            selectguide:{
+            selectguide: {
                 title: "ツアー担当ガイド決定画面",
                 person: "人",
                 person2: "人/",
@@ -186,7 +187,7 @@ export default {
     },
     state: {
         tour: {
-            1: "未実施(担当ガイド未決定)",
+            1: "未実施（担当ガイド未決定）",
             2: "担当者決定済み",
             4: "実施済み（実績未記入）",
             8: "実績記入済み",

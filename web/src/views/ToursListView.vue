@@ -22,47 +22,45 @@
 
     <!-- 詳細検索 -->
     <div class="search-form-frame" v-if="isChecking === true">
+      <h3>{{ $t("pages.tours.title_search") }}</h3>
       <form @submit.prevent="search" class="form-main">
         <div class="form-tabel">
           <!--ツアー名-->
-          <div>
+          <span class="search-box">
             <label>{{ $t("label.tour_name") }}</label
             ><input
               type="text"
               :placeholder="$t('label.detail.tour_name')"
               id="tour_name"
             />
-          </div>
-
-          <!-- 最大人数 -->
-          <div>
-            <label> {{ $t("label.max_num") }} </label>
-            <input type="number" name="number" />
-          </div>
+          </span>
 
           <!--開始日時-->
-          <div>
+          <div class="search-box">
             <label>{{ $t("label.start_datetime") }}</label
             ><input type="date" id="start_datetime" />
-            <label>{{ $t("label.time_to") }}</label
+            <label> {{ $t("label.time_to") }} </label
             ><input type="date" id="end_datetime" />
           </div>
 
           <!-- ツアー状態 --->
-          <input type="checkbox" id="state1" value="1" />
-          <label for="state1">{{ $t("state.tour.1") }}</label>
-          <input type="checkbox" id="state2" value="2" />
-          <label for="state2">{{ $t("state.tour.2") }}</label>
-          <input type="checkbox" id="state4" value="4" />
-          <label for="state4">{{ $t("state.tour.4") }}</label>
-          <input type="checkbox" id="state8" value="8" />
-          <label for="state8">{{ $t("state.tour.8") }}</label>
-          <input type="checkbox" id="state256" value="256" /><label
-            for="state256"
-            >{{ $t("state.tour.256") }}</label
-          >
+          <div class="search-box" id="search-from-state">
+            <input type="checkbox" id="state1" value="1" checked />
+            <label for="state1">{{ $t("state.tour.1") }}</label>
+            <input type="checkbox" id="state2" value="2" checked />
+            <label for="state2">{{ $t("state.tour.2") }}</label>
+            <input type="checkbox" id="state4" value="4" checked />
+            <label for="state4">{{ $t("state.tour.4") }}</label>
+            <input type="checkbox" id="state8" value="8" checked />
+            <label for="state8">{{ $t("state.tour.8") }}</label>
+            <input type="checkbox" id="state256" value="256" checked /><label
+              for="state256"
+              >{{ $t("state.tour.256") }}</label
+            >
+          </div>
         </div>
-        <br />
+
+        <!-- 検索ボタン -->
         <div class="form-button-frame">
           <button type="submit" class="button-green">
             {{ $t("button.search") }}
@@ -293,16 +291,29 @@ export default {
   display: block;
   background-color: var(--color-light-gray);
   border-radius: 0.5em;
+  margin-bottom: 1em;
+  padding: 0.5em 2em 1em;
 }
 
 .form-tabel {
   display: inline-block;
 }
 
-.form-tabel label {
+.form-button-frame {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.search-box {
+  padding: 0.5em;
+}
+
+#search-from-state > input {
+  padding: 0.5em;
+  margin-left: 1em;
 }
 
 .form-main {
-  padding: 2em;
+  padding-top: 1em;
 }
 </style>
