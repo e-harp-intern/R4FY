@@ -219,7 +219,7 @@ export default {
 
     // 取得エラーでエラーページへ
     if (response.status !== constant.STATE.SUCCESS) {
-      this.$router.push(`/error`);
+      next(`/error`);
       return;
     }
 
