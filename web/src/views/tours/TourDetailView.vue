@@ -136,6 +136,7 @@
 import api from "@/mixins/api";
 import common from "@/mixins/common";
 import table from "@/mixins/table";
+import constant from "@/mixins/constant";
 
 export default {
   data() {
@@ -215,6 +216,12 @@ export default {
 
     // ツアー一覧データの取得
     const response = await api.get(`/api/v1/tours/${to.params.id}`, null, next);
+
+    // 取得エラーでエラーページへ
+    if (response.status !== constant.STATE.SUCCESS) {
+      next(`/error`);
+      return;
+    }
 
     // 各種情報のパース
     const { tour, guide_schedules, tour_guides } = response.data;

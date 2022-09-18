@@ -45,7 +45,7 @@ const methods = {
             hours: datetime.getUTCHours().toString().padStart(2, "0"),
             minutes: datetime.getUTCMinutes().toString().padStart(2, "0"),
         };
-    }
+    },
 }
 
 export default methods;
