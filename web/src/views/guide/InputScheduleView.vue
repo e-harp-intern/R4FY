@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- メッセージ -->
-    <div v-if="!isInput && error === 500">
+    <div v-if="error === 500">
       {{ $t("pages.guides.schedules.error") }}
     </div>
 
@@ -9,7 +9,7 @@
     <h1>{{ $t("app_name") }}</h1>
 
     <!-- ガイド・ツアー情報 -->
-    <div class="tour-info">
+    <div class="tour-info" v-if="!error">
       <p>{{ $t("common.name", { name: guide.name }) }}</p>
       <h2>{{ tour.name }}</h2>
       <h3>
@@ -23,61 +23,67 @@
       <p>{{ $t("pages.guides.schedules.info") }}</p>
     </div>
 
-    <!-- フォーム部分 -->
-    <div class="form-frame" v-if="!isInput">
-      <form @submit.prevent="create" class="form-main">
-        <div id="radio">
-          <div>
-            <input
-              type="radio"
-              name="class"
-              value="participate"
-              id="participate"
-              v-model="possibleRadio"
-            />
-            <label for="participate"
-              >{{ $t("pages.inputschedule.participate") }}
-            </label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="class"
-              value="absent"
-              id="absent"
-              v-model="possibleRadio"
-            /><label for="absent"
-              >{{ $t("pages.inputschedule.absent") }}
-            </label>
-          </div>
+    <!-- フォーム -->
+    <div class="form-frame" v-if="!isInput && !error">
+      <div class="form-main">
+        <div>
+          <button
+            class="button-green"
+            :class="buttonGray(is_possible !== null && !is_possible)"
+            @click="is_possible = true"
+          >
+            {{ $t("pages.guides.schedules.button_participate") }}
+          </button>
+          <button
+            class="button-red"
+            :class="buttonGray(is_possible !== null && is_possible)"
+            @click="is_possible = false"
+          >
+            {{ $t("pages.guides.schedules.button_absent") }}
+          </button>
         </div>
         <div class="form-button-frame">
-          <button type="submit" class="button-green button-large">
+          <button
+            @click="create()"
+            class="button-green button-large"
+            :class="buttonGray(is_possible === null)"
+          >
             {{ $t("button.send") }}
           </button>
         </div>
-      </form>
+      </div>
     </div>
 
     <!-- 送信完了 -->
-    <h2 v-if="isInput">{{ $t("pages.inputschedule.send") }}</h2>
+    <div v-if="isInput">
+      <h2>{{ $t("pages.inputschedule.send") }}</h2>
+      <p>
+        {{ $t("label.send_info") }}
+        <span v-if="is_possible">{{
+          $t("pages.guides.schedules.button_participate")
+        }}</span>
+        <span v-else>
+          {{ $t("pages.guides.schedules.button_absent") }}
+        </span>
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
 import api from "@/mixins/api";
 import common from "@/mixins/common";
+import constant from "@/mixins/constant";
 
 export default {
   data() {
     return {
-      isInput: false,
       error: null,
       guide: {},
       tour: {},
-      is_answered: false,
-      is_possible: false,
-      possibleRadio: "",
+      is_answered: null,
+      is_possible: null,
+      isInput: false,
     };
   },
   created() {},
@@ -93,26 +99,26 @@ export default {
       }
     },
 
+    // ボタンをグレーにする
+    buttonGray(flg) {
+      return {
+        "button-gray": flg,
+      };
+    },
+
     // 送信（参加情報を作成）
     async create() {
+      // エラーを返す
+      if (this.is_possible === null) {
+        alert(this.$t("pages.guides.schedules.alert_no_input"));
+        return;
+      }
+
       // 送信先URL
       const url = `/api/v1/schedules/${this.$route.params.token}`;
 
-      // 送信情報を取得
-      const possible = (() => {
-        const val = document.querySelector("input[name=class]:checked").value;
-        switch (val) {
-          case "absent":
-            return false;
-          case "participate":
-            return true;
-          default:
-            return null;
-        }
-      })();
-
       // 送信情報組み立て
-      const json = { possible };
+      const json = { possible: this.is_possible };
 
       // API通信
       try {
@@ -145,12 +151,17 @@ export default {
     const response = await api.get(url, null, next);
     const { guide, tour, answered, possible } = response.data;
 
+    // エラー発生時
+    const error = response.status !== constant.STATE.SUCCESS ? 500 : null;
+
     // ページへ情報を受け渡し
     next((vm) => {
+      vm.error = error;
       vm.guide = guide;
       vm.tour = tour;
       vm.is_answered = answered;
-      vm.is_possible = possible;
+      vm.is_possible =
+        answered === undefined || answered === false ? null : possible;
       vm.possibleRadio = !answered
         ? ""
         : { true: "participate", false: "absent" }[possible];

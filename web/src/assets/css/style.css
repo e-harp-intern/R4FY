@@ -91,6 +91,11 @@ button.button-theme {
     color: var(--color-white);
 }
 
+button.button-gray {
+    background-color: var(--color-gray);
+    color: var(--color-white);
+}
+
 button:hover {
     opacity: .7;
     box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.15);
