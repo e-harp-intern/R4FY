@@ -217,4 +217,7 @@ export default {
         name: "%{name} 様",
         router_back: "前のページへ戻る"
     },
+    system: {
+        datetime: "%{year}-%{month}-%{date} %{hours}:%{minutes}"
+    }
 };
