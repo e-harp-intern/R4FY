@@ -35,7 +35,9 @@ export default {
             },
             create: {
                 title: "ツアー追加",
-                create_api_error: "エラーが発生しました。日付等を確認してもう一度お試しください。"
+                create_api_error: "エラーが発生しました。日付等を確認してもう一度お試しください。",
+                alert_schedule_input_deadline: "予定入力期限が設定されていません。担当が確定するまで予定の入力をすることができますが、よろしいですか？",
+                alert_remind_date: "リマインドの日付が設定されていませんが、よろしいですか？"
             },
             delete: {
                 title: "ツアー取り消し",
@@ -215,7 +217,8 @@ export default {
         people_num_unit: "%{num} 名",
         date_start_end: "%{start} ~ %{end}",
         name: "%{name} 様",
-        router_back: "前のページへ戻る"
+        router_back: "前のページへ戻る",
+        cancel: "取り消しました。"
     },
     system: {
         datetime: "%{year}-%{month}-%{date} %{hours}:%{minutes}"
