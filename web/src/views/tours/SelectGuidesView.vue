@@ -41,6 +41,9 @@
             <th @click="sortBy('state')" :class="addSortClass('state')">
               {{ $t("table.guide.answered_state") }}
             </th>
+            <th>
+              {{ $t("table.guide.link") }}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -49,9 +52,11 @@
             :key="schedule.id"
             :class="tableCSS(schedule.state)"
             class="hover-line"
-            @click="ChangeSelect(schedule.state, schedule.id)"
           >
-            <td class="center">
+            <td
+              @click="ChangeSelect(schedule.state, schedule.id)"
+              class="center"
+            >
               <input
                 type="checkbox"
                 style="transform: scale(2)"
@@ -62,10 +67,24 @@
                 v-if="isChecking === buttoncheck(schedule.state)"
               />
             </td>
-            <td>{{ schedule.name }}</td>
-            <td>{{ schedule.email }}</td>
-            <td class="center">
+            <td @click="ChangeSelect(schedule.state, schedule.id)">
+              {{ schedule.name }}
+            </td>
+            <td @click="ChangeSelect(schedule.state, schedule.id)">
+              {{ schedule.email }}
+            </td>
+            <td
+              @click="ChangeSelect(schedule.state, schedule.id)"
+              class="center"
+            >
               {{ codeToGuideStateString(schedule.state) }}
+            </td>
+            <td class="center">
+              <a
+                @click="LinkGuide(schedule.guide_id)"
+                href="javascript:void(0)"
+                >{{ $t("common.check") }}</a
+              >
             </td>
           </tr>
         </tbody>
@@ -105,6 +124,11 @@ export default {
     // 参加の有無によってチェックボックスの表示・非表示
     buttoncheck(state) {
       return state === 1 ? 1 : 2;
+    },
+
+    // ガイドへのリンク
+    LinkGuide(id) {
+      window.open(`/accounts/guides/${id}`, "_blank");
     },
 
     // チェック済みガイド数をカウントする

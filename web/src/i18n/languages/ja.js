@@ -184,7 +184,8 @@ export default {
             name: "名前",
             email: "メールアドレス",
             answered_state: "参加可否",
-            assign_mark: "〇"
+            assign_mark: "〇",
+            link: "ガイド情報"
         },
         account: {
             authority: "権限",
@@ -218,7 +219,8 @@ export default {
         date_start_end: "%{start} ~ %{end}",
         name: "%{name} 様",
         router_back: "前のページへ戻る",
-        cancel: "取り消しました。"
+        cancel: "取り消しました。",
+        check: "確認"
     },
     system: {
         datetime: "%{year}-%{month}-%{date} %{hours}:%{minutes}"
