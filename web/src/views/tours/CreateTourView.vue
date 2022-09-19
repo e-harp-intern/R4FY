@@ -14,10 +14,20 @@
           />
           <!--開始日時-->
           <label>{{ $t("label.start_datetime") }}</label
-          ><input type="datetime-local" id="start_datetime" required />
+          ><input
+            type="datetime-local"
+            id="start_datetime"
+            :value="defaultTime()"
+            required
+          />
           <!--終了日時-->
           <label>{{ $t("label.end_datetime") }}</label
-          ><input type="datetime-local" id="end_datetime" required />
+          ><input
+            type="datetime-local"
+            id="end_datetime"
+            :value="defaultTime()"
+            required
+          />
           <!--大人-->
           <label>{{ $t("label.adult_num") }}</label
           ><input
@@ -65,6 +75,7 @@
 
 <script>
 import api from "@/mixins/api";
+import common from "@/mixins/common";
 
 export default {
   data() {
@@ -74,6 +85,16 @@ export default {
   },
   created() {},
   methods: {
+    // フォームの初期時間（現在時の00分を返す）
+    defaultTime() {
+      let date = new Date(Date.now());
+      date.setMinutes(0);
+      date.setSeconds(0);
+      date = common.datetimeUTC(date);
+      return this.$t("system.datetime", common.datetimeData(date));
+    },
+
+    // フォームをリセット
     form_reset() {
       const forms = document.getElementsByTagName("input");
       for (let i = 0; i < forms.length; i += 1) {

@@ -40,12 +40,17 @@ const methods = {
         datetime = new Date(datetime);
         return {
             year: datetime.getUTCFullYear(),
-            month: datetime.getUTCMonth() + 1,
+            month: (datetime.getUTCMonth() + 1).toString().padStart(2, "0"),
             date: datetime.getUTCDate().toString().padStart(2, "0"),
             hours: datetime.getUTCHours().toString().padStart(2, "0"),
             minutes: datetime.getUTCMinutes().toString().padStart(2, "0"),
         };
     },
+
+    /* 日本時間をUTCへ変換（タイムゾーン情報を削除） */
+    datetimeUTC: (datetime) => {
+        return new Date(Date.UTC(datetime.getFullYear(), datetime.getMonth(), datetime.getDate(), datetime.getHours(), datetime.getMinutes()))
+    }
 }
 
 export default methods;
