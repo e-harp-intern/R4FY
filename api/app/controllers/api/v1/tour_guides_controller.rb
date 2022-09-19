@@ -43,34 +43,4 @@ class Api::V1::TourGuidesController < ApplicationController
   rescue StandardError => e
     render json: json_render_v1(false)
   end
-
-  # 担当ガイドをリセットするためのAPI
-  def destroy
-    # トランザクション（失敗時は保持しない）
-    ApplicationRecord.transaction do
-      tour_id = params[:id]
-      tour_guides = TourGuide.where(tour_id: tour_id)
-      tour_delete = Tour.find_by(id: params[:id])
-
-      # 全員にメールを送信
-      tour_guides.each do |tour_guide|
-        guide = Guide.find_by(id: tour_guide.guide_id)
-        AssignCancelNotifyMailer.cancel_email(guide, tour_delete).deliver_now
-      end
-
-      # 同じツアーIDの担当情報を削除（物理）
-      tour_guides.destroy_all
-
-      # ツアーの状態を「担当ガイド未決定」に更新
-      Tour.find(tour_id).update(tour_state_code: TOUR_STATE_CODE_INCOMPLETE)
-    end
-
-    # 成功時
-    render json: json_render_v1(true)
-    nil
-
-    # その他失敗時
-  rescue StandardError => e
-    render json: json_render_v1(false)
-  end
 end
