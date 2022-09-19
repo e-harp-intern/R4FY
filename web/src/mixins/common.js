@@ -19,6 +19,15 @@ const guideStateString = {
     3: Vue.i18n.t("state.guide_participation.3"),
 }
 
+/* 日本時間をUTCへ変換（タイムゾーン情報を削除） */
+const datetimeUTC = (datetime) => {
+    datetime = String(datetime)
+    datetime = datetime.split("Z")[0];
+    datetime = datetime.split("GMT+")[0];
+    datetime = new Date(datetime);
+    return new Date(Date.UTC(datetime.getFullYear(), datetime.getMonth(), datetime.getDate(), datetime.getHours(), datetime.getMinutes()))
+}
+
 const methods = {
     /* ツアー状態をコードから文字列にする */
     codeToTourStateString(state) {
@@ -37,7 +46,7 @@ const methods = {
 
     /* 日時成形処理用パーツ */
     datetimeData: (datetime) => {
-        datetime = new Date(datetime);
+        datetime = datetimeUTC(datetime);
         return {
             year: datetime.getUTCFullYear(),
             month: (datetime.getUTCMonth() + 1).toString().padStart(2, "0"),
@@ -47,10 +56,8 @@ const methods = {
         };
     },
 
-    /* 日本時間をUTCへ変換（タイムゾーン情報を削除） */
-    datetimeUTC: (datetime) => {
-        return new Date(Date.UTC(datetime.getFullYear(), datetime.getMonth(), datetime.getDate(), datetime.getHours(), datetime.getMinutes()))
-    }
+    /* タイムゾーンを削除（文字列 → 日時） */
+    datetimeUTC: (datetime) => datetimeUTC(datetime),
 }
 
 export default methods;
