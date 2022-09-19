@@ -123,11 +123,6 @@
           {{ $t("pages.tours.select.title") }}
         </a>
       </li>
-      <li>
-        <a @click="alert_delete_guide()" href="javascript:void(0)">{{
-          $t("pages.tours.delete.guide")
-        }}</a>
-      </li>
     </ul>
   </div>
 </template>
@@ -180,19 +175,6 @@ export default {
     // ツアー担当ガイドを選択、決定するページへ遷移する
     goTourSelectGuide() {
       this.$router.push(`/tours/${this.tour.id}/selectguide`);
-    },
-
-    // 担当ガイド中止処理
-    async alert_delete_guide() {
-      if (window.confirm(this.$t("pages.tours.tour.alert4"))) {
-        // 「OK」時の処理終了
-        await api.delete(`/api/v1/tours/${this.tour.id}/guides`);
-        window.alert(this.$t("pages.tours.tour.alert5"));
-        this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
-      } else {
-        // 「キャンセル」時の処理開始
-        window.alert(this.$t("pages.tours.tour.alert6")); // 警告ダイアログを表示
-      }
     },
 
     // ツアー状態によって背景色を変更(idを置き換える)
