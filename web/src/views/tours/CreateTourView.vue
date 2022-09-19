@@ -34,7 +34,6 @@
             type="number"
             :placeholder="$t('label.detail.adult_num')"
             id="adult_num"
-            required
           />
           <!--子供-->
           <label>{{ $t("label.child_num") }}</label
@@ -42,7 +41,6 @@
             type="number"
             :placeholder="$t('label.detail.child_num')"
             id="child_num"
-            required
           />
           <!--ガイド-->
           <label>{{ $t("label.guide_num") }}</label
@@ -50,14 +48,13 @@
             type="number"
             :placeholder="$t('label.detail.guide_num')"
             id="guide_num"
-            required
           />
           <!--参加可否入力期限-->
           <label>{{ $t("label.schedule_input_deadline") }}</label
-          ><input type="datetime-local" id="schedule_input_deadline" required />
+          ><input type="datetime-local" id="schedule_input_deadline" />
           <!--リマインド日-->
           <label>{{ $t("label.remind_date") }}</label
-          ><input type="date" id="remind_date" required />
+          ><input type="date" id="remind_date" />
           <!--メモ-->
           <label>{{ $t("label.memo") }}</label
           ><textarea cols="30" rows="5" name="memo" id="memo"> </textarea>
