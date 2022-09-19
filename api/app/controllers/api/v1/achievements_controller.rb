@@ -4,6 +4,8 @@ class Api::V1::AchievementsController < ApplicationController
 
   # 実績を入力
   def create
+    response = {}
+
     ApplicationRecord.transaction do
       # 実績情報を取得
       tour_id = params[:tour_id]
@@ -27,10 +29,13 @@ class Api::V1::AchievementsController < ApplicationController
       achievements.update(attend: attend) unless attend.nil?
       achievements.update(memo: memo) unless memo.nil?
 
-      # 結果を出力
-      render json: json_render_v1(true, achievements)
-      return
+      # レスポンス
+      response = achievements
     end
+
+    # 結果を出力
+    render json: json_render_v1(true, response)
+    nil
 
     # その他失敗時
   rescue StandardError => e
