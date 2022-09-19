@@ -30,25 +30,13 @@
           />
           <!--大人-->
           <label>{{ $t("label.adult_num") }}</label
-          ><input
-            type="number"
-            :placeholder="$t('label.detail.adult_num')"
-            id="adult_num"
-          />
+          ><input type="number" id="adult_num" />
           <!--子供-->
           <label>{{ $t("label.child_num") }}</label
-          ><input
-            type="number"
-            :placeholder="$t('label.detail.child_num')"
-            id="child_num"
-          />
+          ><input type="number" id="child_num" />
           <!--ガイド-->
           <label>{{ $t("label.guide_num") }}</label
-          ><input
-            type="number"
-            :placeholder="$t('label.detail.guide_num')"
-            id="guide_num"
-          />
+          ><input type="number" id="guide_num" />
           <!--参加可否入力期限-->
           <label>{{ $t("label.schedule_input_deadline") }}</label
           ><input type="datetime-local" id="schedule_input_deadline" />
@@ -99,6 +87,27 @@ export default {
       }
     },
     async create() {
+      // 期限未入力
+      if (document.getElementById("schedule_input_deadline").value === "") {
+        if (
+          !window.confirm(
+            this.$t("pages.tours.create.alert_schedule_input_deadline")
+          )
+        ) {
+          window.alert(this.$t("common.cancel"));
+          return;
+        }
+      }
+
+      // リマインド未入力
+      if (document.getElementById("remind_date").value === "") {
+        if (!window.confirm(this.$t("pages.tours.create.alert_remind_date"))) {
+          window.alert(this.$t("common.cancel"));
+          return;
+        }
+      }
+
+      // API
       try {
         // ロード中にする
         this.$emit("SendLoadComplete", false);
