@@ -64,15 +64,18 @@ class Api::V1::GuidesController < ApplicationController
     email = params[:email]
     memo = params[:memo]
 
-    # 　名前だけを変更する条件
-    guide.update(name: name) unless name.nil?
-
-    # 　メールだけを変更する条件
-    guide.update(email: email) unless email.nil?
-
-    # 　メモだけを変更する条件
-    guide.update(memo: memo) unless memo.nil?
+    # 更新処理
+    ApplicationRecord.transaction do
+      guide.update!(name: name) unless name.nil?
+      guide.update!(email: email) unless email.nil?
+      guide.update!(memo: memo) unless memo.nil?
+    end
 
     render json: json_render_v1(true)
+    nil
+
+    # 失敗時
+  rescue ActiveRecord::RecordInvalid
+    render json: json_render_v1(false)
   end
 end
