@@ -21,8 +21,8 @@
         </tr>
       </tbody>
     </table>
-    <button id="password_reset_btn">
-      {{ $t("button.password_reset") }}
+    <button @click="goChangePassword()" id="password_change_btn">
+      {{ $t("button.password_change") }}
     </button>
   </div>
 </template>
@@ -39,7 +39,12 @@ export default {
   created() {
     this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
   },
-  methods: {},
+  methods: {
+    // パスワードの変更ボタンが押されたときに変更画面に遷移する
+    goChangePassword() {
+      this.$router.push(`/myaccount/${this.admin.id}/delete`);
+    },
+  },
   async beforeRouteEnter(to, from, next) {
     const response = await api.get(`/api/v1/admins/me`, null, next);
     // 各種情報のパース
@@ -53,7 +58,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
-#password_reset_btn {
+#password_change_btn {
   float: right;
   padding: 0.5em 1.3em;
   margin-bottom: 1em;
