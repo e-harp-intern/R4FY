@@ -58,6 +58,10 @@ class Api::V1::ToursController < ApplicationController
     # ガイドのリストを取得（削除済みをのぞく）
     guides = Guide.where(is_invalid: false)
 
+    # メール送信フラグ
+    send_mail = params[:send_mail] || true
+    send_mail = false if Date.parse(params[:start_datetime]) < Date.today
+
     # トランザクションの処理
     ApplicationRecord.transaction do
       # ツアーを保存
@@ -70,9 +74,11 @@ class Api::V1::ToursController < ApplicationController
       end
 
       # ガイドに予定入力メールを送信
-      guides.each do |guide|
-        token = guide.tokens.find_by(tour_id: tour.id, guide_id: guide.id)
-        guide_schedule_mailer(guide, token, tour)
+      if send_mail
+        guides.each do |guide|
+          token = guide.tokens.find_by(tour_id: tour.id, guide_id: guide.id)
+          guide_schedule_mailer(guide, token, tour)
+        end
       end
     end
 
