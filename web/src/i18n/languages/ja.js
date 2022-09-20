@@ -111,6 +111,12 @@ export default {
             alert_api: "エラーが発生しました。もう一度お試しください。",
             alert_ok: "パスワードを再設定しました。ログイン画面からログインしてください。"
         },
+        password_change:{
+            title: "パスワード変更",
+            alert_password: "入力されたパスワードが違います。",
+            alert_api: "エラーが発生しました。もう一度お試しください。",
+            alert_ok: "パスワードを変更しました。"
+        },
         logout: {
             title: "ログアウト",
             info: "ログアウト中です...",
@@ -135,6 +141,7 @@ export default {
         login: "ログイン",
         send: "送信",
         password_reset: "パスワードの再発行",
+        password_change: "パスワードの変更",
         cancel: "キャンセル",
         account_create: "＋アカウント作成",
         tour_create: "＋ツアー作成",
@@ -143,6 +150,7 @@ export default {
         searchbar: "詳細検索",
         search: "検索",
         assign: "担当者を確定する",
+        change: "変更",
         delete_guide: "ガイド削除",
         myaccount_change: "マイアカウント情報変更",
         change: "変更",
