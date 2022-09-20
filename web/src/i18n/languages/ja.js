@@ -95,6 +95,11 @@ export default {
                 title: "ツアー担当ガイド決定画面",
                 person: "人",
                 person2: "人/",
+            },
+            delete_guide:{
+                alert: "ガイドを削除しますか？",
+                alert1: "ガイドを削除しました。",
+                alert2: "削除を中止しました。"
             }
         },
         password_reset: {
@@ -142,7 +147,8 @@ export default {
         searchbar: "詳細検索",
         search: "検索",
         assign: "担当者を確定する",
-        change: "変更"
+        change: "変更",
+        delete_guide: "ガイド削除",
     },
     placeholder: {
         email: "email",
