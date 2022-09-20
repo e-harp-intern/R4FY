@@ -113,6 +113,9 @@
         }}</a>
       </p>
     </div>
+    <button @click="delete_guide()" id="delete_guide_btn">
+      {{ $t("button.delete_guide") }}
+    </button>
   </div>
 </template>
 
@@ -138,6 +141,19 @@ export default {
     goTourDetail(id) {
       this.$router.push(`/tours/${id}`);
     },
+
+    // ガイドを削除する処理
+    async delete_guide() {
+      if (window.confirm(this.$t("pages.guides.delete_guide.alert"))) {
+        // 「OK」時の処理終了
+        await api.delete(`/api/v1/guides/${this.guide.id}`);
+        window.alert(this.$t("pages.guides.delete_guide.alert1"));
+        this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
+      } else {
+        // 「キャンセル」時の処理開始
+        window.alert(this.$t("pages.guides.delete_guide.alert2")); // 警告ダイアログを表示
+      }
+    },
   },
   async beforeRouteEnter(to, from, next) {
     const response = await api.get(
@@ -161,4 +177,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
+#delete_guide_btn {
+  float: right;
+  padding: 0.5em 1.3em;
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
 </style>
