@@ -112,7 +112,7 @@ export default {
             title: "パスワード変更",
             alert_password: "入力されたパスワードが違います。",
             alert_api: "エラーが発生しました。もう一度お試しください。",
-            alert_ok: "パスワードを再設定しました。ログイン画面からログインしてください。"
+            alert_ok: "パスワードを再設定しました。"
         },
         logout: {
             title: "ログアウト",
