@@ -2,7 +2,7 @@
   <div id="change-account-page">
     <h1>{{ $t("pages.chnage_myaccount.title") }}</h1>
     <div class="form-frame">
-      <form @submit.prevent="change" class="form-main">
+      <div class="form-main">
         <div class="form-tabel">
           <label>{{ $t("label.name") }}</label
           ><input
@@ -21,11 +21,14 @@
         </div>
         <br />
         <div class="form-button-frame">
-          <button type="submit" class="button-green">
+          <button class="" @click="$router.back()">
+            {{ $t("button.cancel") }}
+          </button>
+          <button type="submit" @click="change()" class="button-green">
             {{ $t("button.change") }}
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
