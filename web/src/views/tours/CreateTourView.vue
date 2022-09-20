@@ -72,10 +72,9 @@ export default {
   methods: {
     // フォームの初期時間（現在時の00分を返す）
     defaultTime() {
-      let date = new Date(Date.now());
+      const date = new Date(Date.now());
       date.setMinutes(0);
       date.setSeconds(0);
-      date = common.datetimeUTC(date);
       return this.$t("system.datetime", common.datetimeData(date));
     },
 
