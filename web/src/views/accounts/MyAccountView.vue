@@ -24,6 +24,9 @@
     <button @click="goChangePassword()" id="password_change_btn">
       {{ $t("button.password_change") }}
     </button>
+    <button @click="goToChangeMyaccount()" id="password_reset_btn">
+      {{ $t("button.myaccount_change") }}
+    </button>
   </div>
 </template>
 
@@ -40,6 +43,10 @@ export default {
     this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
   },
   methods: {
+  // マイアカウント情報変更画面に遷移する
+    goToChangeMyaccount() {
+      this.$router.push(`/myaccount/${this.admin.id}/change`);
+      },
     // パスワードの変更ボタンが押されたときに変更画面に遷移する
     goChangePassword() {
       this.$router.push(`/myaccount/${this.admin.id}/delete`);
