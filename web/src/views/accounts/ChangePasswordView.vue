@@ -4,7 +4,7 @@
 
     <!-- 入力フォーム -->
     <div class="form-frame">
-      <form @submit.prevent="password_change" class="login-form">
+      <div class="form-main">
         <div class="form-tabel">
           <label>{{ $t("label.password") }}</label
           ><input
@@ -20,13 +20,15 @@
           />
         </div>
         <br />
-        <div class="login-button-frame">
-          <span></span>
-          <button type="submit" class="button-green">
+        <div class="form-button-frame">
+          <button class="" @click="$router.back()">
+            {{ $t("button.cancel") }}
+          </button>
+          <button type="submit" @click="password_change()" class="button-green">
             {{ $t("button.change") }}
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -73,44 +75,35 @@ export default {
 <style lang="scss" scoped>
 .form-frame {
   margin: 0 auto;
-  width: 640px;
+  width: 100%;
+  max-width: 640px;
   background-color: var(--color-light-gray);
   box-sizing: border-box;
   border-radius: 0.5em;
 }
+
 .form-tabel {
   width: 80%;
   display: inline-grid;
   grid-template-columns: auto 1fr;
   grid-row-gap: 0.5em;
 }
+
 .form-tabel label {
   height: 100%;
   display: flex;
   justify-content: right;
   align-items: center;
 }
-.login-form {
+
+.form-main {
   padding: 2em;
 }
-.login-button-frame {
+
+.form-button-frame {
   padding: 2em 2em 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
-}
-.login_info {
-  display: inline-block;
-  width: auto;
-  padding: 1em;
-  margin: 0 auto;
-  margin-top: 2em;
-  background-color: var(--color-light-gray);
-  border-radius: 0.5em;
-  box-sizing: border-box;
-}
-.login_info > p {
-  text-align: left;
-  line-height: 1.75em;
 }
 </style>
