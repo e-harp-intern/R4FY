@@ -59,7 +59,7 @@ class Api::V1::ToursController < ApplicationController
     guides = Guide.where(is_invalid: false)
 
     # メール送信フラグ
-    send_mail = true
+    send_mail = params[:send_mail] || true
     send_mail = false if Date.parse(params[:start_datetime]) < Date.today
 
     # トランザクションの処理
