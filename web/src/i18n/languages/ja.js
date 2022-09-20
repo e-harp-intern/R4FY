@@ -37,7 +37,8 @@ export default {
                 title: "ツアー追加",
                 create_api_error: "エラーが発生しました。日付等を確認してもう一度お試しください。",
                 alert_schedule_input_deadline: "予定入力期限が設定されていません。担当が確定するまで予定の入力をすることができますが、よろしいですか？",
-                alert_remind_date: "リマインドの日付が設定されていませんが、よろしいですか？"
+                alert_remind_date: "リマインドの日付が設定されていませんが、よろしいですか？",
+                alert_start_date: "開始日時が過去に設定されていますが、よろしいですか？",
             },
             delete: {
                 title: "ツアー取り消し",

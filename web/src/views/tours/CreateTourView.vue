@@ -18,7 +18,6 @@
             type="datetime-local"
             id="start_datetime"
             :value="defaultTime()"
-            @click="checkDateStart()"
             required
           />
           <!--終了日時-->
@@ -27,7 +26,6 @@
             type="datetime-local"
             id="end_datetime"
             :value="defaultTime()"
-            :onblur="checkDateEnd()"
             required
           />
           <!--大人-->
@@ -81,21 +79,6 @@ export default {
       return this.$t("system.datetime", common.datetimeData(date));
     },
 
-    checkDateStart() {
-      const date_now = new Date(Date.now());
-      const date_input = document.getElementById("start_datetime");
-      if (date_input <= date_now) {
-        alert("過去の時刻が設定されています");
-      }
-    },
-    checkDateEnd() {
-      const date_now = new Date(Date.now());
-      const date_input = document.getElementById("end_datetime");
-      if (date_input <= date_now) {
-        alert("過去の時刻が設定されています");
-      }
-    },
-
     // フォームをリセット
     form_reset() {
       const forms = document.getElementsByTagName("input");
@@ -124,6 +107,17 @@ export default {
         }
       }
 
+      let date = new Date(Date.now());
+      date = common.datetimeUTC(date);
+      date = common.datetimeData(date);
+
+      // 開始日時が過去になっているか確認
+      if (document.getElementById("start_datetime").value < date) {
+        if (!window.confirm(this.$t("pages.tours.create.alert_start_date"))) {
+          window.alert(this.$t("common.cancel"));
+          return;
+        }
+      }
       // API
       try {
         // ロード中にする
