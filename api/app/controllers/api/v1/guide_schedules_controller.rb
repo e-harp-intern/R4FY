@@ -5,17 +5,16 @@ class Api::V1::GuideSchedulesController < ApplicationController
 
   # DBにガイドスケジュール(true/false)を反映
   def update
-    # トークンパラメータ
+    # 情報を取得
     token = Token.find_by(token: params[:token])
+    tour = Tour.find_by(id: token.tour_id)
+    guide = Guide.find_by(id: token.guide_id)
 
     # トークンが存在しないとき
     if token.nil?
       render json: json_render_v1(false)
       return
     end
-
-    # ツアーパラメーター
-    tour = Tour.find_by(id: token.tour_id)
 
     # ツアーが中止済みの場合
     if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
@@ -29,16 +28,13 @@ class Api::V1::GuideSchedulesController < ApplicationController
       return
     end
 
-    # ガイドパラメーター
-    guide = Guide.find_by(id: token.guide_id)
-
     # ガイドアカウントが無効・参加可否入力期限が過ぎていた場合
     if guide.is_invalid == true || tour.schedule_input_deadline <= DateTime.now
       render json: json_render_v1(false)
       return
     end
 
-    # ガイドアカウントが有効な場合
+    # 更新処理
     guide_schedule = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
     guide_schedule.update(answered: true, possible: params[:possible])
     render json: json_render_v1(true, guide)
@@ -46,17 +42,16 @@ class Api::V1::GuideSchedulesController < ApplicationController
 
   # ガイド情報・関連したツアー情報・入力済の参加可否情報の表示
   def index
-    # トークンパラメーター
+    # 情報取得
     token = Token.find_by(token: params[:token])
+    tour = Tour.find_by(id: token.tour_id)
+    guide = Guide.find_by(id: token.guide_id)
 
     # トークンが存在しないとき
     if token.nil?
       render json: json_render_v1(false)
       return
     end
-
-    # ツアーパラメーター
-    tour = Tour.find_by(id: token.tour_id)
 
     # ツアーが中止済みの場合
     if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
@@ -71,8 +66,6 @@ class Api::V1::GuideSchedulesController < ApplicationController
     end
 
     # トークンが存在し、ツアーが中止されていないとき
-    guide = Guide.find_by(id: token.guide_id)
-    tour = Tour.find_by(id: token.tour_id)
     guide_schedule = GuideSchedule.find_by(guide_id: token.guide_id, tour_id: token.tour_id)
 
     # 出力するデータの整形
