@@ -107,6 +107,17 @@ export default {
         }
       }
 
+      let date = new Date(Date.now());
+      date = common.datetimeUTC(date);
+      date = common.datetimeData(date);
+
+      // 開始日時が過去になっているか確認
+      if (document.getElementById("start_datetime").value < date) {
+        if (!window.confirm(this.$t("pages.tours.create.alert_start_date"))) {
+          window.alert(this.$t("common.cancel"));
+          return;
+        }
+      }
       // API
       try {
         // ロード中にする
