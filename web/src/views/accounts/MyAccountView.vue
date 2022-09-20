@@ -24,6 +24,9 @@
     <button id="password_reset_btn">
       {{ $t("button.password_reset") }}
     </button>
+    <button @click="goToChangeMyaccount()" id="password_reset_btn">
+      {{ $t("button.myaccount_change") }}
+    </button>
   </div>
 </template>
 
@@ -39,7 +42,11 @@ export default {
   created() {
     this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
   },
-  methods: {},
+  methods: {
+    goToChangeMyaccount() {
+      this.$router.push(`/myaccount/${this.admin.id}/change`);
+    },
+  },
   async beforeRouteEnter(to, from, next) {
     const response = await api.get(`/api/v1/admins/me`, null, next);
     // 各種情報のパース

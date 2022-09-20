@@ -81,7 +81,10 @@ export default {
         },
         myaccount: {
             title: "マイアカウント情報",
-
+        },
+        change_myaccount:{
+            title: "マイアカウント情報変更",
+            message_true: "マイアカウント情報を変更しました。"
         },
         guides: {
             schedules: {
@@ -141,6 +144,8 @@ export default {
         search: "検索",
         assign: "担当者を確定する",
         delete_guide: "ガイド削除",
+        myaccount_change: "マイアカウント情報変更",
+        change: "変更",
     },
     placeholder: {
         email: "email",
