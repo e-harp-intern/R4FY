@@ -17,8 +17,16 @@ class Api::V1::SessionsController < ApplicationController
 
   # ログアウトのメソッド
   def destroy
-    session.delete(:user_id)
-    @current_user = nil
+    # ログアウト処理
+    ApplicationRecord.transaction do
+      session.delete(:user_id)
+      @current_user = nil
+    end
     render json: json_render_v1(true)
+    nil
+
+    # 失敗時
+  rescue ActiveRecord::RecordInvalid
+    render json: json_render_v1(false)
   end
 end

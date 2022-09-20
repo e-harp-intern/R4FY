@@ -23,7 +23,7 @@ class Api::V1::AdminsController < ApplicationController
     render json: json_render_v1(true)
   end
 
-  # 　管理者名を取得する
+  # 管理者情報を取得する
   def index
     # /meの場合、自身の情報を取得
     if params[:id] == "me"
@@ -49,11 +49,18 @@ class Api::V1::AdminsController < ApplicationController
 
   # アカウントの論理削除
   def destroy
-    admins_delete = Admin.find_by(id: params[:id])
-    admins_delete.update(is_invalid: true)
+    begin
+      admins_delete = Admin.find_by(id: params[:id])
+      admins_delete.update(is_invalid: true)
 
-    # アカウント削除の通知メール
-    DeleteAccountNotifyMailer.delete_email(admins_delete).deliver_now
+      # アカウント削除の通知メール
+      DeleteAccountNotifyMailer.delete_email(admins_delete).deliver_now
+
+    # 失敗時
+    rescue StandardError
+      render json: json_render_v1(false)
+      return
+    end
 
     render json: json_render_v1(true)
   end
@@ -65,25 +72,26 @@ class Api::V1::AdminsController < ApplicationController
     # 他の管理者のIDを指定した場合
     if admin.id != @current_user.id
       render json: json_render_v1(false, status: 403)
-
-    # 変更を行う管理者が変更対象の管理者と一致するか
-    else
-
-      name = params[:name]
-      email = params[:email]
-      password = params[:password]
-
-      # 名前だけを変更する条件
-      admin.update(name: name) unless name.nil?
-
-      # メールだけを変更する条件
-      admin.update(email: email) unless email.nil?
-
-      # パスワードだけを変更する条件
-      admin.update(password: password) unless password.nil?
-
-      render json: json_render_v1(true)
+      return
     end
+
+    # 自分自身の情報のみ変更
+    name = params[:name]
+    email = params[:email]
+    password = params[:password]
+
+    # 各情報を更新
+    ApplicationRecord.transaction do
+      admin.update!(name: name) unless name.nil?
+      admin.update!(email: email) unless email.nil?
+      admin.update!(password: password) unless password.nil?
+    end
+
+    render json: json_render_v1(true)
     nil
+
+  # 失敗時
+  rescue ActiveRecord::RecordInvalid
+    render json: json_render_v1(false)
   end
 end
