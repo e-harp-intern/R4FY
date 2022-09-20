@@ -18,6 +18,7 @@
             type="datetime-local"
             id="start_datetime"
             :value="defaultTime()"
+            @click="checkDateStart()"
             required
           />
           <!--終了日時-->
@@ -26,6 +27,7 @@
             type="datetime-local"
             id="end_datetime"
             :value="defaultTime()"
+            :onblur="checkDateEnd()"
             required
           />
           <!--大人-->
@@ -77,6 +79,21 @@ export default {
       date.setSeconds(0);
       date = common.datetimeUTC(date);
       return this.$t("system.datetime", common.datetimeData(date));
+    },
+
+    checkDateStart() {
+      const date_now = new Date(Date.now());
+      const date_input = document.getElementById("start_datetime");
+      if (date_input <= date_now) {
+        alert("過去の時刻が設定されています");
+      }
+    },
+    checkDateEnd() {
+      const date_now = new Date(Date.now());
+      const date_input = document.getElementById("end_datetime");
+      if (date_input <= date_now) {
+        alert("過去の時刻が設定されています");
+      }
     },
 
     // フォームをリセット
