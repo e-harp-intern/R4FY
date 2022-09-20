@@ -104,6 +104,10 @@ export default {
                 alert: "ガイドを削除しますか？",
                 alert1: "ガイドを削除しました。",
                 alert2: "削除を中止しました。"
+            },
+            change_guideinfo:{
+                title: "ガイド情報変更画面",
+                alert1: "ガイド情報を変更しました。"
             }
         },
         password_reset: {
@@ -153,6 +157,7 @@ export default {
         assign: "担当者を確定する",
         change: "変更",
         delete_guide: "ガイド削除",
+        change_guide: "ガイド情報変更",
         myaccount_change: "マイアカウント情報変更",
         change: "変更",
     },

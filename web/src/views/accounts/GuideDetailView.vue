@@ -116,6 +116,9 @@
     <button @click="delete_guide()" id="delete_guide_btn">
       {{ $t("button.delete_guide") }}
     </button>
+    <button @click="goToChangeGuide(guide.id)" id="delete_guide_btn">
+      {{ $t("button.change_guide") }}
+    </button>
   </div>
 </template>
 
@@ -140,6 +143,10 @@ export default {
     // ツアーが選択された場合に詳細ページへ遷移する
     goTourDetail(id) {
       this.$router.push(`/tours/${id}`);
+    },
+
+    goToChangeGuide(id) {
+      this.$router.push(`/accounts/guides/${id}/change`);
     },
 
     // ガイドを削除する処理
