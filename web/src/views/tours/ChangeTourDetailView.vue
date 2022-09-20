@@ -10,7 +10,7 @@
             type="datetime-local"
             id="start_datetime"
             required
-            v-bind:value="datetimeFormat(tour.start_datetime)"
+            v-bind:value="defaultTime(tour.start_datetime)"
           />
           <!--終了日時-->
           <label>{{ $t("label.end_datetime") }}</label
@@ -72,6 +72,11 @@ export default {
     codeToTourStateString: (state) => common.codeToTourStateString(state),
     codeToGuideStateString: (state) => common.codeToGuideStateString(state),
     datetimeFormat: (d) => common.datetimeFormat(d),
+
+    // フォームの初期時間設定用
+    defaultTime(date) {
+      return this.$t("system.datetime", common.datetimeData(date));
+    },
 
     change() {},
   },
