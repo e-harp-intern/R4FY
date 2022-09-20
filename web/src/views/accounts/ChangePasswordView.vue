@@ -63,7 +63,7 @@ export default {
         alert(this.$t("pages.password_change.alert_api"));
       } else {
         alert(this.$t("pages.password_change.alert_ok"));
-        this.$router.push("/");
+        this.$router.push("/myaccount");
       }
     },
   },
