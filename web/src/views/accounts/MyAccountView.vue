@@ -43,10 +43,10 @@ export default {
     this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
   },
   methods: {
-  // マイアカウント情報変更画面に遷移する
+    // マイアカウント情報変更画面に遷移する
     goToChangeMyaccount() {
       this.$router.push(`/myaccount/${this.admin.id}/change`);
-      },
+    },
     // パスワードの変更ボタンが押されたときに変更画面に遷移する
     goChangePassword() {
       this.$router.push(`/myaccount/${this.admin.id}/delete`);
@@ -65,7 +65,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
-#password_change_btn {
+#password_change_btn,
+#password_reset_btn {
   float: right;
   padding: 0.5em 1.3em;
   margin-bottom: 1em;
