@@ -21,10 +21,10 @@
         </tr>
       </tbody>
     </table>
-    <button @click="goChangePassword()" id="password_change_btn">
+    <button @click="goChangePassword()" id="change_btn">
       {{ $t("button.password_change") }}
     </button>
-    <button @click="goToChangeMyaccount()" id="password_reset_btn">
+    <button @click="goToChangeMyaccount()" id="change_btn">
       {{ $t("button.myaccount_change") }}
     </button>
   </div>
@@ -65,8 +65,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
-#password_change_btn,
-#password_reset_btn {
+#change_btn {
   float: right;
   padding: 0.5em 1.3em;
   margin-bottom: 1em;
