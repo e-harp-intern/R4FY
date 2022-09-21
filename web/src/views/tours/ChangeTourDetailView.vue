@@ -4,7 +4,16 @@
     <div class="form-frame">
       <div class="form-main">
         <div class="form-tabel">
-          <!--開始日時-->
+          <!--ツアー名-->
+          <label>{{ $t("label.tour_name") }}</label
+          ><input
+            type="text"
+            :placeholder="$t('label.detail.tour_name')"
+            id="tour_name"
+            required
+            v-bind:value="tour.name"
+          />
+          <!-- 開始日時
           <label>{{ $t("label.start_datetime") }}</label
           ><input
             type="datetime-local"
@@ -12,9 +21,16 @@
             required
             v-bind:value="defaultTime(tour.start_datetime)"
           />
+          -->
           <!--終了日時-->
-          <label>{{ $t("label.end_datetime") }}</label
-          ><input type="datetime-local" id="end_datetime" required />
+          <!-- <label>{{ $t("label.end_datetime") }}</label
+          ><input
+            type="datetime-local"
+            id="end_datetime"
+            required
+            v-bind:value="defaultTime(tour.end_datetime)"
+          /> -->
+
           <!--大人-->
           <label>{{ $t("label.adult_num") }}</label
           ><input type="number" id="adult_num" v-bind:value="tour.adult_num" />
@@ -26,12 +42,20 @@
           ><input type="number" id="guide_num" v-bind:value="tour.guide_num" />
           <!--参加可否入力期限-->
           <label>{{ $t("label.schedule_input_deadline") }}</label
-          ><input type="datetime-local" id="schedule_input_deadline" />
+          ><input
+            type="datetime-local"
+            id="schedule_input_deadline"
+            v-bind:value="defaultTime(tour.schedule_input_deadline)"
+          />
           <!--リマインド日-->
           <label>{{ $t("label.remind_date") }}</label
-          ><input type="date" id="remind_date" />
+          ><input
+            type="date"
+            id="remind_date"
+            v-bind:value="tour.remind_date"
+          />
           <!--メモ-->
-          <label>{{ $t("label.memo") }}</label
+          <!-- <label>{{ $t("label.memo") }}</label
           ><textarea
             cols="30"
             rows="5"
@@ -39,14 +63,14 @@
             id="memo"
             v-bind:value="tour.memo"
           >
-          </textarea>
+          </textarea> -->
         </div>
         <br />
         <div class="form-button-frame">
           <button class="" @click="$router.back()">
             {{ $t("button.cancel") }}
           </button>
-          <button type="submit" @click="change" class="button-green">
+          <button type="submit" @click="change()" class="button-green">
             {{ $t("button.change") }}
           </button>
         </div>
@@ -78,7 +102,70 @@ export default {
       return this.$t("system.datetime", common.datetimeData(date));
     },
 
-    change() {},
+    async change() {
+      // 期限未入力
+      if (document.getElementById("schedule_input_deadline").value === "") {
+        if (
+          !window.confirm(
+            this.$t("pages.tours.create.alert_schedule_input_deadline")
+          )
+        ) {
+          window.alert(this.$t("common.cancel"));
+          return;
+        }
+      }
+
+      // リマインド未入力
+      if (document.getElementById("remind_date").value === "") {
+        if (!window.confirm(this.$t("pages.tours.create.alert_remind_date"))) {
+          window.alert(this.$t("common.cancel"));
+          return;
+        }
+      }
+
+      //   // 現在の時刻を取得
+      //   const date = new Date(Date.now());
+      //   // 開始日時が過去になっているか確認
+      //   if (new Date(document.getElementById("start_datetime").value) < date) {
+      //     if (!window.confirm(this.$t("pages.tours.create.alert_start_date"))) {
+      //       window.alert(this.$t("common.cancel"));
+      //       return;
+      //     }
+      //   }
+
+      // API
+      // ロード中にする
+      this.$emit("SendLoadComplete", false);
+      // アカウント作成情報を送信
+      const response = await api.patch(
+        `/api/v1/tours/${this.$route.params.id}`,
+        {
+          name: document.getElementById("tour_name").value,
+          //   start_datetime: document.getElementById("start_datetime").value,
+          //   end_datetime: document.getElementById("end_datetime").value,
+          adult_num: document.getElementById("adult_num").value,
+          child_num: document.getElementById("child_num").value,
+          guide_num: document.getElementById("guide_num").value,
+          schedule_input_deadline: document.getElementById(
+            "schedule_input_deadline"
+          ).value,
+          remind_date: document.getElementById("remind_date").value,
+          // memo: document.getElementById("memo").value,
+        },
+        this.$router.push
+      );
+
+      // API完了
+      if (response.status === "success") {
+        // 成功
+        this.$router.push(`/tours/${this.$route.params.id}`);
+      } else {
+        // 失敗
+        alert(this.$t("pages.tours.create.create_api_error"));
+      }
+
+      this.$emit("SendLoadComplete", true);
+    },
   },
   async beforeRouteEnter(to, from, next) {
     // ツアー一覧データの取得
@@ -97,7 +184,6 @@ export default {
     next((vm) => {
       vm.tour = tour;
     });
-    console.log(tour);
   },
 };
 </script>
