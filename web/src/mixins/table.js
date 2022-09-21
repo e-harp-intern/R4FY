@@ -10,6 +10,12 @@ export default {
     methods: {
         /* テーブルのソートを開始 */
         sortBy(key, array) {
+            // keyにnullを指定した場合、現在と同じ条件で並び替えをする
+            if(key == null){
+                key =  this.sort_key;
+                this.sort_asc = !this.sort_asc;
+            }
+
             // 前回の選択と同じタイトルを選択された場合、sort_ascを切り替え、昇順降順処理の切り替えを行う
             this.sort_asc = this.sort_key !== key ? true : !this.sort_asc;
             this.sort_key = key;

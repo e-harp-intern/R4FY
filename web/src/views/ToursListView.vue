@@ -200,7 +200,12 @@ export default {
       // 送信
       const response = await api.get(url, request, this.$router.push);
 
-      this.tours = response.data;
+      const tours = response.data;
+
+      // 並び替え
+      table.methods.sortBy(null, tours);
+
+      this.tours = tours;
     },
   },
   created() {
