@@ -24,14 +24,16 @@ export default {
                 title: "ツアー詳細",
                 tour_state_title: "ツアー実施状態",
                 requirement_guide_num_title: "必要ガイド人数",
-                guide_list_title: "参加予定一覧",
+                guide_list_title: "参加可否一覧",
                 tour_setting_title: "ツアー操作",
                 alert1: "ツアーの取り消しを実行しますか？",
                 alert2: "ツアーの中止を行いました。",
                 alert3: "操作を中止します。",
                 alert4: "担当ガイドの取り消しを実行しますか？",
                 alert5: "担当ガイドの取り消しを行いました。",
-                alert6: "担当ガイド取り消しを中止しました。"
+                alert6: "担当ガイド取り消しを中止しました。",
+                assign_guide_list_title: "担当ガイド一覧",
+                assign_guide_list_error: "担当者が決まっていません。"
             },
             create: {
                 title: "ツアー追加",

@@ -89,6 +89,42 @@
       </li>
     </ul>
 
+    <!-- 担当ガイド一覧 -->
+    <h2>{{ $t("pages.tours.tour.assign_guide_list_title") }}</h2>
+    <table class="table-normal">
+      <thead>
+        <tr>
+          <th @click="sortBy('assign')" :class="addSortClass('assign')">
+            {{ $t("table.guide.assign") }}
+          </th>
+          <th @click="sortBy('name')" :class="addSortClass('name')">
+            {{ $t("table.guide.name") }}
+          </th>
+          <th @click="sortBy('email')" :class="addSortClass('email')">
+            {{ $t("table.guide.email") }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="guide in tourguides"
+          :key="guide.id"
+          class="table-hover"
+          @click="LinkGuide(guide.guide_id)"
+        >
+          <td class="center" v-if="guide.assign">
+            {{ $t("table.guide.assign_mark") }}
+          </td>
+          <td v-else></td>
+          <td>{{ guide.name }}</td>
+          <td>{{ guide.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="center" v-if="tourguides.length === 0">
+      {{ $t("pages.tours.tour.assign_guide_list_error") }}
+    </div>
+
     <!-- 参加ガイドの一覧 -->
     <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
     <div>
@@ -223,6 +259,13 @@ export default {
       g.name = g.guide.name;
       g.email = g.guide.email;
       g.state = guideStateMethod(g.answered, g.possible);
+      g.assign = tour_guides.some((u) => u.guide.id === g.guide.id);
+    }
+
+    // 情報を扱いやすい形に変更（担当者）
+    for (const g of tour_guides) {
+      g.name = g.guide.name;
+      g.email = g.guide.email;
       g.assign = tour_guides.some((u) => u.guide.id === g.guide.id);
     }
 
