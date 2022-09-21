@@ -47,7 +47,7 @@ export default {
             select: {
                 title: "担当ガイド選択画面へ",
             },
-            change: {
+            edit: {
                 title1: "ツアー詳細画面変更画面へ",
                 title2: "ツアー詳細変更画面"
             },

@@ -125,7 +125,7 @@
       </li>
       <li>
         <a @click="goTourChange()" href="javascript:void(0)">
-          {{ $t("pages.tours.change.title1") }}
+          {{ $t("pages.tours.edit.title1") }}
         </a>
       </li>
     </ul>
@@ -184,7 +184,7 @@ export default {
 
     // ツアー詳細を変更する画面へ遷移
     goTourChange() {
-      this.$router.push(`/tours/${this.tour.id}/changetour`);
+      this.$router.push(`/tours/${this.tour.id}/edit`);
     },
 
     // ツアー状態によって背景色を変更(idを置き換える)

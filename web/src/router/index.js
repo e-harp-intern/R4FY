@@ -38,9 +38,9 @@ const routes = [
     component: () => import("@/views/tours/SelectGuidesView.vue"),
   },
   {
-    path: "/tours/:id/changetour",
-    name: "ChangeTourDetailView",
-    component: () => import("@/views/tours/ChangeTourDetailView.vue"),
+    path: "/tours/:id/edit",
+    name: "EditTourView",
+    component: () => import("@/views/tours/EditTourView.vue"),
   },
   {
     path: "/guides/:token/schedules",

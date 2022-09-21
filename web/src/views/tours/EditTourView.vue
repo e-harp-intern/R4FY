@@ -1,6 +1,6 @@
 <template>
   <div id="create-account-page">
-    <h1>{{ $t("pages.tours.change.title2") }}</h1>
+    <h1>{{ $t("pages.tours.edit.title2") }}</h1>
     <div class="form-frame">
       <div class="form-main">
         <div class="form-tabel">
