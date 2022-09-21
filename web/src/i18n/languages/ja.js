@@ -83,7 +83,7 @@ export default {
         myaccount: {
             title: "マイアカウント情報",
         },
-        change_myaccount:{
+        edit_myaccount:{
             title: "マイアカウント情報変更",
             message_true: "マイアカウント情報を変更しました。"
         },
@@ -116,7 +116,7 @@ export default {
             alert_api: "エラーが発生しました。もう一度お試しください。",
             alert_ok: "パスワードを再設定しました。ログイン画面からログインしてください。"
         },
-        password_change:{
+        password_edit:{
             title: "パスワード変更",
             alert_password: "入力されたパスワードが違います。",
             alert_api: "エラーが発生しました。もう一度お試しください。",
@@ -146,7 +146,7 @@ export default {
         login: "ログイン",
         send: "送信",
         password_reset: "パスワードの再発行",
-        password_change: "パスワードの変更",
+        password_edit: "パスワードの変更",
         cancel: "キャンセル",
         account_create: "＋アカウント作成",
         tour_create: "＋ツアー作成",
@@ -157,7 +157,7 @@ export default {
         assign: "担当者を確定する",
         delete_guide: "ガイド削除",
         edit_guide: "ガイド情報変更",
-        myaccount_change: "マイアカウント情報変更",
+        myaccount_edit: "マイアカウント情報変更",
         change: "変更",
         edit: "変更",
     },

@@ -1,6 +1,6 @@
 <template>
   <div id="change-account-page">
-    <h1>{{ $t("pages.chnage_myaccount.title") }}</h1>
+    <h1>{{ $t("pages.edit_myaccount.title") }}</h1>
     <div class="form-frame">
       <div class="form-main">
         <div class="form-tabel">
@@ -24,8 +24,8 @@
           <button class="" @click="$router.back()">
             {{ $t("button.cancel") }}
           </button>
-          <button type="submit" @click="change()" class="button-green">
-            {{ $t("button.change") }}
+          <button type="submit" @click="edit()" class="button-green">
+            {{ $t("button.edit") }}
           </button>
         </div>
       </div>
@@ -46,7 +46,7 @@ export default {
     this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
   },
   methods: {
-    async change() {
+    async edit() {
       const object = {
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
@@ -64,7 +64,7 @@ export default {
       // API完了
       if (response.status === "success") {
         // 成功
-        alert(this.$t("pages.change_myaccount.message_true"));
+        alert(this.$t("pages.edit_myaccount.message_true"));
         this.$router.push("/myaccount");
       } else {
         // 失敗
