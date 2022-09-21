@@ -123,6 +123,11 @@
           {{ $t("pages.tours.select.title") }}
         </a>
       </li>
+      <li>
+        <a @click="goTourChange()" href="javascript:void(0)">
+          {{ $t("pages.tours.edit.title1") }}
+        </a>
+      </li>
     </ul>
   </div>
 </template>
@@ -175,6 +180,11 @@ export default {
     // ツアー担当ガイドを選択、決定するページへ遷移する
     goTourSelectGuide() {
       this.$router.push(`/tours/${this.tour.id}/selectguide`);
+    },
+
+    // ツアー詳細を変更する画面へ遷移
+    goTourChange() {
+      this.$router.push(`/tours/${this.tour.id}/edit`);
     },
 
     // ツアー状態によって背景色を変更(idを置き換える)

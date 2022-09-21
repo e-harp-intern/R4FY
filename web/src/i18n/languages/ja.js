@@ -28,7 +28,7 @@ export default {
                 tour_setting_title: "ツアー操作",
                 alert1: "ツアーの取り消しを実行しますか？",
                 alert2: "ツアーの中止を行いました。",
-                alert3: "キャンセルされました",
+                alert3: "操作を中止します。",
                 alert4: "担当ガイドの取り消しを実行しますか？",
                 alert5: "担当ガイドの取り消しを行いました。",
                 alert6: "担当ガイド取り消しを中止しました。"
@@ -46,6 +46,10 @@ export default {
             },
             select: {
                 title: "担当ガイド選択画面へ",
+            },
+            edit: {
+                title1: "ツアー詳細画面変更画面へ",
+                title2: "ツアー詳細変更画面"
             },
             admin_name_show: {
                 welcome_message: "%{admin_name}さん、こんにちは！"
@@ -83,7 +87,7 @@ export default {
         myaccount: {
             title: "マイアカウント情報",
         },
-        change_myaccount:{
+        edit_myaccount:{
             title: "マイアカウント情報変更",
             message_true: "マイアカウント情報を変更しました。"
         },
@@ -105,7 +109,7 @@ export default {
                 alert1: "ガイドを削除しました。",
                 alert2: "削除を中止しました。"
             },
-            change_guideinfo:{
+            edit_guideinfo:{
                 title: "ガイド情報変更画面",
                 alert1: "ガイド情報を変更しました。"
             }
@@ -116,7 +120,7 @@ export default {
             alert_api: "エラーが発生しました。もう一度お試しください。",
             alert_ok: "パスワードを再設定しました。ログイン画面からログインしてください。"
         },
-        password_change:{
+        password_edit:{
             title: "パスワード変更",
             alert_password: "入力されたパスワードが違います。",
             alert_api: "エラーが発生しました。もう一度お試しください。",
@@ -146,7 +150,7 @@ export default {
         login: "ログイン",
         send: "送信",
         password_reset: "パスワードの再発行",
-        password_change: "パスワードの変更",
+        password_edit: "パスワードの変更",
         cancel: "キャンセル",
         account_create: "＋アカウント作成",
         tour_create: "＋ツアー作成",
@@ -155,11 +159,11 @@ export default {
         searchbar: "詳細検索",
         search: "検索",
         assign: "担当者を確定する",
-        change: "変更",
         delete_guide: "ガイド削除",
-        change_guide: "ガイド情報変更",
-        myaccount_change: "マイアカウント情報変更",
+        edit_guide: "ガイド情報変更",
+        myaccount_edit: "マイアカウント情報変更",
         change: "変更",
+        edit: "変更",
     },
     placeholder: {
         email: "email",

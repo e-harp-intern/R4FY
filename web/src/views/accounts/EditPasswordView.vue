@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $t("pages.password_change.title") }}</h1>
+    <h1>{{ $t("pages.password_edit.title") }}</h1>
 
     <!-- 入力フォーム -->
     <div class="form-frame">
@@ -24,8 +24,8 @@
           <button class="" @click="$router.back()">
             {{ $t("button.cancel") }}
           </button>
-          <button type="submit" @click="password_change()" class="button-green">
-            {{ $t("button.change") }}
+          <button type="submit" @click="password_edit()" class="button-green">
+            {{ $t("button.edit") }}
           </button>
         </div>
       </div>
@@ -41,13 +41,13 @@ export default {
     return {};
   },
   methods: {
-    async password_change() {
+    async password_edit() {
       const password = document.getElementById("password").value;
       const re_password = document.getElementById("password_reenter").value;
 
       // パスワードが違う
       if (password !== re_password) {
-        alert(this.$t("pages.password_change.alert_password"));
+        alert(this.$t("pages.password_edit.alert_password"));
         return;
       }
 
@@ -62,9 +62,9 @@ export default {
 
       // 成功／エラー
       if (response.status === "error") {
-        alert(this.$t("pages.password_change.alert_api"));
+        alert(this.$t("pages.password_edit.alert_api"));
       } else {
-        alert(this.$t("pages.password_change.alert_ok"));
+        alert(this.$t("pages.password_edit.alert_ok"));
         this.$router.push("/myaccount");
       }
     },
