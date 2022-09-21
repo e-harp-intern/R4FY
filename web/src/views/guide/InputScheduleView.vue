@@ -1,12 +1,17 @@
 <template>
   <div>
-    <!-- メッセージ -->
-    <div v-if="error === 500">
-      {{ $t("pages.guides.schedules.error") }}
-    </div>
-
     <!-- タイトル -->
     <h1>{{ $t("app_name") }}</h1>
+
+    <!-- メッセージ -->
+    <p v-if="error === 500">
+      {{ $t("pages.guides.schedules.error") }}
+    </p>
+
+    <!-- メッセージ -->
+    <p v-if="error === 404">
+      {{ $t("pages.guides.schedules.notfound_error") }}
+    </p>
 
     <!-- ガイド・ツアー情報 -->
     <div class="tour-info" v-if="!error">
@@ -152,7 +157,7 @@ export default {
     const { guide, tour, answered, possible } = response.data;
 
     // エラー発生時
-    const error = response.status !== constant.STATE.SUCCESS ? 500 : null;
+    const error = response.status !== constant.STATE.SUCCESS ? 404 : null;
 
     // ページへ情報を受け渡し
     next((vm) => {
