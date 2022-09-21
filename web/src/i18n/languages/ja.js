@@ -192,7 +192,8 @@ export default {
             guide_num: "必ず人数を入力してください",
         },
         time_to: "～",
-        send_info: "送信内容："
+        send_info: "送信内容：",
+        send_email: "　メール送信"
     },
     table: {
         tour_participant_num: {
@@ -214,7 +215,7 @@ export default {
             email: "メールアドレス",
             answered_state: "参加可否",
             assign_mark: "〇",
-            link: "ガイド情報"
+            link: "ガイド情報",
         },
         account: {
             authority: "権限",
