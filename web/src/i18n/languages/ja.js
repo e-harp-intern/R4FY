@@ -33,7 +33,8 @@ export default {
                 alert5: "担当ガイドの取り消しを行いました。",
                 alert6: "担当ガイド取り消しを中止しました。",
                 assign_guide_list_title: "担当ガイド一覧",
-                assign_guide_list_error: "担当者が決まっていません。"
+                assign_guide_list_error: "担当者が決まっていません。",
+                nothing_to_operate: "項目がありません。"
             },
             create: {
                 title: "ツアー追加",

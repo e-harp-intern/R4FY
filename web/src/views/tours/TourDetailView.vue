@@ -72,22 +72,28 @@
     <!-- ツアー操作 -->
     <h2>{{ $t("pages.tours.tour.tour_setting_title") }}</h2>
     <ul>
-      <li>
+      <li v-if="isShow_Delete()">
         <a @click="alert_disp()" href="javascript:void(0)">
           {{ $t("pages.tours.delete.title") }}
         </a>
       </li>
-      <li>
+      <li v-if="isShow_AssignGuide()">
         <a @click="goTourSelectGuide()" href="javascript:void(0)">
           {{ $t("pages.tours.select.title") }}
         </a>
       </li>
-      <li>
+      <li v-if="isShow_EditTour()">
         <a @click="goTourChange()" href="javascript:void(0)">
           {{ $t("pages.tours.edit.title1") }}
         </a>
       </li>
     </ul>
+    <div
+      class="center"
+      v-if="!isShow_Delete() && !isShow_AssignGuide() && !isShow_EditTour()"
+    >
+      {{ $t("pages.tours.tour.nothing_to_operate") }}
+    </div>
 
     <!-- 担当ガイド一覧 -->
     <h2>{{ $t("pages.tours.tour.assign_guide_list_title") }}</h2>
@@ -193,6 +199,32 @@ export default {
     addSortClass: (key) => table.methods.addSortClass(key),
     sortBy(key) {
       table.methods.sortBy(key, this.guideschedules);
+    },
+
+    // 中止操作表示条件
+    isShow_Delete() {
+      return [
+        constant.TOUR_STATE.TOUR_STATE_CODE_INCOMPLETE,
+        constant.TOUR_STATE.TOUR_STATE_CODE_ASSIGNED,
+      ].includes(this.tour.tour_state_code);
+    },
+
+    // 担当決定表示条件
+    isShow_AssignGuide() {
+      return [
+        constant.TOUR_STATE.TOUR_STATE_CODE_INCOMPLETE,
+        constant.TOUR_STATE.TOUR_STATE_CODE_ASSIGNED,
+      ].includes(this.tour.tour_state_code);
+    },
+
+    // ツアー編集表示条件
+    isShow_EditTour() {
+      return [
+        constant.TOUR_STATE.TOUR_STATE_CODE_INCOMPLETE,
+        constant.TOUR_STATE.TOUR_STATE_CODE_ASSIGNED,
+        constant.TOUR_STATE.TOUR_STATE_CODE_COMPLETE,
+        constant.TOUR_STATE.TOUR_STATE_CODE_COMPLETE_RECORDED,
+      ].includes(this.tour.tour_state_code);
     },
 
     // ガイドへのリンク
