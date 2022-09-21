@@ -7,7 +7,7 @@ class Api::V1::TourGuidesController < ApplicationController
     # パラメータの受け取り
     tour_id = params[:id]
     guides = params[:guides]
-    send_mail = params[:send_mail] || true
+    send_mail = params[:send_mail].nil? ? true : params[:send_mail]
     new_assign = []
     remove_assign = []
     is_first_assign = false
