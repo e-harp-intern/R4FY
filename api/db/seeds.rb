@@ -25,7 +25,7 @@ Tour.create(name: "大通公園観光", tour_state_code: 2, start_datetime: "202
             end_datetime: "2020-07-26T15:00:00", adult_num: 8, child_num: 4, guide_num: 2, remind_date: "2020-07-25", sent_remind: true, schedule_input_deadline: "2020-06-20T21:00:00")
 Tour.create(name: "藻岩山観光", tour_state_code: 4, start_datetime: "2020-07-28T20:00:00",
             end_datetime: "2020-07-28T22:00:00", adult_num: 7, child_num: 0, guide_num: 1, remind_date: "2020-07-27", sent_remind: true, schedule_input_deadline: "2020-06-20T21:00:00")
-Tour.create(name: "藻岩山観光", tour_state_code: 8, start_datetime: "2020-08-13T20:00:00",
+Tour.create(name: "藻岩山観光", tour_state_code: 32, start_datetime: "2020-08-13T20:00:00",
             end_datetime: "2020-07-28T22:00:00", adult_num: 12, child_num: 2, guide_num: 1, remind_date: "2020-08-12", sent_remind: true, memo: "台風のため中止", schedule_input_deadline: "2020-06-20T21:00:00")
 Tour.create(name: "函館山観光", tour_state_code: 256, start_datetime: "2020-08-23T23:00:00",
             end_datetime: "2020-08-24T02:00:00", adult_num: 12, child_num: 0, guide_num: 2, remind_date: "2020-08-20", sent_remind: true, memo: "日付をまたぎます", schedule_input_deadline: "2020-08-22T21:00:00")
