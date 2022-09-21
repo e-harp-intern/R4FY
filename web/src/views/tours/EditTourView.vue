@@ -45,7 +45,7 @@
           ><input
             type="date"
             id="schedule_input_deadline"
-            v-bind:value="defaultTime(tour.schedule_input_deadline)"
+            v-bind:value="defaultDate(tour.schedule_input_deadline)"
           />
           <!--メモ-->
           <!-- <label>{{ $t("label.memo") }}</label
@@ -101,6 +101,11 @@ export default {
     // フォームの初期時間設定用
     defaultTime(date) {
       return this.$t("system.datetime", common.datetimeData(date));
+    },
+
+    // フォームの初期日付設定用
+    defaultDate(date) {
+      return this.$t("system.date", common.datetimeData(date));
     },
 
     async change() {
