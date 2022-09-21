@@ -34,7 +34,9 @@ export default {
                 alert6: "担当ガイド取り消しを中止しました。",
                 assign_guide_list_title: "担当ガイド一覧",
                 assign_guide_list_error: "担当者が決まっていません。",
-                nothing_to_operate: "項目がありません。"
+                nothing_to_operate: "項目がありません。",
+                menu_complete: "ツアーを実施済み状態にする",
+                alert_complete: "ツアーを実施済み状態に変更しますか？"
             },
             create: {
                 title: "ツアー追加",
@@ -256,5 +258,8 @@ export default {
     },
     system: {
         datetime: "%{year}-%{month}-%{date} %{hours}:%{minutes}"
+    },
+    alert: {
+        operation_aborted: "操作を中止しました。"
     }
 };
