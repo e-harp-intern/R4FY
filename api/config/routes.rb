@@ -35,6 +35,7 @@ Rails.application.routes.draw do
           patch "tours/:id" => "tour#update"
           post "tours/:tour_id/schedules/guides/:guide_id" => "tour_schedules_mailer#create"
           post "tours/:tour_id/schedules/mail" => "tour_schedules#create"
+          post "tours/:id/complete" => "tour_complete#update"
 
           # ツアー／実績
           get "tours/:tour_id/achievements" => "tour_achievements#index"
