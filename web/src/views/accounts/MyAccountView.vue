@@ -21,11 +21,11 @@
         </tr>
       </tbody>
     </table>
-    <button @click="goChangePassword()" id="change_btn">
-      {{ $t("button.password_change") }}
+    <button @click="goEditPassword()" id="edit_btn">
+      {{ $t("button.password_edit") }}
     </button>
-    <button @click="goToChangeMyaccount()" id="change_btn">
-      {{ $t("button.myaccount_change") }}
+    <button @click="goEditMyaccount()" id="edit_btn">
+      {{ $t("button.myaccount_edit") }}
     </button>
   </div>
 </template>
@@ -44,12 +44,12 @@ export default {
   },
   methods: {
     // マイアカウント情報変更画面に遷移する
-    goToChangeMyaccount() {
-      this.$router.push(`/myaccount/${this.admin.id}/change`);
+    goEditMyaccount() {
+      this.$router.push(`/myaccount/${this.admin.id}/editmyaccount`);
     },
     // パスワードの変更ボタンが押されたときに変更画面に遷移する
-    goChangePassword() {
-      this.$router.push(`/myaccount/${this.admin.id}/delete`);
+    goEditPassword() {
+      this.$router.push(`/myaccount/${this.admin.id}/editpassword`);
     },
   },
   async beforeRouteEnter(to, from, next) {
@@ -65,7 +65,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
-#change_btn {
+#edit_btn {
   float: right;
   padding: 0.5em 1.3em;
   margin-bottom: 1em;

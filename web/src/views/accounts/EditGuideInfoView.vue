@@ -33,7 +33,7 @@
           <button class="" @click="$router.back()">
             {{ $t("button.cancel") }}
           </button>
-          <button type="submit" @click="change()" class="button-green">
+          <button type="submit" @click="edit()" class="button-green">
             {{ $t("button.change") }}
           </button>
         </div>
@@ -56,7 +56,7 @@ export default {
     this.$emit("SendLoadComplete", true); // ロード完了をアニメーションに伝える
   },
   methods: {
-    async change() {
+    async edit() {
       const object = {
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
@@ -76,7 +76,7 @@ export default {
       // API完了
       if (response.status === "success") {
         // 成功
-        alert(this.$t("pages.guides.change_guideinfo.alert1"));
+        alert(this.$t("pages.guides.edit_guideinfo.alert1"));
         const path = `/accounts/guides/${this.$route.params.id}`;
         this.$router.push(path);
       } else {

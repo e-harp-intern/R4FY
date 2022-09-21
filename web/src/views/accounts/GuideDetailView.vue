@@ -116,8 +116,8 @@
     <button @click="delete_guide()" id="delete_guide_btn">
       {{ $t("button.delete_guide") }}
     </button>
-    <button @click="goToChangeGuide(guide.id)" id="delete_guide_btn">
-      {{ $t("button.change_guide") }}
+    <button @click="goToEditGuideInfo(guide.id)" id="delete_guide_btn">
+      {{ $t("button.edit_guide") }}
     </button>
   </div>
 </template>
@@ -145,8 +145,8 @@ export default {
       this.$router.push(`/tours/${id}`);
     },
 
-    goToChangeGuide(id) {
-      this.$router.push(`/accounts/guides/${id}/change`);
+    goToEditGuideInfo(id) {
+      this.$router.push(`/accounts/guides/${id}/edit`);
     },
 
     // ガイドを削除する処理

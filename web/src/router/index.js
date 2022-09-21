@@ -56,14 +56,14 @@ const routes = [
     component: () => import("@/views/accounts/MyAccountView.vue"),
   },
   {
-    path: "/myaccount/:id/change",
-    name: "ChangeMyaccountInfoView",
-    component: () => import("@/views/accounts/ChangeMyaccountInfoView.vue"),
+    path: "/myaccount/:id/editmyaccount",
+    name: "EditMyaccountInfoView",
+    component: () => import("@/views/accounts/EditMyaccountInfoView.vue"),
   },
   {
-    path: "/myaccount/:id/delete",
-    name: "ChangePasswordView",
-    component: () => import("@/views/accounts/ChangePasswordView.vue"),
+    path: "/myaccount/:id/editpassword",
+    name: "EditPasswordView",
+    component: () => import("@/views/accounts/EditPasswordView.vue"),
   },
   {
     path: "/accounts",
@@ -76,9 +76,9 @@ const routes = [
     component: () => import("@/views/accounts/GuideDetailView.vue"),
   },
   {
-    path: "/accounts/guides/:id/change",
-    name: "ChangeGuideInfoView",
-    component: () => import("@/views/accounts/ChangeGuideInfoView.vue"),
+    path: "/accounts/guides/:id/edit",
+    name: "EditGuideInfoView",
+    component: () => import("@/views/accounts/EditGuideInfoView.vue"),
   },
   {
     path: "/logout",
