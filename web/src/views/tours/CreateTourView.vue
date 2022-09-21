@@ -40,14 +40,17 @@
           <!--参加可否入力期限-->
           <label>{{ $t("label.schedule_input_deadline") }}</label
           ><input type="datetime-local" id="schedule_input_deadline" />
-          <!--リマインド日-->
-          <label>{{ $t("label.remind_date") }}</label
-          ><input type="date" id="remind_date" />
           <!--メモ-->
           <label>{{ $t("label.memo") }}</label
           ><textarea cols="30" rows="5" name="memo" id="memo"> </textarea>
         </div>
-        <br />
+        <hr />
+        <!-- リマインドチェック -->
+        <div>
+          <input type="checkbox" id="send_remind" /><label for="send_remind">{{
+            $t("label.send_remind")
+          }}</label>
+        </div>
         <div class="form-button-frame">
           <button type="submit" class="button-green">
             {{ $t("button.send") }}
@@ -98,14 +101,6 @@ export default {
         }
       }
 
-      // リマインド未入力
-      if (document.getElementById("remind_date").value === "") {
-        if (!window.confirm(this.$t("pages.tours.create.alert_remind_date"))) {
-          window.alert(this.$t("common.cancel"));
-          return;
-        }
-      }
-
       // 現在の時刻を取得
       const date = new Date(Date.now());
       // 開始日時が過去になっているか確認
@@ -133,7 +128,7 @@ export default {
             schedule_input_deadline: document.getElementById(
               "schedule_input_deadline"
             ).value,
-            remind_date: document.getElementById("remind_date").value,
+            send_remind: document.getElementById("send_remind").checked,
             memo: document.getElementById("memo").value,
           },
           this.$router.push

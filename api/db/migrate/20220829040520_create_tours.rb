@@ -9,7 +9,7 @@ class CreateTours < ActiveRecord::Migration[7.0]
       t.integer :guide_num, :null => false
       t.integer :tour_state_code, :null => false, :default => 1
       t.datetime :schedule_input_deadline, :null => false
-      t.date :remind_date, :null => false
+      t.date :send_remind, :null => false
       t.boolean :sent_remind, :null => false
       t.string :memo, :null => false, :default => ''
       t.timestamps
