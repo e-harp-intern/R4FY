@@ -69,6 +69,26 @@
       </div>
     </div>
 
+    <!-- ツアー操作 -->
+    <h2>{{ $t("pages.tours.tour.tour_setting_title") }}</h2>
+    <ul>
+      <li>
+        <a @click="alert_disp()" href="javascript:void(0)">
+          {{ $t("pages.tours.delete.title") }}
+        </a>
+      </li>
+      <li>
+        <a @click="goTourSelectGuide()" href="javascript:void(0)">
+          {{ $t("pages.tours.select.title") }}
+        </a>
+      </li>
+      <li>
+        <a @click="goTourChange()" href="javascript:void(0)">
+          {{ $t("pages.tours.edit.title1") }}
+        </a>
+      </li>
+    </ul>
+
     <!-- 参加ガイドの一覧 -->
     <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
     <div>
@@ -109,26 +129,6 @@
         </tbody>
       </table>
     </div>
-
-    <!-- ツアー操作 -->
-    <h2>{{ $t("pages.tours.tour.tour_setting_title") }}</h2>
-    <ul>
-      <li>
-        <a @click="alert_disp()" href="javascript:void(0)">
-          {{ $t("pages.tours.delete.title") }}
-        </a>
-      </li>
-      <li>
-        <a @click="goTourSelectGuide()" href="javascript:void(0)">
-          {{ $t("pages.tours.select.title") }}
-        </a>
-      </li>
-      <li>
-        <a @click="goTourChange()" href="javascript:void(0)">
-          {{ $t("pages.tours.edit.title1") }}
-        </a>
-      </li>
-    </ul>
   </div>
 </template>
 
