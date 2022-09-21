@@ -325,14 +325,16 @@ h2 {
   position: absolute; /* 親要素を基準 */
   display: none; /* 要素を非表示 */
   padding: 5px; /* テキストの前後の余白 */
-  background-color: rgb(6, 164, 255); /* 背景色（透明度） */
+  background-color: var(--color-light); /* 背景色（透明度） */
   width: 170px; /* 吹き出し全体の幅 */
   left: 20%; /* 表示位置 */
   margin-bottom: 12px; /* 表示位置 */
   font-size: 100%; /* 文字サイズ */
+  overflow: visible;
+  z-index: 100;
 }
 .popup:after {
-  border-right: 12px solid rgba(6, 164, 255); /* 吹き出し口の幅・色 */
+  border-right: 12px solid var(--color-light); /* 吹き出し口の幅・色 */
   border-top: 10px solid transparent; /* 吹き出し口の高さ１／２ */
   border-bottom: 10px solid transparent; /* 吹き出し口の高さ１／２ */
   left: -12px; /* 吹き出し口の位置調整 */
