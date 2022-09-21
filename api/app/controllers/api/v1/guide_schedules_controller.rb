@@ -29,7 +29,7 @@ class Api::V1::GuideSchedulesController < ApplicationController
     end
 
     # ガイドアカウントが無効・参加可否入力期限が過ぎていた場合
-    if guide.is_invalid == true || tour.schedule_input_deadline <= DateTime.now
+    if guide.is_invalid == true || tour.schedule_input_deadline < DateTime.now
       render json: json_render_v1(false)
       return
     end
@@ -60,7 +60,7 @@ class Api::V1::GuideSchedulesController < ApplicationController
     end
 
     # ツアーが開始済みの場合・担当者が決定済の場合・期限切れの場合
-    if tour.start_datetime < Date.today || tour.tour_state_code != TOUR_STATE_CODE_INCOMPLETE || tour.schedule_input_deadline <= DateTime.now
+    if tour.start_datetime < Date.today || tour.tour_state_code != TOUR_STATE_CODE_INCOMPLETE || tour.schedule_input_deadline < DateTime.now
       render json: json_render_v1(false)
       return
     end

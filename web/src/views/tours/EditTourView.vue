@@ -43,7 +43,7 @@
           <!--参加可否入力期限-->
           <label>{{ $t("label.schedule_input_deadline") }}</label
           ><input
-            type="datetime-local"
+            type="date"
             id="schedule_input_deadline"
             v-bind:value="defaultTime(tour.schedule_input_deadline)"
           />

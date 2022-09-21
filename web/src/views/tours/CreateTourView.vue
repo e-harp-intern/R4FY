@@ -39,7 +39,7 @@
           ><input type="number" id="guide_num" />
           <!--参加可否入力期限-->
           <label>{{ $t("label.schedule_input_deadline") }}</label
-          ><input type="datetime-local" id="schedule_input_deadline" />
+          ><input type="date" id="schedule_input_deadline" />
           <!--メモ-->
           <label>{{ $t("label.memo") }}</label
           ><textarea cols="30" rows="5" name="memo" id="memo"> </textarea>
