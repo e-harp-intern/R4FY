@@ -96,7 +96,7 @@
                 >{{ $t("common.check") }}</a
               >
             </td>
-            <div class="popup">{{ schedule.memo }}</div>
+            <div class="popup">{{ memoexitcheck(schedule.memo) }}</div>
           </tr>
         </tbody>
       </table>
@@ -153,6 +153,14 @@ export default {
         return c;
       }, 0);
       return num;
+    },
+
+    memoexitcheck(memo) {
+      if (memo === "") {
+        memo = "メモはありません。";
+        return memo;
+      }
+      return memo;
     },
 
     // チェックボックスを切り替える
