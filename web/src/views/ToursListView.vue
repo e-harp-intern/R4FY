@@ -49,10 +49,8 @@
             <label for="state1">{{ $t("state.tour.1") }}</label>
             <input type="checkbox" id="state2" value="2" checked />
             <label for="state2">{{ $t("state.tour.2") }}</label>
-            <input type="checkbox" id="state4" value="4" checked />
-            <label for="state4">{{ $t("state.tour.4") }}</label>
-            <input type="checkbox" id="state8" value="8" checked />
-            <label for="state8">{{ $t("state.tour.8") }}</label>
+            <input type="checkbox" id="state32" value="32" checked />
+            <label for="state32">{{ $t("state.tour.32") }}</label>
             <input type="checkbox" id="state256" value="256" checked /><label
               for="state256"
               >{{ $t("state.tour.256") }}</label
@@ -157,8 +155,7 @@ export default {
       return {
         CellState_1: state === 1,
         CellState_2: state === 2,
-        CellState_4: state === 4,
-        CellState_8: state === 8,
+        CellState_32: state === 32,
         CellState_256: state === 256,
       };
     },
@@ -185,11 +182,8 @@ export default {
       if (document.getElementById("state2").checked) {
         statelist.push(2);
       }
-      if (document.getElementById("state4").checked) {
-        statelist.push(4);
-      }
-      if (document.getElementById("state8").checked) {
-        statelist.push(8);
+      if (document.getElementById("state32").checked) {
+        statelist.push(32);
       }
       if (document.getElementById("state256").checked) {
         statelist.push(256);
@@ -270,13 +264,8 @@ export default {
   color: var(--color-white);
 }
 
-.CellState_4 {
+.CellState_32 {
   background-color: var(--color-tour-state-code-complete);
-  color: var(--color-white);
-}
-
-.CellState_8 {
-  background-color: var(--color-tour-state-code-complete-recorded);
   color: var(--color-white);
 }
 
