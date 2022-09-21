@@ -7,8 +7,7 @@ import Vue from 'vue';
 const tourStateString = {
     1: Vue.i18n.t("state.tour.1"),
     2: Vue.i18n.t("state.tour.2"),
-    4: Vue.i18n.t("state.tour.4"),
-    8: Vue.i18n.t("state.tour.8"),
+    32: Vue.i18n.t("state.tour.32"),
     256: Vue.i18n.t("state.tour.256"),
 }
 

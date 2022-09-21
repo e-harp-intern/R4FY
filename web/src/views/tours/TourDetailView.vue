@@ -259,8 +259,7 @@ export default {
       return {
         state1: code === 1,
         state2: code === 2,
-        state4: code === 4,
-        state8: code === 8,
+        state32: code === 32,
         state256: code === 256,
       };
     },
@@ -358,11 +357,8 @@ h2 {
 .state2 {
   background-color: var(--color-tour-state-code-assigned);
 }
-.state4 {
+.state32 {
   background-color: var(--color-tour-state-code-complete);
-}
-.state8 {
-  background-color: var(--color-tour-state-code-complete-recorded);
 }
 .state256 {
   background-color: var(--color-tour-state-code-cancel);
