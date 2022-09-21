@@ -109,7 +109,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_170632) do
     t.integer "child_num", null: false
     t.integer "guide_num", null: false
     t.integer "tour_state_code", default: 1, null: false
-    t.date "schedule_input_deadline"
     t.boolean "send_remind", null: false
     t.string "memo", default: "", null: false
     t.datetime "created_at", null: false
