@@ -257,7 +257,8 @@ export default {
         check: "確認"
     },
     system: {
-        datetime: "%{year}-%{month}-%{date} %{hours}:%{minutes}"
+        datetime: "%{year}-%{month}-%{date} %{hours}:%{minutes}",
+        date: "%{year}-%{month}-%{date}"
     },
     alert: {
         operation_aborted: "操作を中止しました。"
