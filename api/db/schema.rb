@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_21_160032) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_21_165312) do
   create_table "admins", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -109,7 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_160032) do
     t.integer "child_num", null: false
     t.integer "guide_num", null: false
     t.integer "tour_state_code", default: 1, null: false
-    t.datetime "schedule_input_deadline", null: false
+    t.date "schedule_input_deadline", null: false
     t.boolean "send_remind", null: false
     t.string "memo", default: "", null: false
     t.datetime "created_at", null: false
