@@ -96,6 +96,7 @@
                 >{{ $t("common.check") }}</a
               >
             </td>
+            <div class="popup">{{ schedule.memo }}</div>
           </tr>
         </tbody>
       </table>
@@ -262,6 +263,7 @@ export default {
       g.state = guideStateMethod(g.answered, g.possible);
       g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
       g.id = `select-assign-${g.guide_id}`;
+      g.memo = g.guide.memo;
     }
 
     // 参加予定を並び替える
@@ -303,5 +305,31 @@ h2 {
   display: flex;
   flex-direction: row-reverse;
   padding: 0.5cm;
+}
+.hover-line {
+  position: relative;
+}
+.hover-line:hover .popup {
+  display: inline;
+}
+
+.popup {
+  position: absolute; /* 親要素を基準 */
+  display: none; /* 要素を非表示 */
+  padding: 5px; /* テキストの前後の余白 */
+  background-color: rgb(6, 164, 255); /* 背景色（透明度） */
+  width: 170px; /* 吹き出し全体の幅 */
+  left: 20%; /* 表示位置 */
+  margin-bottom: 12px; /* 表示位置 */
+  font-size: 100%; /* 文字サイズ */
+}
+.popup:after {
+  border-right: 12px solid rgba(6, 164, 255); /* 吹き出し口の幅・色 */
+  border-top: 10px solid transparent; /* 吹き出し口の高さ１／２ */
+  border-bottom: 10px solid transparent; /* 吹き出し口の高さ１／２ */
+  left: -12px; /* 吹き出し口の位置調整 */
+  top: 5%; /* 吹き出し口の縦位置 */
+  content: ""; /* コンテンツの挿入 */
+  position: absolute; /* 親要素を基準 */
 }
 </style>
