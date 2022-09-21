@@ -105,7 +105,7 @@ export default {
                 alert1: "ガイドを削除しました。",
                 alert2: "削除を中止しました。"
             },
-            change_guideinfo:{
+            edit_guideinfo:{
                 title: "ガイド情報変更画面",
                 alert1: "ガイド情報を変更しました。"
             }
@@ -155,11 +155,11 @@ export default {
         searchbar: "詳細検索",
         search: "検索",
         assign: "担当者を確定する",
-        change: "変更",
         delete_guide: "ガイド削除",
-        change_guide: "ガイド情報変更",
+        edit_guide: "ガイド情報変更",
         myaccount_change: "マイアカウント情報変更",
         change: "変更",
+        edit: "変更",
     },
     placeholder: {
         email: "email",
