@@ -17,7 +17,7 @@ module Achievement
                                .where(guide_id: guide_id) # 指定ガイドのみ取得
                                .joins(:tour) # ツアーを結合
                                .select("tours.*") # ツアー情報のみを取得
-                               .where.not("tour_state_code = ?", TOUR_STATE_CODE_CANCEL) # 中止ツアーを除く
+                               .where("tour_state_code = ?", TOUR_STATE_CODE_COMPLETE)
                                .order(start_datetime: "DESC") # 開始日順に並び替え（可能なら最大値を使用）
                                .first # 先頭の開始日のみ取得
 
@@ -27,6 +27,7 @@ module Achievement
                                          .joins(:tour)
                                          .select("tours.*")
                                          .where.not("tour_state_code = ?", TOUR_STATE_CODE_CANCEL)
+                                         .where("start_datetime < ? or tour_state_code = ?", today, TOUR_STATE_CODE_COMPLETE)
                                          .order(start_datetime: "DESC")
                                          .limit(tour_num)
 
@@ -35,7 +36,7 @@ module Achievement
                                   .where(guide_id: guide_id)
                                   .joins(:tour)
                                   .select("tours.*")
-                                  .where("start_datetime > ?", today)
+                                  .where("start_datetime >= ?", today)
                                   .where("tour_state_code = ?", TOUR_STATE_CODE_ASSIGNED) # 担当者割り当て済みのみから取得
 
     # 返すデータ
