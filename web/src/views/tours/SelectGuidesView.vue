@@ -25,6 +25,16 @@
 
     <!-- 参加ガイドの一覧 -->
     <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
+    <div class="button-frame">
+      <label for="check_send_email">{{ $t("label.send_email") }}</label>
+      <input
+        type="checkbox"
+        style="transform: scale(2)"
+        id="check_send_email"
+        name="check_send_email"
+        :checked="send_email"
+      />
+    </div>
     <div>
       <table class="table-normal">
         <thead>
@@ -106,6 +116,7 @@ export default {
       tourguides: [],
       isChecking: 1,
       currentGuideNum: 0,
+      send_email: true,
     };
   },
   created() {
@@ -182,9 +193,23 @@ export default {
       }
 
       // 送信前の確認
-      if (!window.confirm("担当が割り当てられたガイドへメールを送信します。")) {
-        window.alert("送信を取り消しました。");
-        return;
+      const email = document.getElementById("check_send_email");
+      if (email.checked === true) {
+        if (
+          !window.confirm("担当が割り当てられたガイドへメールを送信します。")
+        ) {
+          window.alert("送信を取り消しました。");
+          return;
+        }
+      } else if (email.checked === false) {
+        if (
+          !window.confirm(
+            "担当が割り当てられたガイドへメールが送信されませんが、よろしいですか？"
+          )
+        ) {
+          window.alert("送信を取り消しました。");
+          return;
+        }
       }
 
       // 送信メッセージの組み立て
@@ -196,11 +221,16 @@ export default {
         guides.push(g.guide_id);
       }
 
+      const object = {
+        guides,
+        send_mail: email.checked,
+      };
+
       // 送信
       try {
         await api.post(
           `/api/v1/tours/${this.tour.id}/guides`,
-          { guides },
+          object,
           this.$router.push
         );
         this.$router.push(`/tours/${this.tour.id}`);
@@ -268,5 +298,10 @@ h2 {
 
 .guideNumError {
   background-color: var(--color-dark-gray);
+}
+.button-frame {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0.5cm;
 }
 </style>
