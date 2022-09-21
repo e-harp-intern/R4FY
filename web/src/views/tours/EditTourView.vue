@@ -47,13 +47,6 @@
             id="schedule_input_deadline"
             v-bind:value="defaultTime(tour.schedule_input_deadline)"
           />
-          <!--リマインド日-->
-          <label>{{ $t("label.remind_date") }}</label
-          ><input
-            type="date"
-            id="remind_date"
-            v-bind:value="tour.remind_date"
-          />
           <!--メモ-->
           <!-- <label>{{ $t("label.memo") }}</label
           ><textarea
@@ -65,7 +58,15 @@
           >
           </textarea> -->
         </div>
-        <br />
+        <hr />
+        <!-- リマインドチェック -->
+        <div>
+          <input
+            type="checkbox"
+            id="send_remind"
+            v-model="tour.send_remind"
+          /><label for="send_remind">{{ $t("label.send_remind") }}</label>
+        </div>
         <div class="form-button-frame">
           <button class="" @click="$router.back()">
             {{ $t("button.cancel") }}
@@ -115,14 +116,6 @@ export default {
         }
       }
 
-      // リマインド未入力
-      if (document.getElementById("remind_date").value === "") {
-        if (!window.confirm(this.$t("pages.tours.create.alert_remind_date"))) {
-          window.alert(this.$t("common.cancel"));
-          return;
-        }
-      }
-
       //   // 現在の時刻を取得
       //   const date = new Date(Date.now());
       //   // 開始日時が過去になっているか確認
@@ -149,7 +142,7 @@ export default {
           schedule_input_deadline: document.getElementById(
             "schedule_input_deadline"
           ).value,
-          remind_date: document.getElementById("remind_date").value,
+          send_remind: document.getElementById("send_remind").checked,
           // memo: document.getElementById("memo").value,
         },
         this.$router.push
