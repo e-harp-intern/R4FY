@@ -31,7 +31,7 @@ class Api::V1::ToursController < ApplicationController
     schedule_input_deadline = params[:schedule_input_deadline]
 
     # 入力期限が無記入, 空文字のとき
-    schedule_input_deadline = "9999-12-30" if [nil, ""].include?(schedule_input_deadline)
+    schedule_input_deadline = nil if [nil, ""].include?(schedule_input_deadline)
 
     # リマインドパラメーター
     send_remind = params[:send_remind]
