@@ -5,15 +5,6 @@
 
     <!-- 有効なユーザーの場合のみ表示 -->
     <div v-if="!is_invalid">
-      <!-- 操作 -->
-      <ul>
-        <li>
-          <a href="javascript:void(0)">{{
-            $t("pages.accounts.guides.link_guide_edit")
-          }}</a>
-        </li>
-      </ul>
-
       <!-- ガイドの情報 -->
       <h2>{{ guide.name }}</h2>
       <ul>
