@@ -1,1 +1,1 @@
-Rails.application.config.hosts = ENV['hosts']
+Rails.application.config.hosts = ENV['HOSTS']
