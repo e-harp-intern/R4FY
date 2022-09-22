@@ -12,7 +12,7 @@ class Api::V1::ToursController < ApplicationController
     word = params[:word] || ""
     start_date = Date.parse(params[:start_date] || Date.today.prev_month.strftime("%Y-%m-%d"))
     end_date = Date.parse(params[:end_date] || "9999-12-30").tomorrow
-    tour_state = params[:tour_state] || [TOUR_STATE_CODE_INCOMPLETE, TOUR_STATE_CODE_ASSIGNED, TOUR_STATE_CODE_COMPLETE, TOUR_STATE_CODE_COMPLETE_RECORDED, TOUR_STATE_CODE_CANCEL]
+    tour_state = params[:tour_state] || [TOUR_STATE_CODE_INCOMPLETE, TOUR_STATE_CODE_ASSIGNED, TOUR_STATE_CODE_COMPLETE, TOUR_STATE_CODE_CANCEL]
 
     # 検索
     tours = Tour
@@ -31,13 +31,13 @@ class Api::V1::ToursController < ApplicationController
     schedule_input_deadline = params[:schedule_input_deadline]
 
     # 入力期限が無記入, 空文字のとき
-    schedule_input_deadline = "9999-12-30" if [nil, ""].include?(schedule_input_deadline)
+    schedule_input_deadline = nil if [nil, ""].include?(schedule_input_deadline)
 
     # リマインドパラメーター
-    remind_date = params[:remind_date]
+    send_remind = params[:send_remind]
 
     # リマインドが無記入, 空文字のとき
-    remind_date = "9999-12-30" if [nil, ""].include?(remind_date)
+    send_remind = true if [nil, ""].include?(send_remind)
 
     # 子供パラメーター
     child_num = params[:child_num]
@@ -53,7 +53,7 @@ class Api::V1::ToursController < ApplicationController
 
     # 新しいツアーを作成
     tour = Tour.new(name: params[:name], start_datetime: params[:start_datetime],
-                    end_datetime: params[:end_datetime], adult_num: adult_num, child_num: child_num, guide_num: guide_num, schedule_input_deadline: schedule_input_deadline, remind_date: remind_date, memo: params[:memo], sent_remind: false)
+                    end_datetime: params[:end_datetime], adult_num: adult_num, child_num: child_num, guide_num: guide_num, schedule_input_deadline: schedule_input_deadline, send_remind: send_remind, memo: params[:memo])
 
     # ガイドのリストを取得（削除済みをのぞく）
     guides = Guide.where(is_invalid: false)

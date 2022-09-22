@@ -43,16 +43,9 @@
           <!--参加可否入力期限-->
           <label>{{ $t("label.schedule_input_deadline") }}</label
           ><input
-            type="datetime-local"
-            id="schedule_input_deadline"
-            v-bind:value="defaultTime(tour.schedule_input_deadline)"
-          />
-          <!--リマインド日-->
-          <label>{{ $t("label.remind_date") }}</label
-          ><input
             type="date"
-            id="remind_date"
-            v-bind:value="tour.remind_date"
+            id="schedule_input_deadline"
+            v-bind:value="defaultDate(tour.schedule_input_deadline)"
           />
           <!--メモ-->
           <!-- <label>{{ $t("label.memo") }}</label
@@ -65,7 +58,15 @@
           >
           </textarea> -->
         </div>
-        <br />
+        <hr />
+        <!-- リマインドチェック -->
+        <div>
+          <input
+            type="checkbox"
+            id="send_remind"
+            v-model="tour.send_remind"
+          /><label for="send_remind">{{ $t("label.send_remind") }}</label>
+        </div>
         <div class="form-button-frame">
           <button class="" @click="$router.back()">
             {{ $t("button.cancel") }}
@@ -102,6 +103,11 @@ export default {
       return this.$t("system.datetime", common.datetimeData(date));
     },
 
+    // フォームの初期日付設定用
+    defaultDate(date) {
+      return this.$t("system.date", common.datetimeData(date));
+    },
+
     async change() {
       // 期限未入力
       if (document.getElementById("schedule_input_deadline").value === "") {
@@ -110,14 +116,6 @@ export default {
             this.$t("pages.tours.create.alert_schedule_input_deadline")
           )
         ) {
-          window.alert(this.$t("common.cancel"));
-          return;
-        }
-      }
-
-      // リマインド未入力
-      if (document.getElementById("remind_date").value === "") {
-        if (!window.confirm(this.$t("pages.tours.create.alert_remind_date"))) {
           window.alert(this.$t("common.cancel"));
           return;
         }
@@ -149,7 +147,7 @@ export default {
           schedule_input_deadline: document.getElementById(
             "schedule_input_deadline"
           ).value,
-          remind_date: document.getElementById("remind_date").value,
+          send_remind: document.getElementById("send_remind").checked,
           // memo: document.getElementById("memo").value,
         },
         this.$router.push

@@ -87,10 +87,20 @@
           {{ $t("pages.tours.edit.title1") }}
         </a>
       </li>
+      <li v-if="isShow_CompleteTour()">
+        <a @click="tourComplete()" href="javascript:void(0)">
+          {{ $t("pages.tours.tour.menu_complete") }}
+        </a>
+      </li>
     </ul>
     <div
       class="center"
-      v-if="!isShow_Delete() && !isShow_AssignGuide() && !isShow_EditTour()"
+      v-if="
+        !isShow_Delete() &&
+        !isShow_AssignGuide() &&
+        !isShow_EditTour() &&
+        !isShow_CompleteTour()
+      "
     >
       {{ $t("pages.tours.tour.nothing_to_operate") }}
     </div>
@@ -223,7 +233,14 @@ export default {
         constant.TOUR_STATE.TOUR_STATE_CODE_INCOMPLETE,
         constant.TOUR_STATE.TOUR_STATE_CODE_ASSIGNED,
         constant.TOUR_STATE.TOUR_STATE_CODE_COMPLETE,
-        constant.TOUR_STATE.TOUR_STATE_CODE_COMPLETE_RECORDED,
+      ].includes(this.tour.tour_state_code);
+    },
+
+    // ツアー実施済み変更条件
+    isShow_CompleteTour() {
+      return [
+        constant.TOUR_STATE.TOUR_STATE_CODE_INCOMPLETE,
+        constant.TOUR_STATE.TOUR_STATE_CODE_ASSIGNED,
       ].includes(this.tour.tour_state_code);
     },
 
@@ -255,13 +272,22 @@ export default {
       this.$router.push(`/tours/${this.tour.id}/edit`);
     },
 
+    // ツアー完了処理
+    async tourComplete() {
+      if (!window.confirm(this.$t("pages.tours.tour.alert_complete"))) {
+        window.alert(this.$t("alert.operation_aborted"));
+        return;
+      }
+      await api.post(`/api/v1/tours/${this.tour.id}/complete`);
+      this.$router.go({ path: this.$router.currentRoute.path, force: true });
+    },
+
     // ツアー状態によって背景色を変更(idを置き換える)
     changeToTourStateColor(code) {
       return {
         state1: code === 1,
         state2: code === 2,
-        state4: code === 4,
-        state8: code === 8,
+        state32: code === 32,
         state256: code === 256,
       };
     },
@@ -359,11 +385,8 @@ h2 {
 .state2 {
   background-color: var(--color-tour-state-code-assigned);
 }
-.state4 {
+.state32 {
   background-color: var(--color-tour-state-code-complete);
-}
-.state8 {
-  background-color: var(--color-tour-state-code-complete-recorded);
 }
 .state256 {
   background-color: var(--color-tour-state-code-cancel);

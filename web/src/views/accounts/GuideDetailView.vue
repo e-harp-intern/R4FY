@@ -5,15 +5,6 @@
 
     <!-- 有効なユーザーの場合のみ表示 -->
     <div v-if="!is_invalid">
-      <!-- 操作 -->
-      <ul>
-        <li>
-          <a href="javascript:void(0)">{{
-            $t("pages.accounts.guides.link_guide_edit")
-          }}</a>
-        </li>
-      </ul>
-
       <!-- ガイドの情報 -->
       <h2>{{ guide.name }}</h2>
       <ul>
@@ -100,6 +91,16 @@
       <div v-if="assign_tours.length === 0" class="center">
         {{ $t("pages.accounts.guides.no_tours") }}
       </div>
+
+      <!-- 操作ボタン -->
+      <div class="right">
+        <button @click="goToEditGuideInfo(guide.id)" class="button-green">
+          {{ $t("button.edit_guide") }}
+        </button>
+        <button @click="delete_guide()" class="button-red">
+          {{ $t("button.delete_guide") }}
+        </button>
+      </div>
     </div>
 
     <!-- 削除済み -->
@@ -113,12 +114,6 @@
         }}</a>
       </p>
     </div>
-    <button @click="delete_guide()" id="delete_guide_btn">
-      {{ $t("button.delete_guide") }}
-    </button>
-    <button @click="goToEditGuideInfo(guide.id)" id="delete_guide_btn">
-      {{ $t("button.edit_guide") }}
-    </button>
   </div>
 </template>
 
@@ -184,10 +179,4 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
-#delete_guide_btn {
-  float: right;
-  padding: 0.5em 1.3em;
-  background-color: var(--color-green);
-  color: var(--color-white);
-}
 </style>

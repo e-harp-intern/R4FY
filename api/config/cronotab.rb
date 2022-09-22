@@ -5,11 +5,16 @@
 # You can use any class. The only requirement is that
 # class should have a method `perform` without arguments.
 #
-# class TestJob
-#   def perform
-#     puts 'Test!'
-#   end
-# end
-#
-# Crono.perform(TestJob).every 2.days, at: '15:30'
-#
+
+require 'rake'
+Rails.app_class.load_tasks
+
+#Rakeタスククラスを作成
+class RemindNotify
+  def perform(*args)
+    Rake::Task['remind_notify_mailer:send'].execute
+  end
+end
+
+#スケジュール実行設定
+#Crono.perform(RemindNotify).every 1.days, at: '10:00'

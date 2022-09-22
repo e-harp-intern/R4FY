@@ -40,6 +40,11 @@ p {
     text-align: center;
 }
 
+.right {
+    text-align: right;
+}
+
+/* 基本の表示 */
 p.info {
     margin: 2em auto 0;
     width: 100%;
@@ -63,7 +68,7 @@ button {
     background-color: var(--color-gray);
     border: none;
     color: var(--color-text);
-    padding: .5em;
+    padding: .5em 1em;
     border-radius: var(--default-radius);
     box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.15);
     cursor: pointer;

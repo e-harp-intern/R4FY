@@ -70,7 +70,7 @@ class Api::V1::TourController < ApplicationController
     guide_num = params[:guide_num]
     adult_num = params[:adult_num]
     child_num = params[:child_num]
-    remind_date = params[:remind_date]
+    send_remind = params[:send_remind]
     schedule_input_deadline = params[:schedule_input_deadline]
 
     # ツアー情報を更新
@@ -79,7 +79,7 @@ class Api::V1::TourController < ApplicationController
       tour.update!(guide_num: guide_num) unless guide_num.nil?
       tour.update!(adult_num: adult_num) unless adult_num.nil?
       tour.update!(child_num: child_num) unless child_num.nil?
-      tour.update!(remind_date: remind_date) unless remind_date.nil?
+      tour.update!(send_remind: send_remind) unless send_remind.nil?
       tour.update!(schedule_input_deadline: schedule_input_deadline) unless schedule_input_deadline.nil?
     end
 
