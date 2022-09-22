@@ -47,9 +47,10 @@
         <hr />
         <!-- リマインドチェック -->
         <div>
-          <input type="checkbox" id="send_remind" /><label for="send_remind">{{
-            $t("label.send_remind")
-          }}</label>
+          <input type="checkbox" id="send_remind" checked /><label
+            for="send_remind"
+            >{{ $t("label.send_remind") }}</label
+          >
         </div>
         <div class="form-button-frame">
           <button type="submit" class="button-green">
