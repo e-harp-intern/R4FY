@@ -1,7 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 
 module.exports = defineConfig({
-  publicPath: process.env.VUE_APP_API_ORIGIN,
+  publicPath: process.env.VUE_APP_PUBLIC_PATH,
   transpileDependencies: true,
   configureWebpack: {
     watchOptions: {
