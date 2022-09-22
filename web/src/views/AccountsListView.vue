@@ -8,17 +8,17 @@
       <div class="search-left">
         <button
           class="tab-button"
-          :class="{ 'button-theme': table_is_admin }"
-          @click="table_is_admin = true"
-        >
-          {{ $t("account.admin") }}
-        </button>
-        <button
-          class="tab-button"
           :class="{ 'button-theme': !table_is_admin }"
           @click="table_is_admin = false"
         >
           {{ $t("account.guide") }}
+        </button>
+        <button
+          class="tab-button"
+          :class="{ 'button-theme': table_is_admin }"
+          @click="table_is_admin = true"
+        >
+          {{ $t("account.admin") }}
         </button>
       </div>
       <div class="search-frame">
@@ -80,7 +80,7 @@ export default {
       admins: [],
       accounts: [],
       guides: [],
-      table_is_admin: true,
+      table_is_admin: false,
     };
   },
   created() {
