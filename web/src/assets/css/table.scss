@@ -37,6 +37,7 @@ table.table-normal {
     transform: scale(1.01);
     opacity: 0.8;
     cursor: pointer;
+    z-index: 1;
   }
 
   // グレーアウト

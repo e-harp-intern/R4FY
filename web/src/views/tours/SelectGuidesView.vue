@@ -61,7 +61,7 @@
             v-for="schedule in guideschedules"
             :key="schedule.id"
             :class="tableCSS(schedule.state)"
-            class="hover-line"
+            class="memo"
           >
             <td
               @click="ChangeSelect(schedule.state, schedule.id)"
@@ -96,6 +96,7 @@
                 >{{ $t("common.check") }}</a
               >
             </td>
+            <div class="popup">{{ memoexitcheck(schedule.memo) }}</div>
           </tr>
         </tbody>
       </table>
@@ -152,6 +153,10 @@ export default {
         return c;
       }, 0);
       return num;
+    },
+
+    memoexitcheck(memo) {
+      return memo === "" ? this.$t("pages.guides.selectguide.no_memo") : memo;
     },
 
     // チェックボックスを切り替える
@@ -262,6 +267,7 @@ export default {
       g.state = guideStateMethod(g.answered, g.possible);
       g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
       g.id = `select-assign-${g.guide_id}`;
+      g.memo = g.guide.memo;
     }
 
     // 参加予定を並び替える
@@ -303,5 +309,27 @@ h2 {
   display: flex;
   flex-direction: row-reverse;
   padding: 0.5cm;
+}
+.memo {
+  position: relative;
+}
+.memo:hover .popup {
+  display: inline-block;
+}
+
+.popup {
+  position: absolute;
+  display: none;
+  padding: 0.5em;
+  background-color: var(--color-white);
+  border-radius: var(--default-radius);
+  width: 16em;
+  left: 20%;
+  margin-bottom: 12px;
+  font-size: 100%;
+  overflow: visible;
+  z-index: 100;
+  opacity: 0.9;
+  box-sizing: border-box;
 }
 </style>
