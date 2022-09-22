@@ -1,6 +1,6 @@
 <template>
   <div id="change-guideinfo-page">
-    <h1>{{ $t("pages.guides.change_guideinfo.title") }}</h1>
+    <h1>{{ $t("pages.guides.edit_guideinfo.title") }}</h1>
     <div class="form-frame">
       <div class="form-main">
         <div class="form-tabel">
