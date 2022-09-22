@@ -5,7 +5,7 @@
 */
 
 // eslint-disable-next-line no-restricted-globals
-const APIServerPass = `${location.protocol}//${location.hostname}:3000`; // APIサーバーの場所を指定
+const APIServerPass = process.env.VUE_APP_API_ORIGIN; // APIサーバーの場所を指定
 
 // apiSend ...データの送信を行なう
 function apiSend(method, endPoint, json = null, next = null) {
