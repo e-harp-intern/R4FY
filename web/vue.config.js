@@ -1,8 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 
 module.exports = defineConfig({
-  publicPath: "./",
-  baseUrl: "/guide",
+  publicPath: "/guide/",
   transpileDependencies: true,
   configureWebpack: {
     watchOptions: {
