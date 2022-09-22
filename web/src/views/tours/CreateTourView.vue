@@ -46,13 +46,21 @@
             ><textarea cols="30" rows="5" name="memo" id="memo"> </textarea>
           </div>
           <hr />
-          <!-- リマインドチェック -->
-          <div>
-            <input type="checkbox" id="send_remind" checked /><label
-              for="send_remind"
-              >{{ $t("label.send_remind") }}</label
-            >
-          </div>
+          <!-- 選択項目 -->
+          <ul class="plain_list">
+            <li>
+              <input type="checkbox" id="send_remind" checked /><label
+                for="send_remind"
+                >{{ $t("label.send_remind") }}</label
+              >
+            </li>
+            <li>
+              <input type="checkbox" id="send_mail" checked /><label
+                for="send_mail"
+                >{{ $t("label.send_email") }}</label
+              >
+            </li>
+          </ul>
           <div class="form-button-frame">
             <button type="submit" class="button-green">
               {{ $t("button.send") }}
@@ -138,6 +146,7 @@ export default {
               "schedule_input_deadline"
             ).value,
             send_remind: document.getElementById("send_remind").checked,
+            send_mail: document.getElementById("send_mail").checked,
             memo: document.getElementById("memo").value,
           },
           this.$router.push
@@ -219,5 +228,11 @@ export default {
   padding: 2em;
   box-sizing: border-box;
   line-height: 1.75em;
+}
+
+.plain_list {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
 }
 </style>
