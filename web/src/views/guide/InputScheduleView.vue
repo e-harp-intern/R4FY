@@ -154,7 +154,8 @@ export default {
     const { token } = to.params;
     const url = `/api/v1/schedules/${token}`;
     const response = await api.get(url, null, next);
-    const { guide, tour, answered, possible } = response.data;
+    const { guide, tour } = response.data;
+    const { answered, possible } = response.data.guide_schedule;
 
     // エラー発生時
     const error = response.status !== constant.STATE.SUCCESS ? 404 : null;
