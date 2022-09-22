@@ -5,15 +5,15 @@
 
     <!-- 決定ボタン -->
     <div class="center">
+      <button class="button-large" @click="$router.back()">
+        {{ $t("button.cancel") }}
+      </button>
       <button
         class="button-green button-large"
         :class="guideNumError()"
         @click="assignGuide()"
       >
         {{ $t("button.assign") }}
-      </button>
-      <button class="button-large" @click="$router.back()">
-        {{ $t("button.cancel") }}
       </button>
     </div>
 
