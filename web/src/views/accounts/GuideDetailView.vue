@@ -23,7 +23,11 @@
       <ul v-if="last_tour.name !== undefined">
         <li>
           {{ $t("label.tour_name") }}
-          <a :href="'/tours/' + last_tour.id">{{ last_tour.name }}</a>
+          <a
+            href="javascript:void(0)"
+            @click="$router.push(`/tours/${last_tour.id}`)"
+            >{{ last_tour.name }}</a
+          >
         </li>
         <li>
           {{ $t("label.start_datetime") }}

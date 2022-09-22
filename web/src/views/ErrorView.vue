@@ -3,10 +3,7 @@
     <h1>{{ $t("app_name") }}</h1>
     <h2>{{ $t("pages.error.title") }}</h2>
     <p>
-      <button
-        onclick="location.href='/'"
-        class="link button-large button-green"
-      >
+      <button @click="$router.push('/')" class="link button-large button-green">
         {{ $t("pages.error.link") }}
       </button>
     </p>
