@@ -6,7 +6,7 @@
 
     <!-- 上部の情報パネル -->
     <div id="panel">
-      <article class="info" id="guide">
+      <article class="tour_info" id="guide">
         <p class="outline">
           {{ $t("pages.tours.tour.requirement_guide_num_title") }}
         </p>
@@ -14,12 +14,12 @@
           {{ $t("common.people_num_unit", { num: tour.guide_num }) }}
         </p>
       </article>
-      <article class="info" id="date">
+      <article class="tour_info" id="date">
         <p class="outline">{{ $t("common.start_datetime") }}</p>
         <p class="value">{{ datetimeFormat(tour.start_datetime) }}</p>
       </article>
       <article
-        class="info state"
+        class="tour_info state"
         id="state"
         :class="changeToTourStateColor(tour.tour_state_code)"
       >
@@ -357,7 +357,7 @@ h2 {
   grid-auto-rows: auto;
 }
 
-.info {
+.tour_info {
   display: inline-block;
   width: 100%;
   color: var(--color-white);
