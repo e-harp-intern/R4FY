@@ -26,7 +26,7 @@
         <input class="search-box" type="text" id="email" placeholder="email" />
         <button @click="search()">検索</button>
       </div>
-      <button @click="gocreatAccount()" id="create_account_btn">
+      <button @click="gocreatAccount()" class="button-green">
         {{ $t("button.account_create") }}
       </button>
     </div>
@@ -187,13 +187,6 @@ export default {
 
 h2 {
   margin: 50px 0 0 0;
-}
-
-#create_account_btn {
-  float: right;
-  padding: 0.5em 1.3em;
-  background-color: var(--color-green);
-  color: var(--color-white);
 }
 
 // 検索ボックス

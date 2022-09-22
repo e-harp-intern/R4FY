@@ -12,10 +12,14 @@
 
     <!-- テーブル上部のボタン -->
     <div class="button-frame">
-      <button @click="goTourDetail('create')" id="create_tour_btn">
+      <button @click="goTourDetail('create')" class="button-green">
         {{ $t("button.tour_create") }}
       </button>
-      <button type="checkbox" id="search_btn" @click="isChecking = !isChecking">
+      <button
+        type="checkbox"
+        class="button-green"
+        @click="isChecking = !isChecking"
+      >
         {{ $t("button.searchbar") }}
       </button>
     </div>
@@ -228,19 +232,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
 
-#create_tour_btn {
-  padding: 0.5em 1.3em;
-  margin-bottom: 1em;
-  background-color: var(--color-green);
-  color: var(--color-white);
-}
-#search_btn {
-  padding: 0.5em 1.3em;
-  margin-bottom: 1em;
-  background-color: var(--color-green);
-  color: var(--color-white);
-}
-
 #admin_show_name {
   font-size: 1.25em;
 }
@@ -279,6 +270,7 @@ export default {
 .button-frame {
   display: flex;
   flex-direction: row-reverse;
+  margin: 1em;
 }
 
 .search-form-frame {

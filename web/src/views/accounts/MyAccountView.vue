@@ -21,12 +21,16 @@
         </tr>
       </tbody>
     </table>
-    <button @click="goEditPassword()" id="edit_btn">
-      {{ $t("button.password_edit") }}
-    </button>
-    <button @click="goEditMyaccount()" id="edit_btn">
-      {{ $t("button.myaccount_edit") }}
-    </button>
+
+    <!-- 操作ボタン -->
+    <div class="right">
+      <button @click="goEditPassword()" class="button-green">
+        {{ $t("button.password_edit") }}
+      </button>
+      <button @click="goEditMyaccount()" class="button-green">
+        {{ $t("button.myaccount_edit") }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -65,11 +69,4 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
-#edit_btn {
-  float: right;
-  padding: 0.5em 1.3em;
-  margin-bottom: 1em;
-  background-color: var(--color-green);
-  color: var(--color-white);
-}
 </style>
