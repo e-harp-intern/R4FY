@@ -45,7 +45,7 @@ p {
 }
 
 /* 基本の表示 */
-p.info {
+.info {
     margin: 2em auto 0;
     width: 100%;
     max-width: 640px;
@@ -55,7 +55,7 @@ p.info {
     border-radius: var(--default-radius);
 }
 
-p.info_red {
+.info_red {
     background-color: var(--color-red);
     color: var(--color-white)
 }

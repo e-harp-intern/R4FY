@@ -1,63 +1,71 @@
 <template>
   <div id="create-account-page">
     <h1>{{ $t("pages.tours.create.title") }}</h1>
-    <div class="form-frame">
-      <form @submit.prevent="create" class="form-main">
-        <div class="form-tabel">
-          <!--ツアー名-->
-          <label>{{ $t("label.tour_name") }}</label
-          ><input
-            type="text"
-            :placeholder="$t('label.detail.tour_name')"
-            id="tour_name"
-            required
-          />
-          <!--開始日時-->
-          <label>{{ $t("label.start_datetime") }}</label
-          ><input
-            type="datetime-local"
-            id="start_datetime"
-            :value="defaultTime()"
-            required
-          />
-          <!--終了日時-->
-          <label>{{ $t("label.end_datetime") }}</label
-          ><input
-            type="datetime-local"
-            id="end_datetime"
-            :value="defaultTime()"
-            required
-          />
-          <!--大人-->
-          <label>{{ $t("label.adult_num") }}</label
-          ><input type="number" id="adult_num" />
-          <!--子供-->
-          <label>{{ $t("label.child_num") }}</label
-          ><input type="number" id="child_num" />
-          <!--ガイド-->
-          <label>{{ $t("label.guide_num") }}</label
-          ><input type="number" id="guide_num" />
-          <!--参加可否入力期限-->
-          <label>{{ $t("label.schedule_input_deadline") }}</label
-          ><input type="date" id="schedule_input_deadline" />
-          <!--メモ-->
-          <label>{{ $t("label.memo") }}</label
-          ><textarea cols="30" rows="5" name="memo" id="memo"> </textarea>
-        </div>
-        <hr />
-        <!-- リマインドチェック -->
-        <div>
-          <input type="checkbox" id="send_remind" checked /><label
-            for="send_remind"
-            >{{ $t("label.send_remind") }}</label
-          >
-        </div>
-        <div class="form-button-frame">
-          <button type="submit" class="button-green">
-            {{ $t("button.send") }}
-          </button>
-        </div>
-      </form>
+    <div id="page-frame">
+      <div class="form-frame">
+        <form @submit.prevent="create" class="form-main">
+          <div class="form-tabel">
+            <!--ツアー名-->
+            <label>{{ $t("label.tour_name") }}</label
+            ><input
+              type="text"
+              :placeholder="$t('label.detail.tour_name')"
+              id="tour_name"
+              required
+            />
+            <!--開始日時-->
+            <label>{{ $t("label.start_datetime") }}</label
+            ><input
+              type="datetime-local"
+              id="start_datetime"
+              :value="defaultTime()"
+              required
+            />
+            <!--終了日時-->
+            <label>{{ $t("label.end_datetime") }}</label
+            ><input
+              type="datetime-local"
+              id="end_datetime"
+              :value="defaultTime()"
+              required
+            />
+            <!--大人-->
+            <label>{{ $t("label.adult_num") }}</label
+            ><input type="number" id="adult_num" />
+            <!--子供-->
+            <label>{{ $t("label.child_num") }}</label
+            ><input type="number" id="child_num" />
+            <!--ガイド-->
+            <label>{{ $t("label.guide_num") }}</label
+            ><input type="number" id="guide_num" />
+            <!--参加可否入力期限-->
+            <label>{{ $t("label.schedule_input_deadline") }}</label
+            ><input type="date" id="schedule_input_deadline" />
+            <!--メモ-->
+            <label>{{ $t("label.memo") }}</label
+            ><textarea cols="30" rows="5" name="memo" id="memo"> </textarea>
+          </div>
+          <hr />
+          <!-- リマインドチェック -->
+          <div>
+            <input type="checkbox" id="send_remind" checked /><label
+              for="send_remind"
+              >{{ $t("label.send_remind") }}</label
+            >
+          </div>
+          <div class="form-button-frame">
+            <button type="submit" class="button-green">
+              {{ $t("button.send") }}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 説明 -->
+      <div class="info" id="create-info-frame">
+        <h2>{{ $t("pages.tours.create.title_info") }}</h2>
+        <p>{{ $t("pages.tours.create.create_info") }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -154,6 +162,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#page-frame {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2em;
+}
+
 .create-account-page {
   max-width: 100%;
   position: relative;
@@ -168,8 +183,8 @@ export default {
 
 .form-frame {
   margin: 0 auto;
-  width: 100%;
-  max-width: 640px;
+  width: 640px;
+  max-width: 100%;
   background-color: var(--color-light-gray);
   box-sizing: border-box;
   border-radius: 0.5em;
@@ -198,5 +213,11 @@ export default {
   display: flex;
   justify-content: right;
   align-items: center;
+}
+
+#create-info-frame {
+  padding: 2em;
+  box-sizing: border-box;
+  line-height: 1.75em;
 }
 </style>
