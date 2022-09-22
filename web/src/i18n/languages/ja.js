@@ -108,6 +108,7 @@ export default {
                 title: "ツアー担当ガイド決定画面",
                 person: "人",
                 person2: "人/",
+                no_memo: "メモが存在ません。"
             },
             delete_guide:{
                 alert: "ガイドを削除しますか？",

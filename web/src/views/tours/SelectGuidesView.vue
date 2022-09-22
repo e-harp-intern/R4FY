@@ -61,7 +61,7 @@
             v-for="schedule in guideschedules"
             :key="schedule.id"
             :class="tableCSS(schedule.state)"
-            class="hover-line"
+            class="memo"
           >
             <td
               @click="ChangeSelect(schedule.state, schedule.id)"
@@ -156,11 +156,7 @@ export default {
     },
 
     memoexitcheck(memo) {
-      if (memo === "") {
-        memo = "メモはありません。";
-        return memo;
-      }
-      return memo;
+      return memo === "" ? this.$t("pages.guides.selectguide.no_memo") : memo;
     },
 
     // チェックボックスを切り替える
@@ -314,32 +310,26 @@ h2 {
   flex-direction: row-reverse;
   padding: 0.5cm;
 }
-.hover-line {
+.memo {
   position: relative;
 }
-.hover-line:hover .popup {
-  display: inline;
+.memo:hover .popup {
+  display: inline-block;
 }
 
 .popup {
-  position: absolute; /* 親要素を基準 */
-  display: none; /* 要素を非表示 */
-  padding: 5px; /* テキストの前後の余白 */
-  background-color: var(--color-light); /* 背景色（透明度） */
-  width: 170px; /* 吹き出し全体の幅 */
-  left: 20%; /* 表示位置 */
-  margin-bottom: 12px; /* 表示位置 */
-  font-size: 100%; /* 文字サイズ */
+  position: absolute;
+  display: none;
+  padding: 0.5em;
+  background-color: var(--color-white);
+  border-radius: var(--default-radius);
+  width: 16em;
+  left: 20%;
+  margin-bottom: 12px;
+  font-size: 100%;
   overflow: visible;
   z-index: 100;
-}
-.popup:after {
-  border-right: 12px solid var(--color-light); /* 吹き出し口の幅・色 */
-  border-top: 10px solid transparent; /* 吹き出し口の高さ１／２ */
-  border-bottom: 10px solid transparent; /* 吹き出し口の高さ１／２ */
-  left: -12px; /* 吹き出し口の位置調整 */
-  top: 5%; /* 吹き出し口の縦位置 */
-  content: ""; /* コンテンツの挿入 */
-  position: absolute; /* 親要素を基準 */
+  opacity: 0.9;
+  box-sizing: border-box;
 }
 </style>
