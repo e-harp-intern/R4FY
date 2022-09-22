@@ -14,25 +14,26 @@
       <form @submit.prevent="create" class="form-main">
         <div id="radio">
           <input
+            id="admin_radio"
             type="radio"
             name="class"
             value="admin"
             v-model="isAdminChecking"
-          />{{ $t("account.admin") }}
+          /><label for="admin_radio">{{ $t("account.admin") }}</label>
           <input
             type="radio"
             name="class"
             value="guide"
             id="guide_radio"
             v-model="isAdminChecking"
-          />{{ $t("account.guide") }}
+          /><label for="guide_radio">{{ $t("account.guide") }}</label>
         </div>
         <div class="form-tabel">
-          <label>{{ $t("label.name") }}</label
+          <label for="name">{{ $t("label.name") }}</label
           ><input type="text" placeholder="name" id="name" />
-          <label>{{ $t("label.email") }}</label
+          <label for="email">{{ $t("label.email") }}</label
           ><input type="text" placeholder="email" id="email" />
-          <label v-if="isAdminChecking === 'guide'">{{
+          <label for="memo" v-if="isAdminChecking === 'guide'">{{
             $t("label.memo")
           }}</label
           ><textarea
