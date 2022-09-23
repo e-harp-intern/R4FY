@@ -1,6 +1,6 @@
 <template>
   <div id="change-account-page">
-    <h1>{{ $t("pages.edit_myaccount.title") }}</h1>
+    <h1>{{ $t("pages.myaccount.edit.title") }}</h1>
     <div class="form-frame">
       <div class="form-main">
         <div class="form-tabel">
@@ -64,7 +64,7 @@ export default {
       // API完了
       if (response.status === "success") {
         // 成功
-        alert(this.$t("pages.edit_myaccount.message_true"));
+        alert(this.$t("pages.myaccount.edit.message_true"));
         this.$router.push("/myaccount");
       } else {
         // 失敗

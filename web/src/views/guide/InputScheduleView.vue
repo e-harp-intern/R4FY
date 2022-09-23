@@ -61,7 +61,7 @@
 
     <!-- 送信完了 -->
     <div v-if="isInput">
-      <h2>{{ $t("pages.inputschedule.send") }}</h2>
+      <h2>{{ $t("pages.guides.schedules.done_send") }}</h2>
       <p>
         {{ $t("label.send_info") }}
         <span v-if="is_possible">{{

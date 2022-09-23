@@ -2,7 +2,7 @@
   <div id="tours-list-page">
     <p id="admin_show_name">
       {{
-        $t("pages.tours.admin_name_show.welcome_message", {
+        $t("pages.tours.welcome_message", {
           admin_name: adminNameShow.name,
         })
       }}
@@ -34,7 +34,7 @@
             <label>{{ $t("label.tour_name") }}</label
             ><input
               type="text"
-              :placeholder="$t('label.detail.tour_name')"
+              :placeholder="$t('placeholder.detail.tour_name')"
               id="tour_name"
             />
           </span>

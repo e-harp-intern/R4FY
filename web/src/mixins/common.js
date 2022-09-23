@@ -40,7 +40,7 @@ const methods = {
 
     /* 日付フォーマット */
     datetimeFormat: (datetime) => {
-        return Vue.i18n.t("other.datetime", methods.datetimeData(datetime));
+        return Vue.i18n.t("common.datetime", methods.datetimeData(datetime));
     },
 
     /* 日時成形処理用パーツ */

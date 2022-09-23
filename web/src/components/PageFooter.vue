@@ -1,7 +1,7 @@
 <template>
   <div id="fotter">
     <hr />
-    <span class="license">{{ $t("other.fotter") }}</span>
+    <span class="license">{{ $t("common.fotter") }}</span>
   </div>
 </template>
 

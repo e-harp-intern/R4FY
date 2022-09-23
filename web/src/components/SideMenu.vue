@@ -24,19 +24,19 @@ export default {
       menuList: [
         {
           path: "/tours",
-          title: this.$i18n.t("pages.tours.title"),
+          title: this.$i18n.t("menu.tours"),
         },
         {
           path: "/accounts",
-          title: this.$i18n.t("pages.accounts.title"),
+          title: this.$i18n.t("menu.accounts"),
         },
         {
           path: "/myaccount",
-          title: this.$i18n.t("pages.myaccount.title"),
+          title: this.$i18n.t("menu.myaccount"),
         },
         {
           path: "/logout",
-          title: this.$i18n.t("pages.logout.title"),
+          title: this.$i18n.t("menu.logout"),
           styleMenu: { marginTop: "3em" },
           styleText: {},
         },
