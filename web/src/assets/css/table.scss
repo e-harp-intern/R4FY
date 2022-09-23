@@ -33,11 +33,9 @@ table.table-normal {
   tbody tr.table-hover:hover,
   tbody tr.table-hover:focus,
   tbody tr.table-hover:active {
-    -webkit-transform: scale(1.01);
-    transform: scale(1.01);
     opacity: 0.8;
     cursor: pointer;
-    z-index: 1;
+    z-index: 1;filter: brightness(0.75);
   }
 
   // グレーアウト

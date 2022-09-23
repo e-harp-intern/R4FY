@@ -38,6 +38,8 @@ export default {
                 menu_complete: "ツアーを実施済み状態にする",
                 alert_complete: "ツアーを実施済み状態に変更しますか？",
                 detail_title: "詳細情報",
+                alert_no_guide_select: "ガイドが選択されていません。",
+                alert_guide_schedule_change: "ガイドのスケジュールを強制的に変更しますがよろしいですか？",
             },
             create: {
                 title: "ツアー追加",
@@ -173,6 +175,8 @@ export default {
         myaccount_edit: "マイアカウント情報変更",
         change: "変更",
         edit: "変更",
+        set_guide_participation: "参加可能に設定",
+        set_guide_non_participation: "参加不可に設定",
     },
     placeholder: {
         email: "email",
@@ -268,6 +272,7 @@ export default {
         date: "%{year}-%{month}-%{date}"
     },
     alert: {
-        operation_aborted: "操作を中止しました。"
+        operation_aborted: "操作を中止しました。",
+        on_error: "エラーが発生しました。",
     }
 };
