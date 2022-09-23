@@ -154,10 +154,9 @@
           class="table-hover"
           @click="LinkGuide(guide.guide_id)"
         >
-          <td class="center" v-if="guide.assign">
-            {{ $t("table.guide.assign_mark") }}
+          <td class="center">
+            <span v-if="guide.assign">{{ $t("table.guide.assign_mark") }}</span>
           </td>
-          <td v-else></td>
           <td>{{ guide.name }}</td>
           <td>{{ guide.email }}</td>
         </tr>
@@ -170,9 +169,32 @@
     <!-- 参加ガイドの一覧 -->
     <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
     <div>
+      <!-- 操作ボタン -->
+      <div id="button-frame">
+        <button
+          @click="guideScheduleSet(guideschedules, true)"
+          class="button-large"
+          :class="{ 'button-green': isGuideSelect(guideschedules) }"
+        >
+          {{ $t("button.set_guide_participation") }}
+        </button>
+        <button
+          @click="guideScheduleSet(guideschedules, false)"
+          class="button-large"
+          :class="{ 'button-red': isGuideSelect(guideschedules) }"
+        >
+          {{ $t("button.set_guide_non_participation") }}
+        </button>
+      </div>
+
+      <!-- 参加ガイドの一覧テーブル -->
       <table class="table-normal">
         <thead>
           <tr>
+            <th
+              @click="sortBy('checked')"
+              :class="addSortClass('checked')"
+            ></th>
             <th @click="sortBy('assign')" :class="addSortClass('assign')">
               {{ $t("table.guide.assign") }}
             </th>
@@ -192,15 +214,22 @@
             v-for="schedule in guideschedules"
             :key="schedule.id"
             class="table-hover"
-            @click="LinkGuide(schedule.guide_id)"
           >
-            <td class="center" v-if="schedule.assign">
-              {{ $t("table.guide.assign_mark") }}
+            <td class="center" @click="schedule.checked = !schedule.checked">
+              <input
+                type="checkbox"
+                class="checkbox-large"
+                v-model="schedule.checked"
+              />
             </td>
-            <td v-else></td>
-            <td>{{ schedule.name }}</td>
-            <td>{{ schedule.email }}</td>
-            <td class="center">
+            <td @click="LinkGuide(schedule.guide_id)" class="center">
+              <span v-if="schedule.assign">{{
+                $t("table.guide.assign_mark")
+              }}</span>
+            </td>
+            <td @click="LinkGuide(schedule.guide_id)">{{ schedule.name }}</td>
+            <td @click="LinkGuide(schedule.guide_id)">{{ schedule.email }}</td>
+            <td @click="LinkGuide(schedule.guide_id)" class="center">
               {{ codeToGuideStateString(schedule.state) }}
             </td>
           </tr>
@@ -222,6 +251,8 @@ export default {
       tour: {},
       guideschedules: [],
       tourguides: [],
+      fn_guide_array: () => {},
+      fn_assign_array: () => {},
     };
   },
   created() {},
@@ -268,6 +299,64 @@ export default {
         constant.TOUR_STATE.TOUR_STATE_CODE_INCOMPLETE,
         constant.TOUR_STATE.TOUR_STATE_CODE_ASSIGNED,
       ].includes(this.tour.tour_state_code);
+    },
+
+    // テーブル内にチェックボックス選択済みのガイドがいるか
+    isGuideSelect(list) {
+      return list.reduce((p, c) => (p === true ? true : c.checked), false);
+    },
+
+    // チェック済みのガイドのスケジュールを強制的に変更する
+    async guideScheduleSet(list, flg) {
+      // 選択済みのガイドがいない場合
+      if (!this.isGuideSelect(list)) {
+        alert(this.$t("pages.tours.tour.alert_no_guide_select"));
+        return;
+      }
+
+      // 警告ダイアログ
+      if (
+        !window.confirm(this.$t("pages.tours.tour.alert_guide_schedule_change"))
+      ) {
+        alert(this.$t("alert.operation_aborted"));
+        return;
+      }
+
+      // リクエスト本体
+      try {
+        // ロード中にする
+        this.$emit("SendLoadComplete", false);
+
+        // リクエストを組み立て
+        const request = [];
+        for (const guide of list) {
+          if (!guide.checked) continue;
+          const url = `/api/v1/tours/${this.tour.id}/guides/${guide.guide_id}/schedules`;
+          request.push(api.patch(url, { possible: flg }, this.$router.push));
+        }
+
+        // リクエストを送信
+        await Promise.all(request);
+
+        // ツアー情報を再取得
+        const response = await api.get(
+          `/api/v1/tours/${this.tour.id}`,
+          null,
+          this.$router.push
+        );
+
+        // ツアー情報を再セット
+        this.guideschedules = this.fn_guide_array(
+          response.data.guide_schedules
+        );
+        this.tourguides = this.fn_assign_array(response.data.tour_guides);
+      } catch {
+        // エラー発生時
+        alert(this.$t("alert.on_error"));
+        this.$router.go({ path: this.$router.currentRoute.path, force: true });
+      } finally {
+        this.$emit("SendLoadComplete", true);
+      }
     },
 
     // ガイドへのリンク
@@ -336,28 +425,42 @@ export default {
     }
 
     // 各種情報のパース
-    const { tour, guide_schedules, tour_guides } = response.data;
+    const { tour } = response.data;
+    let { guide_schedules, tour_guides } = response.data;
 
-    // 情報を扱いやすい形に変更
-    for (const g of guide_schedules) {
-      g.name = g.guide.name;
-      g.email = g.guide.email;
-      g.state = guideStateMethod(g.answered, g.possible);
-      g.assign = tour_guides.some((u) => u.guide.id === g.guide.id);
-    }
+    // 情報を扱いやすい形に変更する関数
+    const fn_guide_array = (list) => {
+      for (const g of list) {
+        g.name = g.guide.name;
+        g.email = g.guide.email;
+        g.state = guideStateMethod(g.answered, g.possible);
+        g.assign = tour_guides.some((u) => u.guide.id === g.guide.id);
+        g.checked = false;
+      }
+      return list;
+    };
 
-    // 情報を扱いやすい形に変更（担当者）
-    for (const g of tour_guides) {
-      g.name = g.guide.name;
-      g.email = g.guide.email;
-      g.assign = tour_guides.some((u) => u.guide.id === g.guide.id);
-    }
+    // 情報を扱いやすい形に変更（担当者）する関数
+    const fn_assign_array = (list) => {
+      for (const g of list) {
+        g.name = g.guide.name;
+        g.email = g.guide.email;
+        g.assign = tour_guides.some((u) => u.guide.id === g.guide.id);
+      }
+      return list;
+    };
+
+    // 情報を変換
+    guide_schedules = fn_guide_array(guide_schedules);
+    tour_guides = fn_assign_array(tour_guides);
 
     // 画面へ情報を渡す
     next((vm) => {
       vm.tour = tour;
       vm.guideschedules = guide_schedules;
       vm.tourguides = tour_guides;
+      vm.fn_guide_array = fn_guide_array;
+      vm.fn_assign_array = fn_assign_array;
     });
   },
 };
@@ -365,6 +468,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/table.scss";
+
+#button-frame {
+  display: flex;
+  padding: 1em;
+  box-sizing: border-box;
+  justify-content: center;
+}
 
 #tour-name {
   font-size: 3em;
@@ -459,5 +569,9 @@ h3 {
   border: solid 3px var(--color-theme);
   padding: 1em;
   box-sizing: border-box;
+}
+
+.checkbox-large {
+  transform: scale(1.5);
 }
 </style>
