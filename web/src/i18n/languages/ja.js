@@ -234,7 +234,7 @@ lang.pages.accounts.guides = {
     title_achievement: "実績情報",
     title_last_tour: "最後に参加したツアー",
     no_last_tour: "ツアー未参加です。",
-    title_participation_tours: "過去に担当したツアー一覧",
+    title_participation_tours: "過去に担当したツアー一覧（最大100件）",
     no_tours: "取得できるツアー情報が存在しませんでした。",
     link_guide_edit: "ガイド情報を編集する",
     title_assign_tours: "担当割り当て済みのツアー一覧",

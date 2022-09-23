@@ -4,7 +4,7 @@ module Achievement
   extend ActiveSupport::Concern
 
   # 指定したIDのガイドの実績を取得する
-  def achievement(guide_id, tour_num = 5)
+  def achievement(guide_id, tour_num = 100)
     # 初期値
     achievement = {}
     today = Date.today
@@ -21,12 +21,12 @@ module Achievement
                                .order(start_datetime: "DESC") # 開始日順に並び替え（可能なら最大値を使用）
                                .first # 先頭の開始日のみ取得
 
-    # 最新 tour_num 回 の担当したツアーのリストを取得
+    # 最新 tour_num 回 の担当したツアーのリストを取得 （過去日 or 実施済み設定）
     achievement["participation_tours"] = TourGuide
                                          .where(guide_id: guide_id)
                                          .joins(:tour)
                                          .select("tours.*")
-                                         .where.not("tour_state_code = ?", TOUR_STATE_CODE_CANCEL)
+                                         #.where.not("tour_state_code = ?", TOUR_STATE_CODE_CANCEL)
                                          .where("start_datetime < ? or tour_state_code = ?", today, TOUR_STATE_CODE_COMPLETE)
                                          .order(start_datetime: "DESC")
                                          .limit(tour_num)
