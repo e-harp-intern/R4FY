@@ -1,7 +1,9 @@
 <template>
   <div>
     <!-- タイトル -->
-    <h1>{{ $t("app_name") }}</h1>
+    <div>
+      <h1>{{ $t("app_name") }}</h1>
+    </div>
 
     <!-- メッセージ -->
     <p v-if="error === 500">
@@ -150,28 +152,34 @@ export default {
   },
   // ページ読み込み時に必要な情報を取得する
   async beforeRouteEnter(to, from, next) {
-    // ツアー一覧データの取得
-    const { token } = to.params;
-    const url = `/api/v1/schedules/${token}`;
-    const response = await api.get(url, null, next);
-    const { guide, tour } = response.data;
-    const { answered, possible } = response.data.guide_schedule;
+    // 前回入力値の取得
+    try {
+      // データの取得
+      const { token } = to.params;
+      const url = `/api/v1/schedules/${token}`;
+      const response = await api.get(url, null, next);
+      const { guide, tour } = response.data;
+      const { answered, possible } = response.data.guide_schedule;
 
-    // エラー発生時
-    const error = response.status !== constant.STATE.SUCCESS ? 404 : null;
+      // エラー発生時
+      const error = response.status !== constant.STATE.SUCCESS ? 404 : null;
 
-    // ページへ情報を受け渡し
-    next((vm) => {
-      vm.error = error;
-      vm.guide = guide;
-      vm.tour = tour;
-      vm.is_answered = answered;
-      vm.is_possible =
-        answered === undefined || answered === false ? null : possible;
-      vm.possibleRadio = !answered
-        ? ""
-        : { true: "participate", false: "absent" }[possible];
-    });
+      // ページへ情報を受け渡し
+      next((vm) => {
+        vm.error = error;
+        vm.guide = guide;
+        vm.tour = tour;
+        vm.is_answered = answered;
+        vm.is_possible =
+          answered === undefined || answered === false ? null : possible;
+        vm.possibleRadio = !answered
+          ? ""
+          : { true: "participate", false: "absent" }[possible];
+      });
+    } catch {
+      // その他のエラー発生時
+      next((vm) => (vm.error = 404));
+    }
   },
 };
 </script>
