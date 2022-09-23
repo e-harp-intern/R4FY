@@ -40,6 +40,7 @@ export default {
                 detail_title: "詳細情報",
                 alert_no_guide_select: "ガイドが選択されていません。",
                 alert_guide_schedule_change: "ガイドのスケジュールを強制的に変更しますがよろしいですか？",
+                alert_guide_schedule_email_send: "ガイドへ予定入力依頼メールを再送しますか？",
             },
             create: {
                 title: "ツアー追加",
@@ -177,6 +178,7 @@ export default {
         edit: "変更",
         set_guide_participation: "参加可能に設定",
         set_guide_non_participation: "参加不可に設定",
+        re_send_schedule_input_email: "予定入力依頼メールを再送",
     },
     placeholder: {
         email: "email",
