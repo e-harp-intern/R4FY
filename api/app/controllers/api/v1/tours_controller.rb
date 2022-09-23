@@ -91,11 +91,6 @@ class Api::V1::ToursController < ApplicationController
     render json: json_render_v1(true, response)
   end
 
-  # トークンの生成
-  def generate_token
-    SecureRandom.urlsafe_base64
-  end
-
   # ガイドの参加可否情報を変更
   def update
     tour_id = params[:tour_id]
