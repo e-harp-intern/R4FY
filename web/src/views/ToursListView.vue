@@ -12,7 +12,7 @@
 
     <!-- テーブル上部のボタン -->
     <div class="button-frame">
-      <button @click="goTourDetail('create')" class="button-green">
+      <button @click="$router.push('/tours/create')" class="button-green">
         {{ $t("button.tour_create") }}
       </button>
       <button

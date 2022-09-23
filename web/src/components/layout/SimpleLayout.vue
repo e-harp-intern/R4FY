@@ -1,5 +1,5 @@
 <template>
-  <div id="login-layout">
+  <div id="simple-layout">
     <div>
       <PageHeader></PageHeader>
       <router-view @SendLoadComplete="LoadComplete"></router-view>
@@ -9,7 +9,7 @@
 </template>
 
 <style scoped>
-#login-layout {
+#simple-layout {
   text-align: center;
 
   display: grid;

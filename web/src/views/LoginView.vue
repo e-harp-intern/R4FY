@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <!-- アプリタイトル -->
-    <h1 class="app-name">{{ $t("app_name") }}</h1>
+    <h1>{{ $t("app_name") }}</h1>
 
     <!-- 通常時の表示 -->
     <div v-if="!password_reset">
@@ -93,13 +93,6 @@
 #login {
   position: relative;
 
-  .app-name {
-    margin-top: 1.5em;
-    border-bottom: 0.1em solid var(--color-theme);
-    display: inline-block;
-    padding: 0 2em;
-    box-sizing: border-box;
-  }
   .form-frame {
     margin: 0 auto;
     width: 640px;
