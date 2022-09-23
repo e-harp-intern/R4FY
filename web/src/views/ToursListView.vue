@@ -72,55 +72,7 @@
     </div>
 
     <!-- 一覧テーブル -->
-    <table class="table-normal">
-      <thead>
-        <tr>
-          <th @click="sortBy('id')" :class="addSortClass('id')">
-            {{ $t("table.tour.id") }}
-          </th>
-          <th @click="sortBy('name')" :class="addSortClass('name')">
-            {{ $t("table.tour.name") }}
-          </th>
-          <th
-            @click="sortBy('start_datetime')"
-            :class="addSortClass('start_datetime')"
-          >
-            {{ $t("table.tour.start_datetime") }}
-          </th>
-          <th
-            @click="sortBy('end_datetime')"
-            :class="addSortClass('end_datetime')"
-          >
-            {{ $t("table.tour.end_datetime") }}
-          </th>
-          <th
-            @click="sortBy('tour_state_code')"
-            :class="addSortClass('tour_state_code')"
-          >
-            {{ $t("table.tour.state") }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="tour in tours"
-          :key="tour.id"
-          @click="goTourDetail(tour.id)"
-          class="table-hover"
-        >
-          <td class="center">{{ tour.id }}</td>
-          <td>{{ tour.name }}</td>
-          <td class="center">{{ datetimeFormat(tour.start_datetime) }}</td>
-          <td class="center">{{ datetimeFormat(tour.end_datetime) }}</td>
-          <td :class="addStateClass(tour.tour_state_code)">
-            {{ codeToTourStateString(tour.tour_state_code) }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div v-if="tours.length === 0">
-      <p class="nodata-error">{{ $t("pages.tours.no_data_error") }}</p>
-    </div>
+    <ToursTable :tours="tours"></ToursTable>
   </div>
 </template>
 
@@ -128,8 +80,12 @@
 import api from "@/mixins/api";
 import common from "@/mixins/common";
 import table from "@/mixins/table";
+import ToursTable from "@/components/ToursTable.vue";
 
 export default {
+  components: {
+    ToursTable,
+  },
   data() {
     return {
       tours: [],
