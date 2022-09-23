@@ -19,21 +19,24 @@
 
     <!-- 情報 -->
     <div class="center tour-info">
-      {{ currentGuideNum }} {{ $t("pages.guides.selectguide.person2") }}
-      {{ tour.guide_num }} {{ $t("pages.guides.selectguide.person") }}
+      {{
+        $t("pages.guides.selectguide.person", {
+          currentGuideNum: currentGuideNum,
+          requiredNum: tour.guide_num,
+        })
+      }}
     </div>
 
     <!-- 参加ガイドの一覧 -->
     <h2>{{ $t("pages.tours.detail.guide_list_title") }}</h2>
-    <div class="button-frame">
-      <label for="check_send_email">{{ $t("label.send_email") }}</label>
+    <div class="right">
       <input
         type="checkbox"
-        style="transform: scale(2)"
         id="check_send_email"
         name="check_send_email"
         :checked="send_email"
       />
+      <label for="check_send_email">{{ $t("label.send_email") }}</label>
     </div>
     <div>
       <table class="table-normal">
@@ -304,11 +307,6 @@ h2 {
 
 .guideNumError {
   background-color: var(--color-dark-gray);
-}
-.button-frame {
-  display: flex;
-  flex-direction: row-reverse;
-  padding: 0.5cm;
 }
 .memo {
   position: relative;

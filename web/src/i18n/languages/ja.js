@@ -275,8 +275,7 @@ lang.pages.guides = {
     },
     selectguide: {
         title: "ツアー担当ガイド決定画面",
-        person: "人",
-        person2: "人/",
+        person: "%{currentGuideNum}人 / %{requiredNum}人",
         no_memo: "メモが存在ません。"
     },
     delete_guide: {

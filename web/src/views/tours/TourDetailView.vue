@@ -101,28 +101,18 @@
 
     <!-- ツアー操作 -->
     <h2>{{ $t("pages.tours.detail.tour_setting_title") }}</h2>
-    <ul>
-      <li v-if="isShow_Delete()">
-        <a @click="alert_disp()" href="javascript:void(0)">
-          {{ $t("pages.tours.detail.settings_delete") }}
-        </a>
-      </li>
-      <li v-if="isShow_AssignGuide()">
-        <a @click="goTourSelectGuide()" href="javascript:void(0)">
-          {{ $t("pages.tours.detail.settings_select_guides") }}
-        </a>
-      </li>
-      <li v-if="isShow_EditTour()">
-        <a @click="goTourChange()" href="javascript:void(0)">
-          {{ $t("pages.tours.detail.settings_edit") }}
-        </a>
-      </li>
-      <li v-if="isShow_CompleteTour()">
-        <a @click="tourComplete()" href="javascript:void(0)">
-          {{ $t("pages.tours.detail.settings_complete") }}
-        </a>
-      </li>
-    </ul>
+    <div id="settings-frame">
+      <span v-for="setting in settings" :key="setting.text">
+        <button
+          v-if="setting.fn_disp()"
+          @click="setting.fn_click()"
+          href="javascript:void(0)"
+          :class="setting.css"
+        >
+          {{ setting.text }}
+        </button>
+      </span>
+    </div>
     <div
       class="center"
       v-if="
@@ -264,9 +254,42 @@ export default {
       tourguides: [],
       fn_guide_array: () => {},
       fn_assign_array: () => {},
+      settings: [],
     };
   },
-  created() {},
+  created() {
+    // 設定項目の追加（担当ガイド選択）
+    this.settings.push({
+      text: this.$t("pages.tours.detail.settings_select_guides"),
+      fn_disp: this.isShow_AssignGuide,
+      fn_click: this.goTourSelectGuide,
+      css: "button-green",
+    });
+
+    // 設定項目の追加（ツアー編集）
+    this.settings.push({
+      text: this.$t("pages.tours.detail.settings_edit"),
+      fn_disp: this.isShow_EditTour,
+      fn_click: this.goTourChange,
+      css: "button-green",
+    });
+
+    // 設定項目の追加（実施済みへ）
+    this.settings.push({
+      text: this.$t("pages.tours.detail.settings_complete"),
+      fn_disp: this.isShow_CompleteTour,
+      fn_click: this.tourComplete,
+      css: "button-blue",
+    });
+
+    // 設定項目の追加（中止）
+    this.settings.push({
+      text: this.$t("pages.tours.detail.settings_delete"),
+      fn_disp: this.isShow_Delete,
+      fn_click: this.alert_disp,
+      css: "button-red",
+    });
+  },
   methods: {
     // 共通処理を受け渡し
     codeToTourStateString: (state) => common.codeToTourStateString(state),
@@ -530,7 +553,7 @@ export default {
   display: flex;
   padding: 1em;
   box-sizing: border-box;
-  justify-content: center;
+  justify-content: start;
 }
 
 #tour-name {
@@ -630,5 +653,12 @@ h3 {
 
 .checkbox-large {
   transform: scale(1.5);
+}
+
+#settings-frame {
+  display: flex;
+  padding: 1em;
+  box-sizing: border-box;
+  justify-content: start;
 }
 </style>
