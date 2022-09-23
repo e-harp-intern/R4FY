@@ -26,17 +26,23 @@ export default {
 <style scoped>
 #loading {
   box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 .fullview {
   top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  position: absolute;
+  position: sticky;
   box-sizing: border-box;
 }
 .loading-spacer {
-  height: 30%;
+  height: 100px;
   box-sizing: border-box;
 }
 </style>
