@@ -78,7 +78,6 @@
 
 <script>
 import api from "@/mixins/api";
-import common from "@/mixins/common";
 import table from "@/mixins/table";
 import ToursTable from "@/components/ToursTable.vue";
 
@@ -95,30 +94,6 @@ export default {
   },
   computed: {},
   methods: {
-    // 共通処理を受け渡し
-    codeToTourStateString: (state) => common.codeToTourStateString(state),
-    datetimeFormat: (d) => common.datetimeFormat(d),
-
-    // テーブル処理を共通メソッドに渡す
-    addSortClass: (key) => table.methods.addSortClass(key),
-    sortBy(key) {
-      table.methods.sortBy(key, this.tours);
-    },
-
-    // ツアーが選択された場合に詳細ページへ遷移する
-    goTourDetail(id) {
-      this.$router.push(`/tours/${id}`);
-    },
-
-    // ツアー状態によって色を付ける
-    addStateClass(state) {
-      return {
-        CellState_1: state === 1,
-        CellState_2: state === 2,
-        CellState_32: state === 32,
-        CellState_256: state === 256,
-      };
-    },
     async search() {
       const url = `/api/v1/tours`;
 
@@ -190,35 +165,6 @@ export default {
 
 #admin_show_name {
   font-size: 1.25em;
-}
-
-/* ------------ データが無い場合の表示 ------------ */
-
-.nodata-error {
-  text-align: center;
-  padding: 0.5em;
-}
-
-/* ------------ 状態によって色を付ける ------------ */
-
-.CellState_1 {
-  background-color: var(--color-tour-state-code-incomplete);
-  color: var(--color-white);
-}
-
-.CellState_2 {
-  background-color: var(--color-tour-state-code-assigned);
-  color: var(--color-white);
-}
-
-.CellState_32 {
-  background-color: var(--color-tour-state-code-complete);
-  color: var(--color-white);
-}
-
-.CellState_256 {
-  background-color: var(--color-tour-state-code-cancel);
-  color: var(--color-white);
 }
 
 /* ------------ 検索バー関連 ------------ */
