@@ -36,7 +36,8 @@ export default {
                 assign_guide_list_error: "担当者が決まっていません。",
                 nothing_to_operate: "項目がありません。",
                 menu_complete: "ツアーを実施済み状態にする",
-                alert_complete: "ツアーを実施済み状態に変更しますか？"
+                alert_complete: "ツアーを実施済み状態に変更しますか？",
+                detail_title: "詳細情報",
             },
             create: {
                 title: "ツアー追加",
@@ -257,7 +258,10 @@ export default {
         name: "%{name} 様",
         router_back: "前のページへ戻る",
         cancel: "取り消しました。",
-        check: "確認"
+        check: "確認",
+        not_set: "未設定",
+        yes: "はい",
+        no: "いいえ",
     },
     system: {
         datetime: "%{year}-%{month}-%{date} %{hours}:%{minutes}",

@@ -28,7 +28,7 @@
       </article>
     </div>
 
-    <!-- 参加者情報 -->
+    <!-- 参加者情報・メモ情報 -->
     <div id="grid">
       <div id="num">
         <table class="inline_table">
@@ -67,6 +67,32 @@
           {{ tour.memo }}
         </div>
       </div>
+    </div>
+
+    <!-- 詳細情報 -->
+    <h2>{{ $t("pages.tours.tour.detail_title") }}</h2>
+    <div>
+      <ul>
+        <li>
+          {{ $t("label.start_datetime") }}
+          {{ datetimeFormat(tour.start_datetime) }}
+        </li>
+        <li>
+          {{ $t("label.end_datetime") }} {{ datetimeFormat(tour.end_datetime) }}
+        </li>
+        <li>
+          {{ $t("label.schedule_input_deadline") }}
+          <span v-if="tour.schedule_input_deadline !== null">{{
+            datetimeFormat(tour.schedule_input_deadline)
+          }}</span>
+          <span v-else>{{ $t("common.not_set") }}</span>
+        </li>
+        <li>
+          {{ $t("label.send_remind") }} -
+          <span v-if="tour.send_remind">{{ $t("common.yes") }}</span>
+          <span v-else>{{ $t("common.no") }}</span>
+        </li>
+      </ul>
     </div>
 
     <!-- ツアー操作 -->
