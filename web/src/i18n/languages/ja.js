@@ -145,6 +145,14 @@ lang.table = {
     }
 };
 
+// コンポーネント固有パーツ
+lang.components = {};
+
+// ツアー一覧コンポーネント
+lang.components.tours_table = {
+    no_data_error: "表示するデータがありません。",
+}
+
 // ページ固有パーツ
 lang.pages = {};
 
@@ -153,7 +161,6 @@ lang.pages.tours = {
     title: "ツアー",
     welcome_message: "%{admin_name}さん、こんにちは！",
     title_search: "詳細検索",
-    no_data_error: "表示するデータがありません。検索条件を指定、もしくはツアーの新規追加をしてください。",
 };
 
 // ツアー詳細ページ
@@ -227,10 +234,10 @@ lang.pages.accounts.guides = {
     title_achievement: "実績情報",
     title_last_tour: "最後に参加したツアー",
     no_last_tour: "ツアー未参加です。",
-    title_participation_tours: "過去5回のツアー情報",
+    title_participation_tours: "過去に担当したツアー一覧",
     no_tours: "取得できるツアー情報が存在しませんでした。",
     link_guide_edit: "ガイド情報を編集する",
-    title_assign_tours: "担当割り当て済みのツアー",
+    title_assign_tours: "担当割り当て済みのツアー一覧",
     is_invalid: "削除済みのユーザーもしくは、データの取得に失敗しました。",
     link_accounts_list: "一覧画面へ戻る"
 };

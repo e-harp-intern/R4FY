@@ -50,7 +50,7 @@
 
     <!-- 表示するデータがない場合 -->
     <div v-if="tours.length === 0">
-      <p class="center">{{ $t("pages.tours.no_data_error") }}</p>
+      <p class="center">{{ $t("components.tours_table.no_data_error") }}</p>
     </div>
   </div>
 </template>
