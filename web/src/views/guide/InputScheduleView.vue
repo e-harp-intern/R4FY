@@ -28,6 +28,10 @@
         }}
       </h3>
       <p>{{ $t("pages.guides.schedules.info") }}</p>
+      <div v-if="tour.memo !== ''">
+        <h3>{{ $t("pages.guides.schedules.title_tour_memo") }}</h3>
+        <p>{{ tour.memo }}</p>
+      </div>
     </div>
 
     <!-- フォーム -->
@@ -194,6 +198,12 @@ export default {
   width: auto;
   padding: 1em;
   margin: 1em 0.5em;
+}
+
+.form-frame {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 48rem;
 }
 
 .form-button-frame {

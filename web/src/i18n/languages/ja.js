@@ -279,6 +279,7 @@ lang.pages.guides = {
         alert_no_input: "参加できるかできないかを選択してください。",
         notfound_error: "入力期限切れまたはツアーが中止になりました。\n\nトークンが無効です。",
         done_send: "送信完了",
+        title_tour_memo: "備考",
     },
     selectguide: {
         title: "ツアー担当ガイド決定画面",
