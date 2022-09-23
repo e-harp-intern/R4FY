@@ -167,7 +167,7 @@ lang.pages.tours.detail = {
     title: "ツアー詳細",
     tour_state_title: "ツアー実施状態",
     requirement_guide_num_title: "必要ガイド人数",
-    guide_list_title: "参加可否一覧",
+    guide_list_title: "ガイドスケジュール一覧",
     tour_setting_title: "ツアー操作",
     alert1: "ツアーの取り消しを実行しますか？",
     alert2: "ツアーの中止を行いました。",
@@ -184,9 +184,9 @@ lang.pages.tours.detail = {
     alert_guide_schedule_change: "ガイドのスケジュールを強制的に変更しますがよろしいですか？",
     alert_guide_schedule_email_send: "ガイドへ予定入力依頼メールを再送しますか？",
     settings_complete: "ツアーを実施済み状態にする",
-    settings_delete: "ツアー取り消し",
-    settings_select_guides: "担当ガイド選択画面へ",
-    settings_edit: "ツアー詳細編集"
+    settings_delete: "ツアーを中止する",
+    settings_select_guides: "担当ガイドを選択する",
+    settings_edit: "ツアーの詳細を編集する"
 };
 
 // ツアー編集
