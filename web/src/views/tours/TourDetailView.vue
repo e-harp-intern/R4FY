@@ -185,6 +185,13 @@
         >
           {{ $t("button.set_guide_non_participation") }}
         </button>
+        <button
+          @click="sendGuideScheduleEmail(guideschedules)"
+          class="button-large"
+          :class="{ 'button-green': isGuideSelect(guideschedules) }"
+        >
+          {{ $t("button.re_send_schedule_input_email") }}
+        </button>
       </div>
 
       <!-- 参加ガイドの一覧テーブル -->
@@ -339,17 +346,7 @@ export default {
         await Promise.all(request);
 
         // ツアー情報を再取得
-        const response = await api.get(
-          `/api/v1/tours/${this.tour.id}`,
-          null,
-          this.$router.push
-        );
-
-        // ツアー情報を再セット
-        this.guideschedules = this.fn_guide_array(
-          response.data.guide_schedules
-        );
-        this.tourguides = this.fn_assign_array(response.data.tour_guides);
+        await this.reacquisitionTourDetail();
       } catch {
         // エラー発生時
         alert(this.$t("alert.on_error"));
@@ -357,6 +354,58 @@ export default {
       } finally {
         this.$emit("SendLoadComplete", true);
       }
+    },
+
+    // ガイドへ予定入力依頼を再送する
+    async sendGuideScheduleEmail(list) {
+      // 警告ダイアログ
+      if (
+        !window.confirm(this.$t("pages.tours.tour.alert_guide_schedule_change"))
+      ) {
+        alert(this.$t("alert.operation_aborted"));
+        return;
+      }
+
+      try {
+        // ロード中にする
+        this.$emit("SendLoadComplete", false);
+
+        // リクエストを組み立て
+        const url = `/api/v1/tours/${this.tour.id}/schedules/mail`;
+        const guides = [];
+        for (const guide of list) {
+          if (!guide.checked) continue;
+          guides.push(guide.guide_id);
+        }
+
+        // リクエストを送信
+        const response = await api.post(url, { guides }, this.$router.push);
+        if (response.status !== constant.STATE.SUCCESS)
+          throw new Error("api error");
+
+        // ツアー情報を再取得
+        await this.reacquisitionTourDetail();
+      } catch {
+        // エラー発生時
+        alert(this.$t("alert.on_error"));
+        this.$router.go({ path: this.$router.currentRoute.path, force: true });
+      } finally {
+        this.$emit("SendLoadComplete", true);
+      }
+    },
+
+    // ツアー情報を再セット
+    async reacquisitionTourDetail() {
+      // リクエストを組み立て
+      const response = await api.get(
+        `/api/v1/tours/${this.tour.id}`,
+        null,
+        this.$router.push
+      );
+
+      // ツアー情報を再セット
+      this.guideschedules = this.fn_guide_array(response.data.guide_schedules);
+      this.tourguides = this.fn_assign_array(response.data.tour_guides);
     },
 
     // ガイドへのリンク
