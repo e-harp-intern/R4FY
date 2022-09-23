@@ -307,6 +307,7 @@ export default {
       return [
         constant.TOUR_STATE.TOUR_STATE_CODE_INCOMPLETE,
         constant.TOUR_STATE.TOUR_STATE_CODE_ASSIGNED,
+        constant.TOUR_STATE.TOUR_STATE_CODE_COMPLETE,
       ].includes(this.tour.tour_state_code);
     },
 
