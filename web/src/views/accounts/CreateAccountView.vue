@@ -1,14 +1,14 @@
 <template>
   <div id="create-account-page">
     <p class="create-info" v-if="$route.query.status == '200'">
-      {{ $t("pages.createaccount.message.true") }}
+      {{ $t("pages.accounts.create.message.true") }}
     </p>
     <p class="create-info" v-if="$route.query.status == '500'">
-      {{ $t("pages.createaccount.message.false") }}
+      {{ $t("pages.accounts.create.message.false") }}
     </p>
-    <h1>{{ $t("pages.createaccount.title") }}</h1>
+    <h1>{{ $t("pages.accounts.create.title") }}</h1>
     <p>
-      {{ $t("pages.createaccount.detail") }}
+      {{ $t("pages.accounts.create.detail") }}
     </p>
     <div class="form-frame">
       <form @submit.prevent="create" class="form-main">
@@ -101,7 +101,7 @@ export default {
         // API完了
         if (response.status === "success") {
           // 成功
-          alert(this.$t("pages.createaccount.message.true"));
+          alert(this.$t("pages.accounts.create.message.true"));
           this.$router.push("/accounts");
         } else {
           // 失敗

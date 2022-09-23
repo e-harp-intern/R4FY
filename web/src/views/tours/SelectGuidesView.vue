@@ -24,7 +24,7 @@
     </div>
 
     <!-- 参加ガイドの一覧 -->
-    <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
+    <h2>{{ $t("pages.tours.detail.guide_list_title") }}</h2>
     <div class="button-frame">
       <label for="check_send_email">{{ $t("label.send_email") }}</label>
       <input

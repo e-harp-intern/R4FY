@@ -8,7 +8,7 @@
           <label>{{ $t("label.tour_name") }}</label
           ><input
             type="text"
-            :placeholder="$t('label.detail.tour_name')"
+            :placeholder="$t('placeholder.detail.tour_name')"
             id="tour_name"
             required
             v-bind:value="tour.name"

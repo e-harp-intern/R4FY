@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $t("pages.password_edit.title") }}</h1>
+    <h1>{{ $t("pages.myaccount.edit_password.title") }}</h1>
 
     <!-- 入力フォーム -->
     <div class="form-frame">
@@ -47,7 +47,7 @@ export default {
 
       // パスワードが違う
       if (password !== re_password) {
-        alert(this.$t("pages.password_edit.alert_password"));
+        alert(this.$t("pages.myaccount.edit_password.alert_password"));
         return;
       }
 
@@ -62,9 +62,9 @@ export default {
 
       // 成功／エラー
       if (response.status === "error") {
-        alert(this.$t("pages.password_edit.alert_api"));
+        alert(this.$t("pages.myaccount.edit_password.alert_api"));
       } else {
-        alert(this.$t("pages.password_edit.alert_ok"));
+        alert(this.$t("pages.myaccount.edit_password.alert_ok"));
         this.$router.push("/myaccount");
       }
     },

@@ -1,14 +1,14 @@
 <template>
   <div id="tour-page">
     <!-- ページタイトル -->
-    <h1>{{ $t("pages.tours.tour.title") }}</h1>
+    <h1>{{ $t("pages.tours.detail.title") }}</h1>
     <div id="tour-name">{{ tour.name }}</div>
 
     <!-- 上部の情報パネル -->
     <div id="panel">
       <article class="tour_info" id="guide">
         <p class="outline">
-          {{ $t("pages.tours.tour.requirement_guide_num_title") }}
+          {{ $t("pages.tours.detail.requirement_guide_num_title") }}
         </p>
         <p class="value">
           {{ $t("common.people_num_unit", { num: tour.guide_num }) }}
@@ -23,7 +23,7 @@
         id="state"
         :class="changeToTourStateColor(tour.tour_state_code)"
       >
-        <p class="outline">{{ $t("pages.tours.tour.tour_state_title") }}</p>
+        <p class="outline">{{ $t("pages.tours.detail.tour_state_title") }}</p>
         <p class="value">{{ codeToTourStateString(tour.tour_state_code) }}</p>
       </article>
     </div>
@@ -34,23 +34,27 @@
         <table class="inline_table">
           <caption>
             {{
-              $t("table.tour_participant_num.caption")
+              $t("pages.tours.detail.tour_participant_num.caption")
             }}
           </caption>
           <tr>
-            <td>{{ $t("table.tour_participant_num.adult_num") }}</td>
+            <td>
+              {{ $t("pages.tours.detail.tour_participant_num.adult_num") }}
+            </td>
             <td>
               {{ $t("common.people_num_unit", { num: tour.adult_num }) }}
             </td>
           </tr>
           <tr>
-            <td>{{ $t("table.tour_participant_num.child_num") }}</td>
+            <td>
+              {{ $t("pages.tours.detail.tour_participant_num.child_num") }}
+            </td>
             <td>
               {{ $t("common.people_num_unit", { num: tour.child_num }) }}
             </td>
           </tr>
           <tr>
-            <td>{{ $t("table.tour_participant_num.sum_num") }}</td>
+            <td>{{ $t("pages.tours.detail.tour_participant_num.sum_num") }}</td>
             <td>
               {{
                 $t("common.people_num_unit", {
@@ -70,7 +74,7 @@
     </div>
 
     <!-- 詳細情報 -->
-    <h2>{{ $t("pages.tours.tour.detail_title") }}</h2>
+    <h2>{{ $t("pages.tours.detail.detail_title") }}</h2>
     <div>
       <ul>
         <li>
@@ -96,26 +100,26 @@
     </div>
 
     <!-- ツアー操作 -->
-    <h2>{{ $t("pages.tours.tour.tour_setting_title") }}</h2>
+    <h2>{{ $t("pages.tours.detail.tour_setting_title") }}</h2>
     <ul>
       <li v-if="isShow_Delete()">
         <a @click="alert_disp()" href="javascript:void(0)">
-          {{ $t("pages.tours.delete.title") }}
+          {{ $t("pages.tours.detail.settings_delete") }}
         </a>
       </li>
       <li v-if="isShow_AssignGuide()">
         <a @click="goTourSelectGuide()" href="javascript:void(0)">
-          {{ $t("pages.tours.select.title") }}
+          {{ $t("pages.tours.detail.settings_select_guides") }}
         </a>
       </li>
       <li v-if="isShow_EditTour()">
         <a @click="goTourChange()" href="javascript:void(0)">
-          {{ $t("pages.tours.edit.title1") }}
+          {{ $t("pages.tours.detail.settings_edit") }}
         </a>
       </li>
       <li v-if="isShow_CompleteTour()">
         <a @click="tourComplete()" href="javascript:void(0)">
-          {{ $t("pages.tours.tour.menu_complete") }}
+          {{ $t("pages.tours.detail.settings_complete") }}
         </a>
       </li>
     </ul>
@@ -128,11 +132,11 @@
         !isShow_CompleteTour()
       "
     >
-      {{ $t("pages.tours.tour.nothing_to_operate") }}
+      {{ $t("pages.tours.detail.nothing_to_operate") }}
     </div>
 
     <!-- 担当ガイド一覧 -->
-    <h2>{{ $t("pages.tours.tour.assign_guide_list_title") }}</h2>
+    <h2>{{ $t("pages.tours.detail.assign_guide_list_title") }}</h2>
     <table class="table-normal">
       <thead>
         <tr>
@@ -163,11 +167,11 @@
       </tbody>
     </table>
     <div class="center" v-if="tourguides.length === 0">
-      {{ $t("pages.tours.tour.assign_guide_list_error") }}
+      {{ $t("pages.tours.detail.assign_guide_list_error") }}
     </div>
 
     <!-- 参加ガイドの一覧 -->
-    <h2>{{ $t("pages.tours.tour.guide_list_title") }}</h2>
+    <h2>{{ $t("pages.tours.detail.guide_list_title") }}</h2>
     <div>
       <!-- 操作ボタン -->
       <div id="button-frame">
@@ -317,15 +321,17 @@ export default {
     async guideScheduleSet(list, flg) {
       // 選択済みのガイドがいない場合
       if (!this.isGuideSelect(list)) {
-        alert(this.$t("pages.tours.tour.alert_no_guide_select"));
+        alert(this.$t("pages.tours.detail.alert_no_guide_select"));
         return;
       }
 
       // 警告ダイアログ
       if (
-        !window.confirm(this.$t("pages.tours.tour.alert_guide_schedule_change"))
+        !window.confirm(
+          this.$t("pages.tours.detail.alert_guide_schedule_change")
+        )
       ) {
-        alert(this.$t("alert.operation_aborted"));
+        alert(this.$t("alert.common.operation_aborted"));
         return;
       }
 
@@ -349,7 +355,7 @@ export default {
         await this.reacquisitionTourDetail();
       } catch {
         // エラー発生時
-        alert(this.$t("alert.on_error"));
+        alert(this.$t("alert.common.on_error"));
         this.$router.go({ path: this.$router.currentRoute.path, force: true });
       } finally {
         this.$emit("SendLoadComplete", true);
@@ -360,9 +366,11 @@ export default {
     async sendGuideScheduleEmail(list) {
       // 警告ダイアログ
       if (
-        !window.confirm(this.$t("pages.tours.tour.alert_guide_schedule_change"))
+        !window.confirm(
+          this.$t("pages.tours.detail.alert_guide_schedule_change")
+        )
       ) {
-        alert(this.$t("alert.operation_aborted"));
+        alert(this.$t("alert.common.operation_aborted"));
         return;
       }
 
@@ -387,7 +395,7 @@ export default {
         await this.reacquisitionTourDetail();
       } catch {
         // エラー発生時
-        alert(this.$t("alert.on_error"));
+        alert(this.$t("alert.common.on_error"));
         this.$router.go({ path: this.$router.currentRoute.path, force: true });
       } finally {
         this.$emit("SendLoadComplete", true);
@@ -415,14 +423,14 @@ export default {
 
     // ツアー中止処理
     async alert_disp() {
-      if (window.confirm(this.$t("pages.tours.tour.alert1"))) {
+      if (window.confirm(this.$t("pages.tours.detail.alert1"))) {
         // 「OK」時の処理終了
         await api.delete(`/api/v1/tours/${this.tour.id}`);
-        window.alert(this.$t("pages.tours.tour.alert2"));
+        window.alert(this.$t("pages.tours.detail.alert2"));
         this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
       } else {
         // 「キャンセル」時の処理開始
-        window.alert(this.$t("pages.tours.tour.alert3")); // 警告ダイアログを表示
+        window.alert(this.$t("pages.tours.detail.alert3")); // 警告ダイアログを表示
       }
     },
 
@@ -438,8 +446,8 @@ export default {
 
     // ツアー完了処理
     async tourComplete() {
-      if (!window.confirm(this.$t("pages.tours.tour.alert_complete"))) {
-        window.alert(this.$t("alert.operation_aborted"));
+      if (!window.confirm(this.$t("pages.tours.detail.alert_complete"))) {
+        window.alert(this.$t("alert.common.operation_aborted"));
         return;
       }
       await api.post(`/api/v1/tours/${this.tour.id}/complete`);
