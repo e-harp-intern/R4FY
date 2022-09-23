@@ -91,6 +91,11 @@ button.button-green {
     color: var(--color-white);
 }
 
+button.button-blue {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+}
+
 button.button-theme {
     background-color: var(--color-theme);
     color: var(--color-white);
