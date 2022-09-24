@@ -324,7 +324,8 @@ export default {
       g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
       g.id = `select-assign-${g.guide_id}`;
       g.memo = g.guide.memo;
-      g.achievement = achievements.find((a) => (a.guide_id = g.id)).last_tour;
+      const temp = achievements.find((a) => a.guide_id === g.guide.id);
+      g.achievement = temp !== undefined ? temp.last_tour : null;
     }
 
     // 参加予定を並び替える
