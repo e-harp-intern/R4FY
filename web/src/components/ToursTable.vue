@@ -95,23 +95,23 @@ export default {
 
 /* ------------ 状態によって色を付ける ------------ */
 
-.CellState_1 {
-  background-color: var(--color-tour-state-code-incomplete);
+td.CellState_1 {
+  background-color: var(--color-tour-state-code-incomplete) !important;
   color: var(--color-white);
 }
 
-.CellState_2 {
-  background-color: var(--color-tour-state-code-assigned);
+td.CellState_2 {
+  background-color: var(--color-tour-state-code-assigned) !important;
   color: var(--color-white);
 }
 
-.CellState_32 {
-  background-color: var(--color-tour-state-code-complete);
+td.CellState_32 {
+  background-color: var(--color-tour-state-code-complete) !important;
   color: var(--color-white);
 }
 
-.CellState_256 {
-  background-color: var(--color-tour-state-code-cancel);
+td.CellState_256 {
+  background-color: var(--color-tour-state-code-cancel) !important;
   color: var(--color-white);
 }
 </style>
