@@ -48,7 +48,7 @@
             v-bind:value="defaultDate(tour.schedule_input_deadline)"
           />
           <!--メモ-->
-          <!-- <label>{{ $t("label.memo") }}</label
+          <label>{{ $t("label.memo") }}</label
           ><textarea
             cols="30"
             rows="5"
@@ -56,7 +56,7 @@
             id="memo"
             v-bind:value="tour.memo"
           >
-          </textarea> -->
+          </textarea>
         </div>
         <hr />
         <!-- リマインドチェック -->
@@ -148,7 +148,7 @@ export default {
             "schedule_input_deadline"
           ).value,
           send_remind: document.getElementById("send_remind").checked,
-          // memo: document.getElementById("memo").value,
+          memo: document.getElementById("memo").value,
         },
         this.$router.push
       );
