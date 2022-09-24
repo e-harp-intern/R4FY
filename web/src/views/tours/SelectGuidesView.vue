@@ -72,7 +72,7 @@
             >
               <input
                 type="checkbox"
-                style="transform: scale(2)"
+                class="checkbox-large"
                 :id="schedule.id"
                 name="select-assign"
                 @click="ChangeSelect(schedule.state, schedule.id)"
@@ -99,7 +99,47 @@
                 >{{ $t("common.check") }}</a
               >
             </td>
-            <div class="popup">{{ memoexitcheck(schedule.memo) }}</div>
+            <div id="popup-memo" class="popup">
+              <h4>{{ schedule.name }}</h4>
+              <div id="memo-inner">
+                <h5>
+                  {{ $t("pages.tours.select_guides.popup_last_tour_title") }}
+                  <span
+                    v-if="schedule.achievement !== null"
+                    class="memo-tour-state"
+                    :class="addStateClass(tour.tour_state_code)"
+                    >{{
+                      codeToTourStateString(
+                        schedule.achievement.tour_state_code
+                      )
+                    }}</span
+                  >
+                </h5>
+                <div class="memo-info">
+                  <small v-if="schedule.achievement !== null">
+                    <div>
+                      <a
+                        @click="
+                          $router.push(`/tours/${schedule.achievement.id}`)
+                        "
+                        href="javascript:void(0)"
+                        >{{ schedule.achievement.name }}</a
+                      >
+                    </div>
+                    <div>
+                      {{ datetimeFormat(schedule.achievement.start_datetime) }}
+                    </div>
+                  </small>
+                  <small v-else>{{
+                    $t("pages.tours.select_guides.no_data")
+                  }}</small>
+                </div>
+                <h5>{{ $t("pages.tours.select_guides.popup_memo_title") }}</h5>
+                <div class="memo-info">
+                  <small>{{ schedule.memo }}</small>
+                </div>
+              </div>
+            </div>
           </tr>
         </tbody>
       </table>
@@ -128,7 +168,9 @@ export default {
   },
   methods: {
     // 共通処理を受け渡し
+    codeToTourStateString: (state) => common.codeToTourStateString(state),
     codeToGuideStateString: (state) => common.codeToGuideStateString(state),
+    datetimeFormat: (d) => common.datetimeFormat(d),
 
     // テーブル処理を共通メソッドに渡す
     addSortClass: (key) => table.methods.addSortClass(key),
@@ -158,10 +200,6 @@ export default {
       return num;
     },
 
-    memoexitcheck(memo) {
-      return memo === "" ? this.$t("pages.guides.selectguide.no_memo") : memo;
-    },
-
     // チェックボックスを切り替える
     ChangeSelect(state, id) {
       if (state !== 1) {
@@ -180,6 +218,16 @@ export default {
       return {
         grayout: state !== 1,
         "table-hover": state === 1,
+      };
+    },
+
+    // ツアー状態によって色を付ける
+    addStateClass(state) {
+      return {
+        CellState_1: state === 1,
+        CellState_2: state === 2,
+        CellState_32: state === 32,
+        CellState_256: state === 256,
       };
     },
 
@@ -257,11 +305,16 @@ export default {
 
     // ツアー一覧データの取得
     const response = await api.get(`/api/v1/tours/${to.params.id}`, next);
+    const response_achievements = await api.get(
+      `/api/v1/tours/${to.params.id}/achievements`,
+      next
+    );
 
     // 各種情報のパース
     const { tour } = response.data;
     const guideschedules = response.data.guide_schedules;
     const tourguides = response.data.tour_guides;
+    const { achievements } = response_achievements.data;
 
     // ネスとした情報を扱いやすいようにコピー
     for (const g of guideschedules) {
@@ -271,6 +324,7 @@ export default {
       g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
       g.id = `select-assign-${g.guide_id}`;
       g.memo = g.guide.memo;
+      g.achievement = achievements.find((a) => (a.guide_id = g.id)).last_tour;
     }
 
     // 参加予定を並び替える
@@ -312,22 +366,68 @@ h2 {
   position: relative;
 }
 .memo:hover .popup {
-  display: inline-block;
+  display: block;
 }
 
 .popup {
   position: absolute;
   display: none;
   padding: 0.5em;
+  margin-bottom: 12px;
   background-color: var(--color-white);
   border-radius: var(--default-radius);
+  box-shadow: 5px 0 10px 5px rgba(0, 0, 0, 0.25);
   width: 16em;
   left: 20%;
-  margin-bottom: 12px;
   font-size: 100%;
   overflow: visible;
   z-index: 100;
-  opacity: 0.9;
   box-sizing: border-box;
+}
+
+#popup-memo h4 {
+  padding: 0 0 0 0.5em;
+  margin: 0 0 0.25em;
+  border-bottom: 1px solid var(--color-dark-gray);
+}
+
+#popup-memo h5,
+#popup-memo p {
+  padding: 0;
+  margin: 0;
+}
+
+#memo-inner {
+  padding: 0.25em;
+}
+
+.memo-info {
+  padding: 0 0.5em 0.5em;
+}
+
+/* ------------ 状態によって色を付ける ------------ */
+
+.memo-tour-state {
+  padding: 0 0.5em;
+}
+
+.CellState_1 {
+  background-color: var(--color-tour-state-code-incomplete);
+  color: var(--color-white);
+}
+
+.CellState_2 {
+  background-color: var(--color-tour-state-code-assigned);
+  color: var(--color-white);
+}
+
+.CellState_32 {
+  background-color: var(--color-tour-state-code-complete);
+  color: var(--color-white);
+}
+
+.CellState_256 {
+  background-color: var(--color-tour-state-code-cancel);
+  color: var(--color-white);
 }
 </style>
