@@ -81,6 +81,11 @@ const routes = [
     component: () => import("@/views/accounts/EditGuideInfoView.vue"),
   },
   {
+    path: "/accounts/admins/:id",
+    name: "AdminDetailView",
+    component: () => import("@/views/accounts/AdminDetailView.vue"),
+  },
+  {
     path: "/logout",
     name: "LogoutView",
     component: () => import("@/views/LogoutView.vue"),

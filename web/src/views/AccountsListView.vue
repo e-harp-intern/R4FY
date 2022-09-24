@@ -54,9 +54,7 @@
               (table_is_admin ? $t('account.admin') : $t('account.guide'))
           )"
           :key="account.number"
-          :class="{
-            'table-hover': account.authority === $t('account.guide'),
-          }"
+          class="table-hover"
           @click="tableLink(account.id, account.authority)"
         >
           <td class="center">{{ account.authority }}</td>
@@ -101,8 +99,8 @@ export default {
 
       // URL生成
       let url = "";
-      if (type === type_admin) return; // 一時的に無効化
-      if (type === type_guide) url = `/accounts/guides/${id}`;
+      if (type === type_admin) url = `/accounts/admins/${id}`;
+      else if (type === type_guide) url = `/accounts/guides/${id}`;
       else {
         alert(this.$t("pages.accounts.link_alert"));
         return;

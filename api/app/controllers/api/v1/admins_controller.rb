@@ -50,7 +50,16 @@ class Api::V1::AdminsController < ApplicationController
   # アカウントの論理削除
   def destroy
     begin
+      # 削除対象を取得
       admins_delete = Admin.find_by(id: params[:id])
+
+      # 自分自身のIDを指定した場合
+      if admins_delete.id == @current_user.id
+        render json: json_render_v1(false)
+        return
+      end
+
+      # アカウントの論理削除
       admins_delete.update(is_invalid: true)
 
       # アカウント削除の通知メール
