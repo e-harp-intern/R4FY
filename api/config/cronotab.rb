@@ -17,4 +17,4 @@ class RemindNotify
 end
 
 #スケジュール実行設定
-#Crono.perform(RemindNotify).every 1.days, at: '10:00'
+Crono.perform(RemindNotify).every 1.days, at: '01:00' # UTC(01:00) => JP(10:00)
