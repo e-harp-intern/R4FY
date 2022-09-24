@@ -66,7 +66,7 @@
         </table>
       </div>
       <div class="memo">
-        <p id="memo">{{ $t("common.memo") }}</p>
+        <p id="memo">{{ $t("common.tour_memo") }}</p>
         <div class="memo_box">
           {{ tour.memo }}
         </div>
@@ -355,7 +355,7 @@ export default {
           this.$t("pages.tours.detail.alert_guide_schedule_change")
         )
       ) {
-        alert(this.$t("alert.common.operation_aborted"));
+        alert(this.$t("common.alert.operation_aborted"));
         return;
       }
 
@@ -388,13 +388,19 @@ export default {
 
     // ガイドへ予定入力依頼を再送する
     async sendGuideScheduleEmail(list) {
+      // 選択済みのガイドがいない場合
+      if (!this.isGuideSelect(list)) {
+        alert(this.$t("pages.tours.detail.alert_no_guide_select"));
+        return;
+      }
+
       // 警告ダイアログ
       if (
         !window.confirm(
-          this.$t("pages.tours.detail.alert_guide_schedule_change")
+          this.$t("pages.tours.detail.alert_guide_schedule_email_send")
         )
       ) {
-        alert(this.$t("alert.common.operation_aborted"));
+        alert(this.$t("common.alert.operation_aborted"));
         return;
       }
 
@@ -471,7 +477,7 @@ export default {
     // ツアー完了処理
     async tourComplete() {
       if (!window.confirm(this.$t("pages.tours.detail.alert_complete"))) {
-        window.alert(this.$t("alert.common.operation_aborted"));
+        window.alert(this.$t("common.alert.operation_aborted"));
         return;
       }
       await api.post(`/api/v1/tours/${this.tour.id}/complete`);

@@ -34,7 +34,7 @@
             <label>{{ $t("label.tour_name") }}</label
             ><input
               type="text"
-              :placeholder="$t('placeholder.detail.tour_name')"
+              :placeholder="$t('placeholder.tour_name')"
               id="tour_name"
             />
           </span>

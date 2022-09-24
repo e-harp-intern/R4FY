@@ -8,7 +8,7 @@
           <label>{{ $t("label.tour_name") }}</label
           ><input
             type="text"
-            :placeholder="$t('placeholder.detail.tour_name')"
+            :placeholder="$t('placeholder.tour_name')"
             id="tour_name"
             required
             v-bind:value="tour.name"
@@ -48,7 +48,7 @@
             v-bind:value="defaultDate(tour.schedule_input_deadline)"
           />
           <!--メモ-->
-          <label>{{ $t("label.memo") }}</label
+          <label>{{ $t("label.tour_memo") }}</label
           ><textarea
             cols="30"
             rows="5"
