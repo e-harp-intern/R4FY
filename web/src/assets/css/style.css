@@ -135,6 +135,10 @@ input {
     padding: .5em;
 }
 
+input[type="checkbox"].checkbox-large {
+    transform: scale(1.5);
+}
+
 /* テキストエリア */
 textarea {
     font-size: 1em;

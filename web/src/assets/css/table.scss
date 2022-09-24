@@ -13,10 +13,10 @@ table.table-normal {
   }
 
   // 偶奇で色を変える
-  tbody tr:nth-child(odd) {
+  tbody tr:nth-child(odd) td {
     background-color: var(--color-gray);
   }
-  tbody tr:nth-child(even) {
+  tbody tr:nth-child(even) td {
     background-color: var(--color-light-gray);
   }
 
@@ -30,16 +30,16 @@ table.table-normal {
   }
 
   // 行をホバーした時
-  tbody tr.table-hover:hover,
-  tbody tr.table-hover:focus,
-  tbody tr.table-hover:active {
+  tbody tr.table-hover:hover td,
+  tbody tr.table-hover:focus td,
+  tbody tr.table-hover:active td {
     opacity: 0.8;
     cursor: pointer;
     z-index: 1;filter: brightness(0.75);
   }
 
   // グレーアウト
-  tbody tr.grayout {
+  tbody tr.grayout td {
     background-color: var(--color-dark-gray);
   }
 }
