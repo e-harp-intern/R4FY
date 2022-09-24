@@ -67,6 +67,7 @@ class Api::V1::TourController < ApplicationController
     # パラメータ
     tour = Tour.find_by(id: params[:id])
     name = params[:name]
+    memo = params[:memo]
     guide_num = params[:guide_num]
     adult_num = params[:adult_num]
     child_num = params[:child_num]
@@ -76,6 +77,7 @@ class Api::V1::TourController < ApplicationController
     # ツアー情報を更新
     ApplicationRecord.transaction do
       tour.update!(name: name) unless name.nil?
+      tour.update!(memo: memo) unless memo.nil?
       tour.update!(guide_num: guide_num) unless guide_num.nil?
       tour.update!(adult_num: adult_num) unless adult_num.nil?
       tour.update!(child_num: child_num) unless child_num.nil?
