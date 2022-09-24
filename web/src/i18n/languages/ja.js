@@ -79,7 +79,8 @@ lang.button = {
     searchbar: "詳細検索",
     search: "検索",
     assign: "担当者を確定する",
-    delete_guide: "ガイド削除",
+    delete_guide: "ガイドを削除",
+    delete_admin: "管理者を削除",
     edit_guide: "ガイド情報変更",
     myaccount_edit: "マイアカウント情報変更",
     change: "変更",
@@ -240,6 +241,16 @@ lang.pages.accounts.guides = {
     title_assign_tours: "担当割り当て済みのツアー一覧",
     is_invalid: "削除済みのユーザーもしくは、データの取得に失敗しました。",
     link_accounts_list: "一覧画面へ戻る"
+};
+
+// 管理者詳細
+lang.pages.accounts.admins = {
+    title: "管理者詳細情報",
+    is_invalid: "削除済みのユーザーもしくは、データの取得に失敗しました。",
+    link_accounts_list: "一覧画面へ戻る",
+    alert_delete_error: "エラーが発生しました。",
+    alert_delete_success: "削除に成功しました。",
+    alert_delete_warning: "管理者アカウントを削除します。よろしいですか？",
 };
 
 // マイアカウント
