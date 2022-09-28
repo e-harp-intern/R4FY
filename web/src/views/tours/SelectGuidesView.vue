@@ -185,7 +185,7 @@ export default {
 
     // ガイドへのリンク
     LinkGuide(id) {
-      window.open(`/accounts/guides/${id}`, "_blank");
+      this.$router.push(`/accounts/guides/${id}`);
     },
 
     // チェック済みガイド数をカウントする
