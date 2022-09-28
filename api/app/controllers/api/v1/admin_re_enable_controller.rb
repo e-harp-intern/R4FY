@@ -6,16 +6,16 @@ class Api::V1::AdminReEnableController < ApplicationController
   def create
     begin
       # 復活対象を取得
-      admins_re_enable = Admin.find_by(id: params[:id])
+      admins = Admin.find_by(id: params[:id])
 
       # 自分自身のIDを指定した場合
-      if admins_re_enable.id == @current_user.id
+      if admins.id == @current_user.id
         render json: json_render_v1(false)
         return
       end
 
       # アカウントの論理復活
-      admins_re_enable.update(is_invalid: false)
+      admins.update(is_invalid: false)
 
     # 失敗時
     rescue StandardError
