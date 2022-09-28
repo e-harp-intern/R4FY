@@ -86,6 +86,11 @@ const routes = [
     component: () => import("@/views/accounts/AdminDetailView.vue"),
   },
   {
+    path: "/help",
+    name: "HelpView",
+    component: () => import("@/views/HelpView.vue"),
+  },
+  {
     path: "/logout",
     name: "LogoutView",
     component: () => import("@/views/LogoutView.vue"),
