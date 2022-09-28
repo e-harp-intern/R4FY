@@ -130,9 +130,6 @@
     <table class="table-normal">
       <thead>
         <tr>
-          <th @click="sortBy('assign')" :class="addSortClass('assign')">
-            {{ $t("table.guide.assign") }}
-          </th>
           <th @click="sortBy('name')" :class="addSortClass('name')">
             {{ $t("table.guide.name") }}
           </th>
@@ -148,9 +145,6 @@
           class="table-hover"
           @click="LinkGuide(guide.guide_id)"
         >
-          <td class="center">
-            <span v-if="guide.assign">{{ $t("table.guide.assign_mark") }}</span>
-          </td>
           <td>{{ guide.name }}</td>
           <td>{{ guide.email }}</td>
         </tr>
