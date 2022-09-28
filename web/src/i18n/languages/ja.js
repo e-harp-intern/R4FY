@@ -272,8 +272,8 @@ lang.pages.myaccount = {
 // マイアカウント編集
 lang.pages.myaccount.edit = {
     title: "マイアカウント情報変更",
-    message_true: "マイアカウント情報を変更しました。",
-    message_false: "マイアカウント情報の変更に失敗しました。",
+    message_true: "アカウント情報を変更しました。",
+    message_false: "アカウント情報の変更に失敗しました。",
 };
 
 // マイアカウント編集
