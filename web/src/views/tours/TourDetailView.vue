@@ -126,33 +126,7 @@
     </div>
 
     <!-- 担当ガイド一覧 -->
-    <h2>{{ $t("pages.tours.detail.assign_guide_list_title") }}</h2>
-    <table class="table-normal">
-      <thead>
-        <tr>
-          <th @click="sortBy('name')" :class="addSortClass('name')">
-            {{ $t("table.guide.name") }}
-          </th>
-          <th @click="sortBy('email')" :class="addSortClass('email')">
-            {{ $t("table.guide.email") }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="guide in tourguides"
-          :key="guide.id"
-          class="table-hover"
-          @click="LinkGuide(guide.guide_id)"
-        >
-          <td>{{ guide.name }}</td>
-          <td>{{ guide.email }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="center" v-if="tourguides.length === 0">
-      {{ $t("pages.tours.detail.assign_guide_list_error") }}
-    </div>
+    <AssgineGuideTable :tourguides="tourguides"></AssgineGuideTable>
 
     <!-- 参加ガイドの一覧 -->
     <h2>{{ $t("pages.tours.detail.guide_list_title") }}</h2>
@@ -239,8 +213,12 @@ import api from "@/mixins/api";
 import common from "@/mixins/common";
 import table from "@/mixins/table";
 import constant from "@/mixins/constant";
+import AssgineGuideTable from "@/components/AssgineGuideTable.vue";
 
 export default {
+  components: {
+    AssgineGuideTable,
+  },
   data() {
     return {
       tour: {},
