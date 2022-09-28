@@ -77,14 +77,8 @@
                 class="checkbox-large"
                 :id="schedule.id"
                 name="select-assign"
-                @click="
-                  schedule.assign = ChangeSelect(
-                    schedule.state,
-                    schedule.assign
-                  )
-                "
-                v-model="schedule.assign"
                 v-if="isChecking === buttoncheck(schedule.state)"
+                v-model="schedule.assign"
               />
             </td>
             <td
