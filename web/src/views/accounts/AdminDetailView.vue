@@ -25,13 +25,31 @@
     <!-- 削除済み -->
     <div v-else>
       <p>
-        {{ $t("pages.accounts.admins.is_invalid") }}
-      </p>
-      <p>
+        {{ $t("pages.accounts.admins.is_invalid") }}<br />
         <a @click="$router.push('/accounts')" href="javascript:void(0)">{{
           $t("pages.accounts.admins.link_accounts_list")
         }}</a>
       </p>
+
+      <!-- 情報 -->
+      <ul>
+        <li>
+          {{ $t("label.name") }}
+          {{ admin?.name }}
+        </li>
+        <li>
+          {{ $t("label.email") }}
+          <a :href="'mailto:' + admin?.email">{{ admin?.email }}</a>
+        </li>
+      </ul>
+
+      <!-- 操作 -->
+      <button
+        class="button-blue"
+        @click="reEnableAccount('admins', $route.params.id)"
+      >
+        {{ $t("button.re_enable_account") }}
+      </button>
     </div>
   </div>
 </template>
@@ -48,6 +66,26 @@ export default {
     };
   },
   methods: {
+    // アカウントを復活させる処理
+    async reEnableAccount(type, id) {
+      // リクエストを送信
+      const response = await api.post(
+        `/api/v1/${type}/${id}/re_enable`,
+        null,
+        this.$router.push
+      );
+
+      // 失敗時
+      if (!(response.status === constant.STATE.SUCCESS)) {
+        alert(this.$t("common.alert.on_error"));
+        return;
+      }
+
+      // 成功時
+      alert(this.$t("common.alert.on_success"));
+      this.$router.go({ path: this.$router.currentRoute.path, force: true });
+    },
+
     // アカウントを削除する処理
     async delete_admin() {
       // 警告
