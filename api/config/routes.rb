@@ -16,6 +16,7 @@ Rails.application.routes.draw do
           get "admins/:id" => "admins#index"
           post "password/reset" => "password_reset#create"
           post "password/:token" => "password#create"
+          post "admins/:id/re_enable" => "admin_re_enable#create"
 
           # ガイド
           post "guides" => "guides#create"
