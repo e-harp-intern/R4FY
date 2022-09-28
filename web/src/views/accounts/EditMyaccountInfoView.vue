@@ -1,5 +1,8 @@
 <template>
   <div id="change-account-page">
+    <p class="change-info" v-if="$route.query.status == '500'">
+      {{ $t("pages.myaccount.edit.message_false") }}
+    </p>
     <h1>{{ $t("pages.myaccount.edit.title") }}</h1>
     <div class="form-frame">
       <div class="form-main">

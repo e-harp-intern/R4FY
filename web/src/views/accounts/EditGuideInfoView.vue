@@ -1,5 +1,8 @@
 <template>
   <div id="change-guideinfo-page">
+    <p class="error-info" v-if="$route.query.status == '500'">
+      {{ $t("pages.guides.edit_guideinfo.message_false") }}
+    </p>
     <h1>{{ $t("pages.guides.edit_guideinfo.title") }}</h1>
     <div class="form-frame">
       <div class="form-main">
@@ -106,6 +109,13 @@ export default {
 .change-guideinfo-page {
   max-width: 100%;
   position: relative;
+}
+
+.error-info {
+  background-color: var(--color-light-gray);
+  border-radius: 1em;
+  text-align: center;
+  padding: 2em;
 }
 
 .form-frame {
