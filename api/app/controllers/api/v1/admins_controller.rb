@@ -34,8 +34,19 @@ class Api::V1::AdminsController < ApplicationController
       admin = Admin.find(params[:id])
 
       # 存在しない場合はエラーを返す
-      if admin.nil? || admin.is_invalid
+      if admin.nil?
         render json: json_render_v1(false, status: 204)
+        return
+      end
+
+      # 論理削除済みは一部の情報を返す
+      if admin.is_invalid
+        render json: json_render_v1(false, {
+          admin: {
+            name: admin.name,
+            email: admin.email
+          }
+        })
         return
       end
 

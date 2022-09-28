@@ -35,6 +35,7 @@ lang.common = {
 lang.common.alert = {
     operation_aborted: "操作を中止しました。",
     on_error: "エラーが発生しました。",
+    on_success: "成功しました。",
 };
 
 // メニュー
@@ -89,6 +90,7 @@ lang.button = {
     set_guide_participation: "参加可能に設定",
     set_guide_non_participation: "参加不可に設定",
     re_send_schedule_input_email: "予定入力依頼メールを再送",
+    re_enable_account: "アカウントを有効化",
 };
 
 // ラベル

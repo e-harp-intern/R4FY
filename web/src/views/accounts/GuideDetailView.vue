@@ -37,19 +37,38 @@
     <!-- 削除済み -->
     <div v-else>
       <p>
-        {{ $t("pages.accounts.guides.is_invalid") }}
-      </p>
-      <p>
+        {{ $t("pages.accounts.guides.is_invalid") }}<br />
         <a @click="$router.push('/accounts')" href="javascript:void(0)">{{
           $t("pages.accounts.guides.link_accounts_list")
         }}</a>
       </p>
+
+      <!-- ガイドの情報 -->
+      <ul>
+        <li>
+          {{ $t("label.name") }}
+          {{ guide?.name }}
+        </li>
+        <li>
+          {{ $t("label.email") }}
+          <a :href="'mailto:' + guide?.email">{{ guide?.email }}</a>
+        </li>
+      </ul>
+
+      <!-- 操作 -->
+      <button
+        class="button-blue"
+        @click="reEnableAccount('guides', $route.params.id)"
+      >
+        {{ $t("button.re_enable_account") }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import api from "@/mixins/api";
+import constant from "@/mixins/constant";
 import common from "@/mixins/common";
 import ToursTable from "@/components/ToursTable.vue";
 
@@ -77,6 +96,26 @@ export default {
 
     goToEditGuideInfo(id) {
       this.$router.push(`/accounts/guides/${id}/edit`);
+    },
+
+    // アカウントを復活させる処理
+    async reEnableAccount(type, id) {
+      // リクエストを送信
+      const response = await api.post(
+        `/api/v1/${type}/${id}/re_enable`,
+        null,
+        this.$router.push
+      );
+
+      // 失敗時
+      if (!(response.status === constant.STATE.SUCCESS)) {
+        alert(this.$t("common.alert.on_error"));
+        return;
+      }
+
+      // 成功時
+      alert(this.$t("common.alert.on_success"));
+      this.$router.go({ path: this.$router.currentRoute.path, force: true });
     },
 
     // ガイドを削除する処理

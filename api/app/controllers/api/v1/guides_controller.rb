@@ -29,8 +29,19 @@ class Api::V1::GuidesController < ApplicationController
     guide = Guide.find(params[:id])
 
     # 存在しない場合はエラーを返す
-    if guide.nil? || guide.is_invalid
+    if guide.nil?
       render json: json_render_v1(false, status: 204)
+      return
+    end
+
+    # 論理削除済みは一部の情報を返す
+    if guide.is_invalid
+      render json: json_render_v1(false, {
+        guide: {
+          name: guide.name,
+          email: guide.email
+        }
+      })
       return
     end
 
