@@ -3,7 +3,7 @@ class CreateAccountNotifyMailer < ApplicationMailer
     @account = account
     @password = password
     mail(
-      subject: "【アカウント作成通知】観光地ガイドスケジュール調整システムへの登録",
+      subject: "【アカウント作成】システム登録のご案内",
       to: account.email
     )
   end
