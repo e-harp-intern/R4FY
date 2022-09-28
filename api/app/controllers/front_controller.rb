@@ -26,6 +26,6 @@ class FrontController < ActionController::Base
     end
 
     # 権限がない場合はログインページへリダイレクト
-    redirect_to "/"
+    redirect_to ENV["SERVER_PATH"]
   end
 end
