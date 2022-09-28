@@ -21,7 +21,7 @@
     <div class="center tour-info">
       {{
         $t("pages.guides.selectguide.person", {
-          currentGuideNum: currentGuideNum,
+          currentGuideNum: guideschedules.filter((g) => g.assign).length,
           requiredNum: tour.guide_num,
         })
       }}
@@ -67,7 +67,9 @@
             class="memo"
           >
             <td
-              @click="ChangeSelect(schedule.state, schedule.id)"
+              @click="
+                schedule.assign = ChangeSelect(schedule.state, schedule.assign)
+              "
               class="center"
             >
               <input
@@ -75,19 +77,34 @@
                 class="checkbox-large"
                 :id="schedule.id"
                 name="select-assign"
-                @click="ChangeSelect(schedule.state, schedule.id)"
+                @click="
+                  schedule.assign = ChangeSelect(
+                    schedule.state,
+                    schedule.assign
+                  )
+                "
                 v-model="schedule.assign"
                 v-if="isChecking === buttoncheck(schedule.state)"
               />
             </td>
-            <td @click="ChangeSelect(schedule.state, schedule.id)">
+            <td
+              @click="
+                schedule.assign = ChangeSelect(schedule.state, schedule.assign)
+              "
+            >
               {{ schedule.name }}
             </td>
-            <td @click="ChangeSelect(schedule.state, schedule.id)">
+            <td
+              @click="
+                schedule.assign = ChangeSelect(schedule.state, schedule.assign)
+              "
+            >
               {{ schedule.email }}
             </td>
             <td
-              @click="ChangeSelect(schedule.state, schedule.id)"
+              @click="
+                schedule.assign = ChangeSelect(schedule.state, schedule.assign)
+              "
               class="center"
             >
               {{ codeToGuideStateString(schedule.state) }}
@@ -159,13 +176,10 @@ export default {
       guideschedules: [],
       tourguides: [],
       isChecking: 1,
-      currentGuideNum: 0,
       send_email: true,
     };
   },
-  created() {
-    this.currentGuideNum = this.CountCheckedGuideNum();
-  },
+  created() {},
   methods: {
     // 共通処理を受け渡し
     codeToTourStateString: (state) => common.codeToTourStateString(state),
@@ -188,29 +202,13 @@ export default {
       this.$router.push(`/accounts/guides/${id}`);
     },
 
-    // チェック済みガイド数をカウントする
-    CountCheckedGuideNum() {
-      const num = this.guideschedules.reduce((c, g) => {
-        if (g.id === undefined) return c;
-        const elem = document.getElementById(g.id);
-        if (elem === null) return c;
-        c += elem.checked ? 1 : 0;
-        return c;
-      }, 0);
-      return num;
-    },
-
     // チェックボックスを切り替える
-    ChangeSelect(state, id) {
+    ChangeSelect(state, assign) {
       if (state !== 1) {
-        return;
+        return false;
       }
 
-      document.getElementById(id).checked =
-        !document.getElementById(id).checked;
-
-      // カウントを更新
-      this.currentGuideNum = this.CountCheckedGuideNum();
+      return !assign;
     },
 
     // 担当割り当てができない場合はグレーアウト
@@ -234,14 +232,19 @@ export default {
     // ガイドの数が予定通りなら色を変更
     guideNumError() {
       return {
-        guideNumError: this.currentGuideNum !== this.tour.guide_num,
+        guideNumError:
+          this.guideschedules.filter((g) => g.assign).length !==
+          this.tour.guide_num,
       };
     },
 
     // 担当ガイドを送信
     async assignGuide() {
       // 予定の人数と違う
-      if (this.currentGuideNum !== this.tour.guide_num) {
+      if (
+        this.guideschedules.filter((g) => g.assign).length !==
+        this.tour.guide_num
+      ) {
         if (!window.confirm("ガイドの人数が予定と違いますが、確定しますか？")) {
           window.alert("確定を取り消しました。");
           return;
@@ -322,6 +325,7 @@ export default {
       g.email = g.guide.email;
       g.state = guideStateMethod(g.answered, g.possible);
       g.assign = tourguides.some((u) => u.guide.id === g.guide.id);
+      if (g.state !== 1) g.assign = false;
       g.id = `select-assign-${g.guide_id}`;
       g.memo = g.guide.memo;
       const temp = achievements.find((a) => a.guide_id === g.guide.id);
