@@ -3,7 +3,7 @@ class NotAssignMailer < ApplicationMailer
     @guide = guide
     @tour = tour
     mail(
-      subject: "【お知らせ】ツアーの担当ガイドになりませんでした",
+      subject: "【お知らせ】ツアー担当ガイドについて",
       to: guide.email
     )
   end
