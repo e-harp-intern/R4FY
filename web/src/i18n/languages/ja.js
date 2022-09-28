@@ -306,7 +306,7 @@ lang.pages.guides = {
         title_tour_memo: "備考",
     },
     selectguide: {
-        title: "ツアー担当ガイド決定画面",
+        title: "担当ガイドの選択",
         person: "%{currentGuideNum}人 / %{requiredNum}人",
         no_memo: "メモが存在ません。"
     },
