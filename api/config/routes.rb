@@ -23,6 +23,7 @@ Rails.application.routes.draw do
           patch "guides/:id" => "guides#update"
           delete "guides/:id" => "guides#destroy"
           get "guides/:id" => "guides#index"
+          post "guides/:id/re_enable" => "guide_re_enable#create"
 
           # スケジュール
           get "schedules/:token" => "guide_schedules#index"
