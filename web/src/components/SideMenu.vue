@@ -1,5 +1,12 @@
 <template>
   <div id="menu-frame">
+    <div id="logo-outer">
+      <img
+        id="logo"
+        src="@/assets/logo_400.png"
+        @click="$router.push('/tours')"
+      />
+    </div>
     <nav id="menu">
       <ul>
         <li
@@ -55,6 +62,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#logo-outer {
+  margin: 1em auto;
+  height: 4.5em;
+  text-align: center;
+}
+
+#logo {
+  height: 100%;
+}
+
+#logo:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
+
 #menu-frame {
   width: 215px;
   background-color: var(--color-theme);
