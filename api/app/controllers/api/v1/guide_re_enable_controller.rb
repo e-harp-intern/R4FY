@@ -8,12 +8,6 @@ class Api::V1::GuideReEnableController < ApplicationController
       # 復活対象を取得
       guides = Guide.find_by(id: params[:id])
 
-      # 自分自身のIDを指定した場合
-      if guides.id == @current_user.id
-        render json: json_render_v1(false)
-        return
-      end
-
       # アカウントの論理復活
       guides.update(is_invalid: false)
 
