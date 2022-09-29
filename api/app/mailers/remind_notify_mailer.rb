@@ -3,7 +3,7 @@ class RemindNotifyMailer < ApplicationMailer
     @guide = guide
     @tour = tour
     mail(
-      subject: "【スケジュール調整システム】リマインド通知",
+      subject: "#{ENV['MAIL_TITLE']}リマインド通知",
       to: guide.email
     )
   end

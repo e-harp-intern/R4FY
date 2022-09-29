@@ -3,7 +3,7 @@ class AssignNotifyMailer < ApplicationMailer
     @guide = guide
     @tour = tour
     mail(
-      subject: "【割当通知】ガイド担当依頼",
+      subject: "#{ENV['MAIL_TITLE']}ガイド担当依頼",
       to: guide.email
     )
   end

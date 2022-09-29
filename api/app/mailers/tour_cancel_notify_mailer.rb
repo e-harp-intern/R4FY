@@ -3,7 +3,7 @@ class TourCancelNotifyMailer < ApplicationMailer
     @guide = guide
     @tour = tour
     mail(
-      subject: "【ツアー中止通知】ツアー中止通知",
+      subject: "#{ENV['MAIL_TITLE']}ツアー中止通知",
       to: guide.email
     )
   end
