@@ -134,76 +134,40 @@
       <!-- 操作ボタン -->
       <div id="button-frame">
         <button
-          @click="guideScheduleSet(guideschedules, true)"
+          @click="guideScheduleSet(guides, true)"
           class="button-large"
-          :class="{ 'button-green': isGuideSelect(guideschedules) }"
+          :class="{ 'button-green': isGuideSelect(guides) }"
         >
           {{ $t("button.set_guide_participation") }}
         </button>
         <button
-          @click="guideScheduleSet(guideschedules, false)"
+          @click="guideScheduleSet(guides, false)"
           class="button-large"
-          :class="{ 'button-red': isGuideSelect(guideschedules) }"
+          :class="{ 'button-red': isGuideSelect(guides) }"
         >
           {{ $t("button.set_guide_non_participation") }}
         </button>
         <button
-          @click="sendGuideScheduleEmail(guideschedules)"
+          @click="sendGuideScheduleEmail(guides)"
           class="button-large"
-          :class="{ 'button-green': isGuideSelect(guideschedules) }"
+          :class="{ 'button-green': isGuideSelect(guides) }"
         >
           {{ $t("button.re_send_schedule_input_email") }}
         </button>
       </div>
 
       <!-- 参加ガイドの一覧テーブル -->
-      <table class="table-normal">
-        <thead>
-          <tr>
-            <th
-              @click="sortBy('checked')"
-              :class="addSortClass('checked')"
-            ></th>
-            <th @click="sortBy('assign')" :class="addSortClass('assign')">
-              {{ $t("table.guide.assign") }}
-            </th>
-            <th @click="sortBy('name')" :class="addSortClass('name')">
-              {{ $t("table.guide.name") }}
-            </th>
-            <th @click="sortBy('email')" :class="addSortClass('email')">
-              {{ $t("table.guide.email") }}
-            </th>
-            <th @click="sortBy('state')" :class="addSortClass('state')">
-              {{ $t("table.guide.answered_state") }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="schedule in guideschedules"
-            :key="schedule.id"
-            class="table-hover"
-          >
-            <td class="center" @click="schedule.checked = !schedule.checked">
-              <input
-                type="checkbox"
-                class="checkbox-large"
-                v-model="schedule.checked"
-              />
-            </td>
-            <td @click="LinkGuide(schedule.guide_id)" class="center">
-              <span v-if="schedule.assign">{{
-                $t("table.guide.assign_mark")
-              }}</span>
-            </td>
-            <td @click="LinkGuide(schedule.guide_id)">{{ schedule.name }}</td>
-            <td @click="LinkGuide(schedule.guide_id)">{{ schedule.email }}</td>
-            <td @click="LinkGuide(schedule.guide_id)" class="center">
-              {{ codeToGuideStateString(schedule.state) }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <GuidesTable
+        :guides="guides"
+        :setting="{
+          checkbox: true,
+          assign: true,
+          name: true,
+          email: true,
+          schedule: true,
+          error_msg: $t('table.no_data'),
+        }"
+      ></GuidesTable>
     </div>
   </div>
 </template>
@@ -211,18 +175,19 @@
 <script>
 import api from "@/mixins/api";
 import common from "@/mixins/common";
-import table from "@/mixins/table";
 import constant from "@/mixins/constant";
 import AssgineGuideTable from "@/components/AssgineGuideTable.vue";
+import GuidesTable from "@/components/GuidesTable.vue";
 
 export default {
   components: {
     AssgineGuideTable,
+    GuidesTable,
   },
   data() {
     return {
       tour: {},
-      guideschedules: [],
+      guides: [],
       tourguides: [],
       fn_guide_array: () => {},
       fn_assign_array: () => {},
@@ -265,14 +230,7 @@ export default {
   methods: {
     // 共通処理を受け渡し
     codeToTourStateString: (state) => common.codeToTourStateString(state),
-    codeToGuideStateString: (state) => common.codeToGuideStateString(state),
     datetimeFormat: (d) => common.datetimeFormat(d),
-
-    // テーブル処理を共通メソッドに渡す
-    addSortClass: (key) => table.methods.addSortClass(key),
-    sortBy(key) {
-      table.methods.sortBy(key, this.guideschedules);
-    },
 
     // 中止操作表示条件
     isShow_Delete() {
@@ -414,13 +372,8 @@ export default {
       );
 
       // ツアー情報を再セット
-      this.guideschedules = this.fn_guide_array(response.data.guide_schedules);
+      this.guides = this.fn_guide_array(response.data.guide_schedules);
       this.tourguides = this.fn_assign_array(response.data.tour_guides);
-    },
-
-    // ガイドへのリンク
-    LinkGuide(id) {
-      this.$router.push(`/accounts/guides/${id}`);
     },
 
     // ツアー中止処理
@@ -516,7 +469,7 @@ export default {
     // 画面へ情報を渡す
     next((vm) => {
       vm.tour = tour;
-      vm.guideschedules = guide_schedules;
+      vm.guides = guide_schedules;
       vm.tourguides = tour_guides;
       vm.fn_guide_array = fn_guide_array;
       vm.fn_assign_array = fn_assign_array;
@@ -526,8 +479,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/table.scss";
-
 #button-frame {
   display: flex;
   padding: 1em;
