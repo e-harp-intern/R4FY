@@ -3,7 +3,7 @@ class PasswordResetMailer < ApplicationMailer
     @admin = admin
     @url = url
     mail(
-      subject: "【パスワードリセット】パスワードを再設定してください",
+      subject: "#{ENV['MAIL_TITLE']}パスワードを再設定してください",
       to: admin.email
     )
   end

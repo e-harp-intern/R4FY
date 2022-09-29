@@ -4,7 +4,7 @@ class GuideScheduleInputMailer < ApplicationMailer
     @url = url
     @tour = tour
     mail(
-      subject: "【予定入力依頼】ツアー開催のご案内",
+      subject: "#{ENV['MAIL_TITLE']}ツアー開催のご案内",
       to: guide.email
     )
   end
