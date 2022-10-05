@@ -72,7 +72,7 @@
       <!-- 説明 -->
       <div class="info" id="create-info-frame">
         <h2>{{ $t("pages.tours.create.title_info") }}</h2>
-        <p>{{ $t("pages.tours.create.create_info") }}</p>
+        <p>{{ $t("pages.help.how_create_tour") }}</p>
       </div>
     </div>
   </div>
@@ -175,7 +175,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: center;
   gap: 2em;
+}
+
+#page-frame > div {
+  margin: 0 0;
 }
 
 .create-account-page {
