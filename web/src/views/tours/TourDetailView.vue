@@ -294,16 +294,16 @@ export default {
         // ロード中にする
         this.$emit("SendLoadComplete", false);
 
-        // リクエストを組み立て
-        const request = [];
+        // 対象ガイドのリストを組み立て
+        const guides_id = [];
         for (const guide of list) {
           if (!guide.checked) continue;
-          const url = `/api/v1/tours/${this.tour.id}/guides/${guide.guide_id}/schedules`;
-          request.push(api.patch(url, { possible: flg }, this.$router.push));
+          guides_id.push(guide.guide_id);
         }
 
         // リクエストを送信
-        await Promise.all(request);
+        const url = `/api/v1/tours/${this.tour.id}/guides/schedules`;
+        await api.patch(url, { possible: flg, guides_id }, this.$router.push);
 
         // ツアー情報を再取得
         await this.reacquisitionTourDetail();
