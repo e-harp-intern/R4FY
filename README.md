@@ -18,7 +18,7 @@
 
 ### ガイドシステム
 - ブラウザ（PC）: Google Chrome, Microsoft Edge
-- スマートフォン: Google Chrome
+- ブラウザ（スマートフォン）: Google Chrome
 
 ## 各ドキュメントへのリンク
 - [動作設定手順](./docs/動作設定手順.md)
