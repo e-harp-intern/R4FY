@@ -372,21 +372,30 @@ export default {
       );
 
       // ツアー情報を再セット
+      this.tour = response.data.tour;
       this.guides = this.fn_guide_array(response.data.guide_schedules);
       this.tourguides = this.fn_assign_array(response.data.tour_guides);
     },
 
     // ツアー中止処理
     async alert_disp() {
-      if (window.confirm(this.$t("pages.tours.detail.alert1"))) {
-        // 「OK」時の処理終了
-        await api.delete(`/api/v1/tours/${this.tour.id}`);
-        window.alert(this.$t("pages.tours.detail.alert2"));
-        this.$router.go({ path: this.$router.currentRoute.path, force: true }); // リロードする
-      } else {
-        // 「キャンセル」時の処理開始
-        window.alert(this.$t("pages.tours.detail.alert3")); // 警告ダイアログを表示
+      // 操作するかの確認
+      if (!window.confirm(this.$t("pages.tours.detail.alert1"))) {
+        window.alert(this.$t("pages.tours.detail.alert3"));
+        return;
       }
+
+      // フラグ取得 TODO: 画面を作成
+      const send_mail = window.confirm(
+        this.$t("pages.tours.detail.alert_delete_send_mail")
+      );
+
+      // 中止処理
+      await api.delete(`/api/v1/tours/${this.tour.id}`, { send_mail });
+      window.alert(this.$t("pages.tours.detail.alert2"));
+
+      // ツアー情報を更新
+      await this.reacquisitionTourDetail();
     },
 
     // ツアー担当ガイドを選択、決定するページへ遷移する

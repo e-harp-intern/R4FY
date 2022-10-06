@@ -200,7 +200,8 @@ lang.pages.tours.detail = {
     settings_complete: "ツアーを実施済に設定",
     settings_delete: "ツアーを中止",
     settings_select_guides: "担当ガイドの選択",
-    settings_edit: "ツアーを編集"
+    settings_edit: "ツアーを編集",
+    alert_delete_send_mail: "中止メールをガイドへ送信しますか？\n\nはい...送信する\nキャンセル...送信しない",
 };
 
 // ツアー編集
