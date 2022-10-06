@@ -16,6 +16,16 @@
 
     <h2>{{ $t("pages.help.subtitle4") }}</h2>
     <p>{{ $t("pages.help.how_create_tour") }}</p>
+
+    <hr />
+
+    <h2>{{ $t("pages.help.subtitle_tour_state") }}</h2>
+    <p>{{ $t("pages.help.tour_state_info") }}</p>
+
+    <hr />
+
+    <h2>{{ $t("pages.help.subtitle_guide_achievement") }}</h2>
+    <p>{{ $t("pages.help.guide_achievement_info") }}</p>
   </div>
 </template>
 
