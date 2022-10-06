@@ -32,11 +32,7 @@
           <!--ツアー名-->
           <span class="search-box">
             <label>{{ $t("label.tour_name") }}</label
-            ><input
-              type="text"
-              :placeholder="$t('placeholder.tour_name')"
-              id="tour_name"
-            />
+            ><input type="text" id="tour_name" />
           </span>
 
           <!--開始日-->

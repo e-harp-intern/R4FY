@@ -122,7 +122,6 @@ lang.placeholder = {
     email: "email",
     password: "password",
     password_reenter: "password",
-    tour_name: "ツアーの名前を入力してください",
     adult_num: "人数を入力してください",
     child_num: "いない場合「0」を入力してください",
     guide_num: "必ず人数を入力してください",
