@@ -1,8 +1,9 @@
 <%= @guide.name %>様
 
-担当が割り当てられているツアーの開催が近づいておりますのでご案内いたします。
+ガイドとして参加依頼させていただいておりますツアーの開催前日となりました。
+改めてツアー概要をお送りいたします。当日はよろしくお願いいたします。
 
 ツアー名：<%= @tour.name %>
-開催日：<%= @tour.start_datetime.strftime('%Y/%m/%d %H:%M') %> ～ <%= @tour.end_datetime.strftime('%Y/%m/%d %H:%M') %>
+日程：<%= @tour.start_datetime.strftime('%Y/%m/%d %H:%M') %> ～ <%= @tour.end_datetime.strftime('%Y/%m/%d %H:%M') %>
 
-詳細は管理者までお問い合わせください。
+急遽参加できなくなった場合や、問い合わせ事項がありましたら、管理者まで直接ご連絡ください。

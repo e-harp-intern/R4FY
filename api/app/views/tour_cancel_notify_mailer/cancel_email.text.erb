@@ -1,6 +1,10 @@
 <%= @guide.name %>様
 
-予定の入力をお願いしておりましたツアーが中止されましたので、お知らせいたします。
+予定の入力をお願いしておりましたツアーがキャンセルとなりましたのでお知らせいたします。
 
 ツアー名：<%= @tour.name %>
-開催日：<%= @tour.start_datetime.strftime('%Y/%m/%d %H:%M') %> ～ <%= @tour.end_datetime.strftime('%Y/%m/%d %H:%M') %>
+日程：<%= @tour.start_datetime.strftime('%Y/%m/%d %H:%M') %> ～ <%= @tour.end_datetime.strftime('%Y/%m/%d %H:%M') %>
+
+中止に関してご不明点がございましたら、管理者へ直接ご連絡ください。
+
+今後もご協力をお願いいたします。
