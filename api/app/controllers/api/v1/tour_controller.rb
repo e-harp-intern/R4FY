@@ -29,6 +29,9 @@ class Api::V1::TourController < ApplicationController
   def destroy
     tour = Tour.find_by(id: params[:id])
 
+    # メール送信フラグ
+    send_mail = params[:send_mail].nil? ? true : params[:send_mail]
+
     # 中止済み
     if tour.tour_state_code == TOUR_STATE_CODE_CANCEL
       render json: json_render_v1(false)
@@ -49,9 +52,11 @@ class Api::V1::TourController < ApplicationController
       tour.update!(tour_state_code: TOUR_STATE_CODE_CANCEL)
 
       # メールを送信
-      guides.each do |g|
-        guide = Guide.find_by(id: g.guide_id)
-        TourCancelNotifyMailer.cancel_email(guide, tour).deliver_now
+      if send_mail == true
+        guides.each do |g|
+          guide = Guide.find_by(id: g.guide_id)
+          TourCancelNotifyMailer.cancel_email(guide, tour).deliver_now
+        end
       end
     end
     render json: json_render_v1(true)
