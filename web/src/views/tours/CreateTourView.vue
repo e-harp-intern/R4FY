@@ -7,12 +7,7 @@
           <div class="form-tabel">
             <!--ツアー名-->
             <label>{{ $t("label.tour_name") }}</label
-            ><input
-              type="text"
-              :placeholder="$t('placeholder.tour_name')"
-              id="tour_name"
-              required
-            />
+            ><input type="text" id="tour_name" required />
             <!--開始日時-->
             <label>{{ $t("label.start_datetime") }}</label
             ><input
