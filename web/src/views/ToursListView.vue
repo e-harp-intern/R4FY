@@ -39,9 +39,9 @@
             />
           </span>
 
-          <!--開始日時-->
+          <!--開始日-->
           <div class="search-box">
-            <label>{{ $t("label.start_datetime") }}</label
+            <label>{{ $t("label.start_date") }}</label
             ><input type="date" id="start_datetime" />
             <label> {{ $t("label.time_to") }} </label
             ><input type="date" id="end_datetime" />

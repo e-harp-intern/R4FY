@@ -103,6 +103,7 @@ lang.label = {
     memo: "メモ：",
     tour_memo: "ガイドへの連絡事項：",
     tour_name: "ツアー名：",
+    start_date: "開始日：",
     start_datetime: "開始日時：",
     end_datetime: "終了日時：",
     adult_num: "大人人数：",
