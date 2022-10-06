@@ -12,7 +12,7 @@ namespace :remind_notify_mailer do
             .where(tour_state_code: TOUR_STATE_CODE_ASSIGNED)
             .where(send_remind: true)
             .where("start_datetime >= ?", start_datetime)
-            .where("end_datetime <= ?", end_datetime)
+            .where("start_datetime <= ?", end_datetime)
 
     # ツアーごとに処理
     tours.each do |tour|
