@@ -301,7 +301,7 @@ lang.pages.guides = {
         button_absent: "参加できない",
         button_participate: "参加できる",
         alert_no_input: "参加できるかできないかを選択してください。",
-        notfound_error: "入力期限切れまたはツアーが中止になりました。\n\nトークンが無効です。",
+        notfound_error: "トークンが無効です。\n\n入力締め切り済み、またはツアーが中止になりました。\n変更がある場合は、管理者まで直接お問い合わせください。",
         done_send: "送信完了",
         title_tour_memo: "備考",
     },

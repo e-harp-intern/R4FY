@@ -6,11 +6,18 @@
 <%= @url %>
 
 開催概要は以下の通りです。
+
 ツアー名：<%= @tour.name %>
 日程：<%= @tour.start_datetime.strftime('%Y/%m/%d %H:%M') %> ～ <%= @tour.end_datetime.strftime('%Y/%m/%d %H:%M') %>
+<% unless @tour.schedule_input_deadline.nil? then %>
+入力期限：<%= @tour.schedule_input_deadline.strftime('%Y/%m/%d') %>
+<% end %>
 <% if @tour.memo != "" then %>
+
 <%= @tour.memo %>
 <% end %>
 
-なお、入力期限まではこちらのリンクから予定の変更が可能です。
+担当者が決定されるまではこちらのリンクから予定の変更が可能です。
+変更が出来ない場合、予定の入力受付を締め切っておりますので、管理者まで直接お問い合わせください。
+
 担当者として割当てられましたら、改めてご連絡させていただきます。
