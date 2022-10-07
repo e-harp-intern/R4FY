@@ -51,7 +51,7 @@
             <label for="state2">{{ $t("state.tour.2") }}</label>
             <input type="checkbox" id="state32" value="32" checked />
             <label for="state32">{{ $t("state.tour.32") }}</label>
-            <input type="checkbox" id="state256" value="256" checked /><label
+            <input type="checkbox" id="state256" value="256" /><label
               for="state256"
               >{{ $t("state.tour.256") }}</label
             >
