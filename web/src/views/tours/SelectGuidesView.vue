@@ -187,7 +187,6 @@ export default {
       g.email = g.guide.email;
       g.state = guideStateMethod(g.answered, g.possible);
       g.checked = tourguides.some((u) => u.guide.id === g.guide.id);
-      if (g.state !== 1) g.checked = false;
       g.id = `select-assign-${g.guide_id}`;
       g.memo = g.guide.memo;
       const temp = achievements.find((a) => a.guide_id === g.guide.id);

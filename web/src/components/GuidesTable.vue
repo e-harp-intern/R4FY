@@ -48,7 +48,7 @@
           <td
             v-if="setting.checkbox"
             class="center"
-            @click="guide.checked = !guide.checked"
+            @click="checkChange(guide)"
           >
             <input
               v-if="
@@ -144,9 +144,23 @@ export default {
     // 担当割り当てができない場合はグレーアウト
     tableCSS(state) {
       return {
-        grayout: state !== 1 && this.setting.grayout,
-        "table-hover": state === 1 || this.setting.grayout !== true,
+        grayout: this.isGrayout(state),
+        "table-hover": !this.isGrayout(state),
       };
+    },
+
+    // グレーアウトするかの判定
+    isGrayout(state) {
+      return state !== 1 && this.setting.grayout;
+    },
+
+    // チェックボックスの処理
+    checkChange(guide) {
+      if (this.isGrayout(guide.state)) {
+        return;
+      }
+
+      guide.checked = !guide.checked;
     },
 
     // ツアー状態によって色を付ける
